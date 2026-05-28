@@ -351,7 +351,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const [menuQtys,      setMenuQtys]      = useState<Record<string, number>>({});
   const [stehtischQtys, setStehtischQtys] = useState<Record<string, number>>({});
   const [parkingQty,    setParkingQty]    = useState(0);
-  const [flexQty,       setFlexQty]       = useState(0);
+  const [flexSelected,  setFlexSelected]  = useState(false);
 
   // ── Menu expand state ─────────────────────
   const [expandedMenu,  setExpandedMenu]  = useState<string | null>(null);
@@ -364,7 +364,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
       setMenuQtys({});
       setStehtischQtys({});
       setParkingQty(0);
-      setFlexQty(0);
+      setFlexSelected(false);
       setExpandedMenu(null);
       if (initialShow) {
         setSelectedShowId(initialShow);
@@ -439,17 +439,17 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const decStehtisch = (id: string) =>
     setStehtischQtys(p => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
-  // Parking & Flex
+  // Parking
   const incParking = () => setParkingQty(q => Math.min(7, q + 1));
   const decParking = () => setParkingQty(q => Math.max(0, q - 1));
-  const incFlex    = () => setFlexQty(q => Math.min(qty, q + 1));
-  const decFlex    = () => setFlexQty(q => Math.max(0, q - 1));
+
+  // Flex: immer = Ticketanzahl, nur an/aus
+  const flexTotal = flexSelected ? qty * 10 : 0;
 
   // ── Price totals ──────────────────────────
   const menuTotal      = MENUS.reduce((s, m) => s + (menuQtys[m.id] ?? 0) * m.price, 0);
   const stehtischTotal = STEHTISCHE.reduce((s, st) => s + (stehtischQtys[st.id] ?? 0) * st.price, 0);
   const parkingTotal   = parkingQty * 15;
-  const flexTotal      = flexQty * 10;
   const total          = seatPrice * qty + menuTotal + stehtischTotal + parkingTotal + flexTotal;
 
   // German-style price formatter
@@ -858,25 +858,36 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </div>
                 </div>
 
-                {/* Flex-Option */}
-                <div className={`extras4-card${flexQty > 0 ? " selected" : ""}`}>
+                {/* Flex-Option — Toggle, qty automatisch = Ticketanzahl */}
+                <div
+                  className={`extras4-card extras4-card-flex${flexSelected ? " selected" : ""}`}
+                  onClick={() => setFlexSelected(f => !f)}
+                >
                   <div className="extras4-icon">🔄</div>
                   <div className="extras4-info">
-                    <strong className="extras4-name">Flex-Option</strong>
-                    <p className="extras4-desc">Kostenfreie Umbuchung bis 48h vor der Show.</p>
+                    <div className="extras4-top">
+                      <strong className="extras4-name">Flex-Option</strong>
+                      <span className="extras4-price-block">
+                        <span className="extras4-unit-price-inline">10,00 €</span>
+                        <span className="extras4-price-meta">/ Ticket</span>
+                      </span>
+                    </div>
+                    <p className="extras4-desc">
+                      Mit der Flex-Option kannst du dein Ticket bis zu 48h vor Veranstaltungsbeginn
+                      kostenfrei auf einen Ticketgutschein umbuchen. Pro Flex-Option ist je ein Gast
+                      inkl. aller Zusatzleistungen wie Magic-Menü, etc. abgesichert.
+                    </p>
+                    <div className="flex-auto-row">
+                      <span className="flex-auto-badge">
+                        Automatisch für alle {qty} Ticket{qty !== 1 ? "s" : ""}
+                        {" "}· {fmt(flexTotal)} €
+                      </span>
+                    </div>
                     <span className="extras4-note" style={{ color: "var(--muted)" }}>
-                      Gilt inkl. gebuchter Menüs und Zusatzleistungen.
+                      inkl. MwSt &amp; VVK-Gebühren
                     </span>
                   </div>
-                  <div className="extras4-qty-col">
-                    <span className="extras4-unit-price">10 € / Pers.</span>
-                    <QtyControl
-                      value={flexQty}
-                      onDec={decFlex}
-                      onInc={incFlex}
-                      canInc={flexQty < qty}
-                    />
-                  </div>
+                  <div className={`extras4-check${flexSelected ? " visible" : ""}`}>✓</div>
                 </div>
               </div>
 
@@ -935,10 +946,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </div>
                 )}
                 {/* Flex */}
-                {flexQty > 0 && (
+                {flexSelected && (
                   <div className="order-row">
-                    <span>{flexQty} × Flex-Option</span>
-                    <span>{flexTotal} €</span>
+                    <span>{qty} × Flex-Option</span>
+                    <span>{fmt(flexTotal)} €</span>
                   </div>
                 )}
                 <div className="order-row total">
