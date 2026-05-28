@@ -19,7 +19,10 @@ export default function Nav({ onBooking }: NavProps) {
   return (
     <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <div className="nav-inner">
-        <a href="/" className="nav-brand">FLORIAN ZIMMER THEATER</a>
+        <a href="/" className="nav-brand">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo.png" alt="Florian Zimmer Theater" className="nav-logo-img" />
+        </a>
         <div className={`nav-links${menuOpen ? " open" : ""}`}>
           <a href="#shows" onClick={() => setMenuOpen(false)}>Shows</a>
           <a href="#magic-dinner" onClick={() => setMenuOpen(false)}>Magic Dinner</a>

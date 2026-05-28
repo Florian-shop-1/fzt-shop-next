@@ -8,6 +8,7 @@ import BookingModal from "@/components/BookingModal";
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [initialShow, setInitialShow] = useState("");
+  const [voucherValue, setVoucherValue] = useState(100);
 
   const openBooking = (show = "") => { setInitialShow(show); setBookingOpen(true); };
 
@@ -32,11 +33,15 @@ export default function Home() {
         <div className="hero-overlay" />
         <div className="hero-glow" />
         <div className="hero-content">
-          <p className="hero-eyebrow">✦ Deutschlands Magietheater · Neu-Ulm ✦</p>
+          <div className="hero-logo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logo.png" alt="Florian Zimmer Theater" />
+          </div>
+          <p className="hero-eyebrow">✦ HOME OF MAGIC ✦</p>
           <h1>Eine Nacht,<br />die du <em>nie</em> vergisst.</h1>
           <p className="hero-sub">
-            Live-Magie, atemberaubende Illusionen und ein Erlebnis,<br />
-            das dich und deine Liebsten verzaubern wird.
+            Live-Magie auf Weltklasse-Niveau — atemberaubend, persönlich, unvergesslich.<br />
+            Erlebe Illusionen, die du für unmöglich gehalten hast.
           </p>
           <div className="hero-ctas">
             <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Jetzt Erlebnis sichern</button>
@@ -79,10 +84,10 @@ export default function Home() {
         </div>
         <div className="shows-grid">
           {[
-            { id: "ulmfassbar", img: "/images/show-ulmfassbar.jpg", badge: "★ Bestseller", badgeBg: "", name: "ULMFASSBAR", desc: "Die große Magishow — live, persönlich, atemberaubend. 2,5 Stunden pure Illusion.", price: "ab 59 €", rating: "★★★★★ 847 Bewertungen", cta: "Plätze sichern" },
-            { id: "magic-dinner", img: "/images/show-magic-dinner.jpg", badge: "♥ Beliebteste Wahl", badgeBg: "linear-gradient(135deg,#C9A84C,#8B6914)", name: "Magic Dinner", desc: "Show + exklusives 3-Gänge-Menü. Ein ganzer Abend voller Zauber und Genuss.", price: "ab 129 €", rating: "★★★★★ 512 Bewertungen", cta: "Tisch reservieren" },
-            { id: "flo-zirkus", img: "/images/show-atmosphere.jpg", badge: "Neu 2025", badgeBg: "#2a6aad", name: "Flo-Zirkus", desc: "Zirkus, Akrobatik und Magie vereint. Ein spektakuläres Erlebnis für alle Sinne.", price: "ab 45 €", rating: "★★★★★ 203 Bewertungen", cta: "Tickets sichern" },
-            { id: "this-is-magic", img: "/images/show-ulmfassbar-2.jpg", badge: "Familienshow", badgeBg: "#5a2d82", name: "This is Magic!", desc: "Magie für die ganze Familie. Staunen und Lachen für Groß und Klein.", price: "ab 39 €", rating: "★★★★★ 389 Bewertungen", cta: "Familienticket" },
+            { id: "ulmfassbar", img: "/images/show-ulmfassbar.jpg", badge: "★ Bestseller", badgeBg: "", name: "ULMFASSBAR", desc: "Die Magishow, über die alle reden. 2,5 Stunden Weltklasse-Illusionen — du wirst es nicht glauben.", price: "ab 59 €", rating: "★★★★★ 847 Bewertungen", cta: "Plätze sichern", scarcity: "⚡ Nur noch 18 Plätze für Sa. 31. Mai!", occasions: ["♥ Date Night", "🎂 Geburtstag", "🎉 Gruppenabend"] },
+            { id: "magic-dinner", img: "/images/show-magic-dinner.jpg", badge: "♥ Beliebteste Wahl", badgeBg: "linear-gradient(135deg,#C9A84C,#8B6914)", name: "Magic Dinner", desc: "Die romantischste Entscheidung des Jahres. Show + 3-Gänge-Menü — ein perfekter Abend aus einem Guss.", price: "ab 129 €", rating: "★★★★★ 512 Bewertungen", cta: "Tisch reservieren", scarcity: "", occasions: ["♥ Date Night", "💍 Jahrestag", "🥂 Besonderer Anlass"] },
+            { id: "flo-zirkus", img: "/images/show-atmosphere.jpg", badge: "Neu 2025", badgeBg: "#2a6aad", name: "Flo-Zirkus", desc: "Zirkus, Akrobatik und Magie unter einem Dach. Ein spektakuläres Gesamterlebnis für alle Sinne.", price: "ab 45 €", rating: "★★★★★ 203 Bewertungen", cta: "Tickets sichern", scarcity: "", occasions: [] },
+            { id: "this-is-magic", img: "/images/show-ulmfassbar-2.jpg", badge: "Familienshow", badgeBg: "#5a2d82", name: "This is Magic!", desc: "Magie, die Herzen öffnet. Staunen, Lachen, Gänsehaut — für die ganze Familie ab 4 Jahren.", price: "ab 39 €", rating: "★★★★★ 389 Bewertungen", cta: "Familienticket", scarcity: "", occasions: ["👨‍👩‍👧 Familie", "🎂 Kindergeburtstag"] },
           ].map((show, i) => (
             <div key={show.id} className={`show-card reveal${i > 0 ? ` reveal-d${i}` : ""}`} onClick={() => openBooking(show.id)}>
               <div className="show-card-img" style={{ backgroundImage: `url('${show.img}')` }} />
@@ -91,6 +96,19 @@ export default function Home() {
                 <span className="show-badge" style={show.badgeBg ? { background: show.badgeBg } : {}}>{show.badge}</span>
                 <h3>{show.name}</h3>
                 <p>{show.desc}</p>
+                {show.occasions.length > 0 && (
+                  <div className="occasion-tags" style={{ marginTop: 10, marginBottom: 8 }}>
+                    {show.occasions.map(tag => (
+                      <span key={tag} className="occasion-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+                {show.scarcity && (
+                  <div className="scarcity-note" style={{ marginBottom: 10 }}>
+                    <span className="scarcity-dot" />
+                    {show.scarcity}
+                  </div>
+                )}
                 <div className="show-meta">
                   <span className="show-price">{show.price}</span>
                   <span className="show-rating">{show.rating}</span>
@@ -191,24 +209,65 @@ export default function Home() {
           <div className="gutschein-inner">
             <div className="gutschein-card reveal">
               <div className="gutschein-logo">✦ FLORIAN ZIMMER THEATER</div>
-              <div className="gutschein-value">100€</div>
-              <div className="gutschein-name">Für: Max Mustermann</div>
-              <div className="gutschein-msg">&ldquo;Einen magischen Abend für dich — genieße jeden Moment.&rdquo;</div>
+              <div className="gutschein-tagline">HOME OF MAGIC · Neu-Ulm</div>
+              <div className="gutschein-value">{voucherValue}€</div>
+              <div className="gutschein-name">Für: ___________________</div>
+              <div className="gutschein-msg">&ldquo;Eine Nacht voller Magie — unvergesslich, zauberhaft, einzigartig.&rdquo;</div>
               <div className="gutschein-footer">
                 <div className="gutschein-code">MAGIC-X7K2</div>
-                <div>3 Jahre gültig</div>
+                <div>3 Jahre gültig · kein Ablauf</div>
               </div>
             </div>
             <div className="gutschein-text reveal reveal-d1">
               <span className="section-label">Das perfekte Geschenk</span>
               <h2>Verschenke <em>Magie</em></h2>
               <div className="divider" />
-              <p>Ein Gutschein für Florian Zimmer Theater ist das Geschenk, das alle anderen übertrifft. Für jeden Anlass — Geburtstag, Jahrestag, Weihnachten oder einfach so.</p>
+              <p>Gib dem Menschen, den du liebst, eine Nacht voller Wunder — ein Erlebnis, das alle anderen Geschenke übertrifft. Für jeden Anlass.</p>
+
+              {/* Wertauswahl */}
+              <div className="voucher-values">
+                {[50, 75, 100, 150, 200].map(v => (
+                  <button
+                    key={v}
+                    className={`voucher-val-btn${voucherValue === v ? " active" : ""}`}
+                    onClick={() => setVoucherValue(v)}
+                  >{v} €</button>
+                ))}
+                <button className="voucher-val-custom">Wunschbetrag</button>
+              </div>
+
+              {/* Zauber-Geschenk ab 100€ */}
+              {voucherValue >= 100 && (
+                <div className="magic-gift-badge">
+                  <span className="gift-icon">🪄</span>
+                  <div>
+                    <strong>Kostenloses Zauber-Geschenk inklusive!</strong>
+                    <p>Ab 100 € erhält dein Beschenkter ein hochwertiges Zaubertrick-Set — von Florian Zimmer persönlich ausgewählt, kostenlos versendet.</p>
+                  </div>
+                </div>
+              )}
+
+              <div className="voucher-bonus" style={{ marginTop: 16 }}>
+                <div className="voucher-bonus-title">Was ist inbegriffen?</div>
+                <ul className="voucher-bonus-list">
+                  <li>Für jede Show einlösbar — 3 Jahre gültig, kein Ablaufdatum</li>
+                  <li>Sofort digital verfügbar oder als Premium-Karte per Post</li>
+                  <li>{voucherValue >= 100 ? "Kostenloser Versand + exklusives Zauber-Geschenk" : "Kostenloser digitaler Versand"}</li>
+                  <li>Persönliche Widmung mit eigenem Text inklusive</li>
+                </ul>
+              </div>
+
+              <div className="occasion-tags">
+                {["♥ Date Night", "🎂 Geburtstag", "💍 Jahrestag", "🎄 Weihnachten", "🎓 Abschluss", "🎁 Einfach so"].map(tag => (
+                  <span key={tag} className="occasion-tag">{tag}</span>
+                ))}
+              </div>
+
               <div className="gutschein-opts">
                 {[
-                  { icon: "📧", name: "Digital sofort", sub: "Per E-Mail, kostenlos, sofort verfügbar" },
-                  { icon: "💌", name: "Premium-Karte per Post", sub: "Hochwertiger Karton, 3–5 Werktage · 4,90 €" },
-                  { icon: "🎁", name: "Geschenkbox", sub: "Karte + FZT-Zauberset · 29 €" },
+                  { icon: "📧", name: "Digital sofort", sub: "Per E-Mail · kostenlos · sofort verfügbar" },
+                  { icon: "💌", name: "Premium-Karte", sub: "Hochwertige Karte per Post · 3–5 Tage · 4,90 €" },
+                  { icon: "🎁", name: "Geschenkbox", sub: voucherValue >= 100 ? "Karte + Zauberset · kostenlos ab 100 €" : "Karte + FZT-Zauberset · 29 €" },
                 ].map(opt => (
                   <div key={opt.name} className="gutschein-opt">
                     <span className="opt-icon">{opt.icon}</span>
@@ -216,7 +275,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Gutschein gestalten</button>
+              <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Gutschein jetzt gestalten</button>
             </div>
           </div>
         </div>
@@ -292,7 +351,7 @@ export default function Home() {
           <div className="award-banner reveal">
             {[
               { icon: "🦁", title: "Golden Lion Award", sub: "Internationaler Zauberpreis" },
-              { icon: "🏆", title: "Travellers' Choice", sub: "TripAdvisor 2024" },
+              { icon: "🏆", title: "Travellers' Choice", sub: "TripAdvisor 2025 & 2026" },
               { icon: "⭐", title: "Top 10% weltweit", sub: "TripAdvisor Ranking" },
               { icon: "🎭", title: "Adele · Michael Jackson", sub: "Prominente Referenzen" },
             ].map(a => (
@@ -303,6 +362,29 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* TripAdvisor Badge */}
+          <div className="tripadvisor-badge reveal" style={{ maxWidth: 460, margin: "32px auto 0" }}>
+            <svg className="ta-owl" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18" cy="18" r="18" fill="#00AA6C"/>
+              <circle cx="11" cy="21" r="6.5" fill="white"/>
+              <circle cx="25" cy="21" r="6.5" fill="white"/>
+              <circle cx="11" cy="21" r="3.5" fill="#00AA6C"/>
+              <circle cx="25" cy="21" r="3.5" fill="#00AA6C"/>
+              <circle cx="12" cy="20" r="1" fill="white"/>
+              <circle cx="26" cy="20" r="1" fill="white"/>
+              <path d="M13 12 Q18 8 23 12" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+            </svg>
+            <div className="ta-text">
+              <div className="ta-label">Tripadvisor · Ausgezeichnet</div>
+              <div className="ta-title">Travellers&apos; Choice Award</div>
+              <div className="ta-sub">Top 10% weltweit · #1 Attraktion in Neu-Ulm</div>
+              <div className="ta-years">
+                <span className="ta-year">2025</span>
+                <span className="ta-year">2026</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -311,8 +393,9 @@ export default function Home() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
-              <span style={{ fontFamily: "var(--font-playfair), serif", fontSize: 17, fontWeight: 700, letterSpacing: 1 }}>FLORIAN ZIMMER THEATER</span>
-              <p>Deutschlands Magietheater in Neu-Ulm. Live-Magie auf Weltklasse-Niveau — für unvergessliche Abende zu zweit, mit Familie oder als Firmen-Event.</p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/logo.png" alt="Florian Zimmer Theater" style={{ height: 40, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.9, marginBottom: 12 }} />
+              <p>HOME OF MAGIC in Neu-Ulm. Live-Magie auf Weltklasse-Niveau — für unvergessliche Abende zu zweit, mit Familie oder als Firmen-Event.</p>
               <div className="footer-social">
                 <a href="https://www.youtube.com/c/FlorianZimmerMagic" className="social-btn" target="_blank" rel="noopener noreferrer">▶</a>
                 <a href="#" className="social-btn">f</a>
@@ -334,7 +417,7 @@ export default function Home() {
           </div>
           <div className="footer-bottom">
             <span>© 2026 Florian Zimmer Theater GmbH — Alle Rechte vorbehalten</span>
-            <span style={{ color: "var(--gold)" }}>✦ Deutschlands Magietheater</span>
+            <span style={{ color: "var(--gold)" }}>✦ HOME OF MAGIC</span>
           </div>
         </div>
       </footer>

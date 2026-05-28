@@ -379,3 +379,288 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .reveal-d1 { transition-delay: 0.1s; }
 .reveal-d2 { transition-delay: 0.2s; }
 .reveal-d3 { transition-delay: 0.3s; }
+
+/* ===================== NAV LOGO ===================== */
+.nav-logo-img { height: 36px; width: auto; filter: brightness(0) invert(1); transition: opacity var(--transition); }
+.nav-logo-img:hover { opacity: 0.85; }
+.nav-brand-wrap { display: flex; align-items: center; gap: 10px; }
+.nav-brand-sub { font-size: 9px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; display: block; margin-top: 2px; }
+
+/* ===================== HERO LOGO ===================== */
+.hero-logo { display: flex; justify-content: center; margin-bottom: 28px; animation: fadeUp 1s 0.15s ease both; }
+.hero-logo img { height: 64px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+
+/* ===================== VISUAL SEAT MAP ===================== */
+.seatmap { display: flex; flex-direction: column; gap: 0; }
+.seatmap-hint { font-size: 12px; color: rgba(201,168,76,0.9); background: rgba(201,168,76,0.06); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; line-height: 1.5; font-style: italic; }
+.seatmap-stage { background: linear-gradient(135deg, #1e1508, #2e2010, #1e1508); border: 1.5px solid var(--gold); border-bottom: none; border-radius: 8px 8px 0 0; padding: 14px 24px; text-align: center; position: relative; overflow: hidden; }
+.seatmap-stage::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.seatmap-stage::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 70%); }
+.seatmap-stage-label { position: relative; z-index: 1; font-size: 11px; font-weight: 700; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; }
+.seatmap-stage-sub { position: relative; z-index: 1; font-size: 10px; color: rgba(201,168,76,0.5); letter-spacing: 2px; margin-top: 2px; }
+
+.seatmap-zone { padding: 14px 12px; border: 1.5px solid transparent; cursor: pointer; transition: all 0.3s ease; position: relative; }
+.seatmap-zone:hover { background: rgba(255,255,255,0.02); }
+.seatmap-zone.golden-zone { background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.35); border-top: none; }
+.seatmap-zone.golden-zone:hover { background: rgba(201,168,76,0.11); border-color: rgba(201,168,76,0.6); }
+.seatmap-zone.golden-zone.selected { background: rgba(201,168,76,0.14); border-color: var(--gold); box-shadow: inset 0 0 40px rgba(201,168,76,0.06), 0 0 20px rgba(201,168,76,0.1); }
+.seatmap-zone.premium-zone { background: rgba(201,168,76,0.03); border-color: rgba(201,168,76,0.18); border-top: none; }
+.seatmap-zone.premium-zone:hover { background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.4); }
+.seatmap-zone.premium-zone.selected { background: rgba(201,168,76,0.09); border-color: rgba(201,168,76,0.6); }
+.seatmap-zone.standard-zone { border-color: rgba(255,255,255,0.08); border-top: none; }
+.seatmap-zone.standard-zone:hover { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.18); }
+.seatmap-zone.standard-zone.selected { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.3); }
+
+.seatmap-zone-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.zone-name { font-size: 12px; font-weight: 600; letter-spacing: 0.5px; flex: 1; }
+.zone-price-tag { font-size: 15px; color: var(--gold); font-weight: 700; }
+.zone-avail-tag { font-size: 10px; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 100px; background: rgba(255,255,255,0.06); }
+.zone-selected-check { width: 18px; height: 18px; border-radius: 50%; background: var(--gold); color: var(--black); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+
+.seatmap-rows { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.seatmap-row { display: flex; gap: 2.5px; }
+.seat-dot { width: 13px; height: 9px; border-radius: 2px 2px 0 0; transition: all 0.2s ease; }
+.golden-dot { background: var(--gold); box-shadow: 0 0 4px rgba(201,168,76,0.3); }
+.seatmap-zone.selected .golden-dot { background: var(--gold-light); box-shadow: 0 0 8px rgba(201,168,76,0.6); transform: scaleY(1.15); }
+.premium-dot { background: rgba(201,168,76,0.45); }
+.seatmap-zone.selected .premium-dot { background: rgba(201,168,76,0.7); box-shadow: 0 0 4px rgba(201,168,76,0.3); }
+.standard-dot { background: rgba(255,255,255,0.2); }
+.seatmap-zone.selected .standard-dot { background: rgba(255,255,255,0.45); }
+
+.seatmap-loge-row { display: flex; align-items: stretch; gap: 0; border: 1.5px solid rgba(201,168,76,0.25); border-top: none; border-radius: 0 0 6px 6px; overflow: hidden; }
+.loge-box { background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.05)); border-right: 1px solid rgba(201,168,76,0.2); padding: 14px 20px; cursor: pointer; text-align: center; transition: all 0.3s ease; min-width: 90px; flex-shrink: 0; }
+.loge-box:last-child { border-right: none; border-left: 1px solid rgba(201,168,76,0.2); }
+.loge-box:hover { background: rgba(201,168,76,0.2); }
+.loge-box-title { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+.loge-box-price { font-size: 11px; color: rgba(201,168,76,0.7); margin-top: 3px; }
+.loge-box-cta { font-size: 9px; color: var(--muted); margin-top: 4px; letter-spacing: 0.5px; }
+.seatmap-loge-center { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); letter-spacing: 1px; padding: 8px; text-align: center; }
+
+/* ===================== VOUCHER / GUTSCHEIN IMPROVED ===================== */
+.voucher-values { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.voucher-val-btn { padding: 10px 18px; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--card); color: var(--white); font-size: 14px; font-weight: 600; cursor: pointer; transition: all var(--transition); font-family: inherit; }
+.voucher-val-btn:hover { border-color: var(--gold); color: var(--gold); }
+.voucher-val-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.3); }
+.voucher-val-custom { padding: 10px 14px; border: 1.5px dashed var(--border); border-radius: var(--radius); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: all var(--transition); font-family: inherit; }
+.voucher-val-custom:hover { border-color: var(--gold); color: var(--gold); }
+
+.voucher-bonus { background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03)); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 28px; }
+.voucher-bonus-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+.voucher-bonus-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.voucher-bonus-list li { font-size: 13px; color: rgba(255,255,255,0.85); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.voucher-bonus-list li::before { content: '✦'; color: var(--gold); font-size: 10px; margin-top: 3px; flex-shrink: 0; }
+
+.magic-gift-badge { margin-top: 16px; background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 100%); border: 1px solid var(--gold); border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; animation: fadeUp 0.5s ease; }
+.magic-gift-badge .gift-icon { font-size: 28px; flex-shrink: 0; }
+.magic-gift-badge strong { font-size: 13px; color: var(--gold); display: block; margin-bottom: 4px; }
+.magic-gift-badge p { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+.gutschein-tagline { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 20px; font-family: var(--font-inter), sans-serif; }
+
+/* ===================== TRIPADVISOR BADGE ===================== */
+.tripadvisor-badge { display: flex; align-items: center; gap: 12px; background: rgba(0, 170, 108, 0.06); border: 1px solid rgba(0, 170, 108, 0.25); border-radius: 8px; padding: 16px 20px; }
+.ta-owl { width: 36px; height: 36px; flex-shrink: 0; }
+.ta-text { flex: 1; }
+.ta-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #00AA6C; margin-bottom: 2px; }
+.ta-title { font-size: 14px; font-weight: 600; color: var(--white); }
+.ta-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.ta-years { display: flex; gap: 8px; margin-top: 8px; }
+.ta-year { background: #00AA6C; color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 100px; letter-spacing: 0.5px; }
+
+/* ===================== CONVERSION TRIGGERS ===================== */
+.scarcity-note { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #E67E22; font-weight: 500; letter-spacing: 0.3px; }
+.scarcity-dot { width: 6px; height: 6px; border-radius: 50%; background: #E67E22; animation: pulse-dot 2s infinite; flex-shrink: 0; }
+.social-proof-micro { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.occasion-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; margin-bottom: 24px; }
+.occasion-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 5px 12px; font-size: 11px; color: rgba(255,255,255,0.65); letter-spacing: 0.3px; }
+
+/* ===================== SHOW CARD IMPROVEMENTS ===================== */
+.show-card-meta-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.show-atmosphere-tag { font-size: 11px; color: rgba(255,255,255,0.4); font-style: italic; }
+
+/* ===================== PREMIUM VISUAL UPGRADES ===================== */
+/* Gold shimmer effect */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.btn-primary-shimmer {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  background-size: 200% auto;
+  animation: goldShimmer 3s linear infinite;
+}
+
+/* Better section divider */
+.section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0; }
+
+/* Ambient light effect */
+.ambient-gold { position: absolute; pointer-events: none; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%); }
+
+/* Improved form inputs */
+.form-group input::placeholder { color: rgba(255,255,255,0.25); }
+.form-group input:focus { box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+
+/* Button micro-interactions */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.15); border-radius: 50%; transform: translate(-50%,-50%); transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease; opacity: 0; }
+.btn-primary:active::after { width: 300px; height: 300px; opacity: 0; }
+
+/* Better hover for show cards */
+.show-card::before { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.08) 0%, transparent 60%); opacity: 0; transition: opacity var(--transition); }
+.show-card:hover::before { opacity: 1; }
+
+/* ===================== MOBILE IMPROVEMENTS ===================== */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 38px; }
+  .hero-sub { font-size: 15px; padding: 0 8px; }
+  .hero-ctas { flex-direction: column; align-items: center; gap: 12px; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
+  .hero-avail { font-size: 12px; padding: 10px 16px; }
+  .section-header h2 { font-size: 28px; }
+  .seatmap-row { gap: 2px; }
+  .seat-dot { width: 10px; height: 8px; }
+  .loge-box { min-width: 70px; padding: 10px 12px; }
+  .modal-body { padding: 20px 24px; }
+  .modal-header { padding: 24px 24px 20px; }
+  .modal-footer { padding: 16px 24px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  section { padding: 72px 0; }
+  .stats-bar { gap: 32px; }
+  .stat-number { font-size: 38px; }
+  .award-banner { padding: 24px 20px; gap: 24px; }
+  .price-amount { font-size: 36px; }
+  .gutschein-value { font-size: 56px; }
+  .voucher-values { gap: 8px; }
+  .voucher-val-btn { padding: 8px 14px; font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 32px; }
+  .trust-inner { gap: 20px; }
+  .trust-item strong { font-size: 14px; }
+  .seatmap-hint { font-size: 11px; }
+}
+
+/* ══════════════════════════════════════════════════
+   STEP LABELS
+══════════════════════════════════════════════════ */
+.step-labels { display: flex; align-items: center; margin-top: 10px; }
+.step-label-text { flex: 1; text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; transition: color var(--transition); }
+.step-label-text:first-child { text-align: left; }
+.step-label-text:last-child { text-align: right; }
+.step-label-text.active { color: var(--gold); font-weight: 700; }
+
+/* ══════════════════════════════════════════════════
+   SHOW LIST CARDS (Step 1)
+══════════════════════════════════════════════════ */
+.show-list { display: flex; flex-direction: column; gap: 9px; }
+.show-list-card { display: flex; align-items: stretch; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: all var(--transition); }
+.show-list-card:hover { border-color: rgba(201,168,76,0.45); background: rgba(255,255,255,0.015); }
+.show-list-card.selected { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+.show-list-img { width: 86px; min-height: 80px; flex-shrink: 0; background-size: cover; background-position: center; }
+.show-list-info { flex: 1; padding: 13px 15px; min-width: 0; }
+.show-list-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
+.show-list-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.3px; padding: 2px 8px; border-radius: 100px; color: #0a0a0a; flex-shrink: 0; }
+.show-list-duration { font-size: 11px; color: var(--muted); }
+.show-list-price { font-size: 11px; color: var(--gold); font-weight: 600; margin-left: auto; }
+.show-list-name { font-size: 14px; font-weight: 700; color: var(--white); margin: 0 0 3px; letter-spacing: 0.3px; font-family: var(--font-playfair), serif; }
+.show-list-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.show-list-check { width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: var(--black); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; align-self: center; margin-right: 14px; opacity: 0; transform: scale(0.5); transition: opacity 0.25s ease, transform 0.25s ease; }
+.show-list-check.visible { opacity: 1; transform: scale(1); }
+
+/* ══════════════════════════════════════════════════
+   DATE SECTION — wrapper + title
+══════════════════════════════════════════════════ */
+.date-section { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border); }
+.date-section-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; color: var(--white); margin-bottom: 14px; }
+.date-section-title svg { color: var(--gold); flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════
+   DATE CARDS — the clickable date containers
+══════════════════════════════════════════════════ */
+.date-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+@media (max-width: 500px) { .date-cards { grid-template-columns: 1fr; } }
+
+.date-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 10px;
+  padding: 14px 15px 13px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.date-card:hover:not(.soldout) {
+  border-color: rgba(201,168,76,0.4);
+  background: rgba(255,255,255,0.06);
+}
+.date-card.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.07);
+}
+.date-card.soldout { opacity: 0.35; }
+.date-card.low { border-color: rgba(230,126,34,0.3); }
+
+/* Date card header row: icon · weekday · date · availability */
+.date-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 11px;
+  line-height: 1;
+}
+.date-card-header svg { color: var(--gold); flex-shrink: 0; }
+.date-card-weekday { font-size: 13px; font-weight: 700; color: var(--white); }
+.date-card-date { font-size: 13px; color: rgba(255,255,255,0.75); flex: 1; }
+.date-card-avail-warn { font-size: 10px; color: #E67E22; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+.date-soldout-label { font-size: 11px; color: var(--muted); font-style: italic; }
+
+/* ══════════════════════════════════════════════════
+   TIME CHIPS — clickable pill buttons inside cards
+══════════════════════════════════════════════════ */
+.date-card-times { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.date-card-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 100px;
+  color: rgba(255,255,255,0.82);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  font-family: inherit;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+.date-card-time svg {
+  color: rgba(255,255,255,0.35);
+  flex-shrink: 0;
+  transition: color 0.18s ease;
+}
+.date-card-time:hover {
+  background: rgba(201,168,76,0.14);
+  border-color: rgba(201,168,76,0.55);
+  color: var(--gold-light);
+}
+.date-card-time:hover svg { color: var(--gold); }
+.date-card-time.selected {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0a0a0a;
+  font-weight: 700;
+  box-shadow: 0 2px 14px rgba(201,168,76,0.35);
+}
+.date-card-time.selected svg { color: #0a0a0a; }
+
+.time-seats-badge {
+  background: rgba(230,126,34,0.18);
+  color: #E67E22;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 100px;
+  margin-left: 3px;
+}
+
