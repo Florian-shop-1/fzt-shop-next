@@ -42,7 +42,6 @@ interface MenuEntry {
   badgeColor?: string;
   includes: string;
   courses: string[];
-  perPerson: boolean;
 }
 
 interface StehtischEntry {
@@ -51,22 +50,11 @@ interface StehtischEntry {
   subtitle: string;
   price: number;
   priceLabel: string;
-  perPerson: boolean;
+  personsPerUnit: number;
   badge?: string;
   highlight?: boolean;
   luxury?: boolean;
   items: string[];
-}
-
-interface ExtraEntry {
-  id: string;
-  name: string;
-  desc: string;
-  note: string;
-  noteColor: string;
-  price: number;
-  perPerson: boolean;
-  icon: string;
 }
 
 interface BookingModalProps {
@@ -170,7 +158,6 @@ const MENUS: MenuEntry[] = [
       "Rinderfilet an Trüffeljus & Rotweinreduktion",
       "Chocolat Fondant mit Vanilleeis",
     ],
-    perPerson: true,
   },
   {
     id: "sea",
@@ -184,7 +171,6 @@ const MENUS: MenuEntry[] = [
       "Steinbutt mit Meeresfrüchten & Buttersauce",
       "Panna Cotta mit Beerencompote",
     ],
-    perPerson: true,
   },
   {
     id: "vegan",
@@ -198,7 +184,6 @@ const MENUS: MenuEntry[] = [
       "Trüffel-Risotto mit frischen Kräutern",
       "Mango-Sorbet",
     ],
-    perPerson: true,
   },
   {
     id: "kids",
@@ -211,7 +196,6 @@ const MENUS: MenuEntry[] = [
       "Schnitzel mit Pommes & Ketchup",
       "Vanilleeis mit bunten Streuseln",
     ],
-    perPerson: true,
   },
 ];
 
@@ -221,8 +205,8 @@ const STEHTISCHE: StehtischEntry[] = [
     name: "Silver",
     subtitle: "Für einzelne Gäste & kleine Gruppen",
     price: 17.5,
-    priceLabel: "17,50 € / Pers.",
-    perPerson: true,
+    priceLabel: "17,50 €",
+    personsPerUnit: 1,
     items: [
       "1 Glas Magicuvée prickelnd",
       "Zauberschnitte",
@@ -234,8 +218,8 @@ const STEHTISCHE: StehtischEntry[] = [
     name: "Gold Date Table",
     subtitle: "Perfekt für einen besonderen Abend zu zweit",
     price: 55,
-    priceLabel: "55 € für 2",
-    perPerson: false,
+    priceLabel: "55 €",
+    personsPerUnit: 2,
     badge: "Beliebt bei Paaren",
     highlight: true,
     items: [
@@ -250,8 +234,8 @@ const STEHTISCHE: StehtischEntry[] = [
     name: "Diamond",
     subtitle: "Das luxuriöseste Pause-Erlebnis",
     price: 109,
-    priceLabel: "109 € für 2",
-    perPerson: false,
+    priceLabel: "109 €",
+    personsPerUnit: 2,
     badge: "Luxus",
     luxury: true,
     items: [
@@ -260,29 +244,6 @@ const STEHTISCHE: StehtischEntry[] = [
       "Popcorn",
       "Premium-Stehtisch",
     ],
-  },
-];
-
-const STEP4_EXTRAS: ExtraEntry[] = [
-  {
-    id: "parking",
-    name: "VIP Parkplatz",
-    desc: "Direkt neben dem Theater – näher dran geht nicht.",
-    note: "Nur 7 verfügbar",
-    noteColor: "#E74C3C",
-    price: 15,
-    perPerson: false,
-    icon: "🚗",
-  },
-  {
-    id: "flex",
-    name: "Flex-Option",
-    desc: "Kostenfreie Umbuchung bis 48h vor der Show.",
-    note: "Gilt inkl. gebuchter Menüs und Zusatzleistungen.",
-    noteColor: "var(--muted)",
-    price: 10,
-    perPerson: true,
-    icon: "🔄",
   },
 ];
 
@@ -336,30 +297,74 @@ function IconChevronDown({ size = 13 }: { size?: number }) {
 }
 
 // ─────────────────────────────────────────────
+//  REUSABLE QUANTITY CONTROL
+// ─────────────────────────────────────────────
+
+function QtyControl({
+  value,
+  onDec,
+  onInc,
+  canInc,
+  label,
+}: {
+  value: number;
+  onDec: () => void;
+  onInc: () => void;
+  canInc: boolean;
+  label?: string;
+}) {
+  return (
+    <div className="qty-ctrl">
+      {label && <span className="qty-ctrl-label">{label}</span>}
+      <div className="qty-ctrl-row">
+        <button
+          className="qty-ctrl-btn"
+          onClick={e => { e.stopPropagation(); onDec(); }}
+          disabled={value === 0}
+        >−</button>
+        <span className={`qty-ctrl-num${value > 0 ? " active" : ""}`}>{value}</span>
+        <button
+          className="qty-ctrl-btn"
+          onClick={e => { e.stopPropagation(); onInc(); }}
+          disabled={!canInc}
+        >+</button>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 //  COMPONENT
 // ─────────────────────────────────────────────
 
 export default function BookingModal({ open, initialShow, onClose }: BookingModalProps) {
-  const [step,               setStep]              = useState(1);
-  const [selectedShowId,     setSelectedShowId]    = useState(initialShow ?? "");
-  const [selectedDateId,     setSelectedDateId]    = useState<string | null>(null);
-  const [selectedTimeId,     setSelectedTimeId]    = useState<string | null>(null);
-  const [selectedSeat,       setSelectedSeat]      = useState("");
-  const [seatPrice,          setSeatPrice]         = useState(59);
-  const [qty,                setQty]               = useState(2);
-  const [selectedMenu,       setSelectedMenu]      = useState<string>("");
-  const [selectedStehtisch,  setSelectedStehtisch] = useState<string>("");
-  const [selectedExtras,     setSelectedExtras]    = useState<string[]>([]);
-  const [expandedMenu,       setExpandedMenu]      = useState<string | null>(null);
+  // ── Show / Date / Seat state ──────────────
+  const [step,          setStep]          = useState(1);
+  const [selectedShowId, setSelectedShowId] = useState(initialShow ?? "");
+  const [selectedDateId, setSelectedDateId] = useState<string | null>(null);
+  const [selectedTimeId, setSelectedTimeId] = useState<string | null>(null);
+  const [selectedSeat,  setSelectedSeat]  = useState("");
+  const [seatPrice,     setSeatPrice]     = useState(59);
+  const [qty,           setQty]           = useState(2);
+
+  // ── Upsell quantities ─────────────────────
+  const [menuQtys,      setMenuQtys]      = useState<Record<string, number>>({});
+  const [stehtischQtys, setStehtischQtys] = useState<Record<string, number>>({});
+  const [parkingQty,    setParkingQty]    = useState(0);
+  const [flexQty,       setFlexQty]       = useState(0);
+
+  // ── Menu expand state ─────────────────────
+  const [expandedMenu,  setExpandedMenu]  = useState<string | null>(null);
 
   useEffect(() => {
     if (open) {
       setStep(1);
       setSelectedSeat("");
       setSeatPrice(59);
-      setSelectedMenu("");
-      setSelectedStehtisch("");
-      setSelectedExtras([]);
+      setMenuQtys({});
+      setStehtischQtys({});
+      setParkingQty(0);
+      setFlexQty(0);
       setExpandedMenu(null);
       if (initialShow) {
         setSelectedShowId(initialShow);
@@ -397,7 +402,15 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   };
   const menubeginn = getMenubeginn();
 
-  // ── Helpers ──────────────────────────────
+  // ── Computed upsell totals ────────────────
+  const totalMenuQty = MENUS.reduce((s, m) => s + (menuQtys[m.id] ?? 0), 0);
+
+  const stehtischPersonsUsed =
+    (stehtischQtys["silver"]  ?? 0) * 1 +
+    (stehtischQtys["gold"]    ?? 0) * 2 +
+    (stehtischQtys["diamond"] ?? 0) * 2;
+
+  // ── Helpers ───────────────────────────────
   const handleSelectShow = (id: string) => {
     if (selectedShowId === id) return;
     setSelectedShowId(id);
@@ -410,25 +423,37 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
     setSelectedTimeId(timeId);
   };
 
-  const toggleExtra = (id: string) =>
-    setSelectedExtras(prev => prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]);
+  // Menu qty
+  const incMenu = (id: string) => {
+    if (totalMenuQty < qty) setMenuQtys(p => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
+  };
+  const decMenu = (id: string) =>
+    setMenuQtys(p => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
-  // ── Totals ──────────────────────────────
-  const menuEntry      = MENUS.find(m => m.id === selectedMenu);
-  const menuTotal      = menuEntry ? menuEntry.price * qty : 0;
+  // Stehtisch qty — constraint: total persons covered ≤ seat qty
+  const canIncStehtisch = (ppu: number) => stehtischPersonsUsed + ppu <= qty;
+  const incStehtisch = (id: string, ppu: number) => {
+    if (canIncStehtisch(ppu))
+      setStehtischQtys(p => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
+  };
+  const decStehtisch = (id: string) =>
+    setStehtischQtys(p => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
-  const stehtischEntry = STEHTISCHE.find(s => s.id === selectedStehtisch);
-  const stehtischTotal = stehtischEntry
-    ? (stehtischEntry.perPerson ? stehtischEntry.price * qty : stehtischEntry.price)
-    : 0;
+  // Parking & Flex
+  const incParking = () => setParkingQty(q => Math.min(7, q + 1));
+  const decParking = () => setParkingQty(q => Math.max(0, q - 1));
+  const incFlex    = () => setFlexQty(q => Math.min(qty, q + 1));
+  const decFlex    = () => setFlexQty(q => Math.max(0, q - 1));
 
-  const extrasTotal = selectedExtras.reduce((sum, id) => {
-    const e = STEP4_EXTRAS.find(x => x.id === id)!;
-    return sum + (e.perPerson ? e.price * qty : e.price);
-  }, 0);
+  // ── Price totals ──────────────────────────
+  const menuTotal      = MENUS.reduce((s, m) => s + (menuQtys[m.id] ?? 0) * m.price, 0);
+  const stehtischTotal = STEHTISCHE.reduce((s, st) => s + (stehtischQtys[st.id] ?? 0) * st.price, 0);
+  const parkingTotal   = parkingQty * 15;
+  const flexTotal      = flexQty * 10;
+  const total          = seatPrice * qty + menuTotal + stehtischTotal + parkingTotal + flexTotal;
 
-  const total = seatPrice * qty + menuTotal + stehtischTotal + extrasTotal;
-  const fmt   = (n: number) => n % 1 === 0 ? `${n}` : n.toFixed(2);
+  // German-style price formatter
+  const fmt = (n: number) => n % 1 === 0 ? `${n}` : n.toFixed(2).replace(".", ",");
 
   // ── Flow control ──────────────────────────
   const canProceed = (() => {
@@ -522,9 +547,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                             <IconCalendar size={13} />
                             <span className="date-card-weekday">{d.weekday},</span>
                             <span className="date-card-date">{d.date}</span>
-                            {d.low && !d.soldOut && (
-                              <span className="date-card-avail-warn">Wenige Plätze</span>
-                            )}
+                            {d.low && !d.soldOut && <span className="date-card-avail-warn">Wenige Plätze</span>}
                           </div>
                           <div className="date-card-times">
                             {d.soldOut ? (
@@ -577,7 +600,6 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   <div className="seatmap-stage-label">✦ &nbsp;BÜHNE &nbsp;✦</div>
                   <div className="seatmap-stage-sub">FLORIAN ZIMMER THEATER</div>
                 </div>
-
                 {SEAT_ZONES.map(zone => {
                   const cfg     = ZONE_ROWS[zone.id];
                   const dotCls  = zone.id === "front-row" ? "golden-dot"  : zone.id === "premium" ? "premium-dot" : "standard-dot";
@@ -610,7 +632,6 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                     </div>
                   );
                 })}
-
                 <div className="seatmap-loge-row">
                   <div className="loge-box" onClick={() => alert("VIP-Loge anfragen:\n📞 0731 7906 110\n✉ loge@florianzimmertheater.de")}>
                     <div className="loge-box-title">VIP Loge</div>
@@ -628,12 +649,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
 
               <div style={{ display: "flex", gap: 20, margin: "14px 0 4px", fontSize: 11, color: "var(--muted)" }}>
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <span style={{ width: 13, height: 9, borderRadius: "2px 2px 0 0", background: "var(--gold)", display: "inline-block" }} />
-                  verfügbar
+                  <span style={{ width: 13, height: 9, borderRadius: "2px 2px 0 0", background: "var(--gold)", display: "inline-block" }} /> verfügbar
                 </span>
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <span style={{ width: 13, height: 9, borderRadius: "2px 2px 0 0", background: "rgba(201,168,76,0.18)", display: "inline-block" }} />
-                  belegt
+                  <span style={{ width: 13, height: 9, borderRadius: "2px 2px 0 0", background: "rgba(201,168,76,0.18)", display: "inline-block" }} /> belegt
                 </span>
               </div>
 
@@ -663,23 +682,27 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                 <p className="step3-sub">Genieße ein exklusives 4-Gang-Menü in der Magicuisine.</p>
               </div>
 
-              {/* Menu cards */}
+              {/* ── Menü-Kapazität ── */}
+              {totalMenuQty > 0 && (
+                <div className="upsell-capacity-bar">
+                  <span className="capacity-dot" />
+                  <span>{totalMenuQty} von {qty} Menüplätzen belegt</span>
+                  {totalMenuQty === qty && <span className="capacity-full">Alle vergeben</span>}
+                </div>
+              )}
+
+              {/* ── Menu Cards ── */}
               <div className="menu-cards">
                 {MENUS.map(menu => {
-                  const isSelected = selectedMenu === menu.id;
+                  const mq         = menuQtys[menu.id] ?? 0;
+                  const isActive   = mq > 0;
                   const isExpanded = expandedMenu === menu.id;
+                  const canAdd     = totalMenuQty < qty;
                   return (
-                    <div
-                      key={menu.id}
-                      className={`menu-card${isSelected ? " selected" : ""}`}
-                      onClick={() => setSelectedMenu(isSelected ? "" : menu.id)}
-                    >
+                    <div key={menu.id} className={`menu-card${isActive ? " selected" : ""}`}>
                       <div className="menu-card-inner">
                         {menu.badge && (
-                          <span
-                            className="menu-badge"
-                            style={{ background: menu.badgeColor ?? "var(--gold)" }}
-                          >
+                          <span className="menu-badge" style={{ background: menu.badgeColor ?? "var(--gold)" }}>
                             {menu.badge}
                           </span>
                         )}
@@ -693,7 +716,16 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                               <span className="menu-card-includes">{menu.includes}</span>
                             </div>
                           </div>
-                          <div className={`menu-card-check${isSelected ? " visible" : ""}`}>✓</div>
+                        </div>
+
+                        {/* Quantity control */}
+                        <div className="menu-qty-area">
+                          <QtyControl
+                            value={mq}
+                            onDec={() => decMenu(menu.id)}
+                            onInc={() => incMenu(menu.id)}
+                            canInc={canAdd}
+                          />
                         </div>
 
                         {isExpanded && (
@@ -723,7 +755,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                 })}
               </div>
 
-              {/* Stehtische / Pausenangebot */}
+              {/* ── Stehtische ── */}
               <div className="pause-section">
                 <div className="pause-section-header">
                   <h4 className="pause-section-title">Dein reservierter Platz in der Pause</h4>
@@ -732,29 +764,58 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </p>
                 </div>
 
+                {/* Stehtisch-Kapazität */}
+                {stehtischPersonsUsed > 0 && (
+                  <div className="upsell-capacity-bar" style={{ marginBottom: 14 }}>
+                    <span className="capacity-dot" />
+                    <span>{stehtischPersonsUsed} von {qty} Personen versorgt</span>
+                    {stehtischPersonsUsed === qty && <span className="capacity-full">Alle versorgt</span>}
+                  </div>
+                )}
+
                 <div className="stehtisch-cards">
                   {STEHTISCHE.map(st => {
-                    const isSel = selectedStehtisch === st.id;
+                    const sq      = stehtischQtys[st.id] ?? 0;
+                    const isActive = sq > 0;
+                    const canAdd  = canIncStehtisch(st.personsPerUnit);
                     return (
                       <div
                         key={st.id}
-                        className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isSel ? " selected" : ""}`}
-                        onClick={() => setSelectedStehtisch(isSel ? "" : st.id)}
+                        className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}`}
                       >
                         {st.badge && (
                           <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>
                             {st.badge}
                           </span>
                         )}
+
                         <div className="stehtisch-top">
                           <h5 className="stehtisch-name">{st.name}</h5>
                           <span className="stehtisch-price">{st.priceLabel}</span>
                         </div>
+
+                        {/* "Für 2 Personen" — prominent for pair packages */}
+                        {st.personsPerUnit === 2 && (
+                          <span className="stehtisch-for-two">Für 2 Personen</span>
+                        )}
+                        {st.personsPerUnit === 1 && (
+                          <span className="stehtisch-per-person">Pro Person</span>
+                        )}
+
                         <p className="stehtisch-subtitle">{st.subtitle}</p>
+
                         <ul className="stehtisch-items">
                           {st.items.map((item, i) => <li key={i}>{item}</li>)}
                         </ul>
-                        <div className={`stehtisch-check${isSel ? " visible" : ""}`}>✓ Ausgewählt</div>
+
+                        <div className="stehtisch-qty-area">
+                          <QtyControl
+                            value={sq}
+                            onDec={() => decStehtisch(st.id)}
+                            onInc={() => incStehtisch(st.id, st.personsPerUnit)}
+                            canInc={canAdd}
+                          />
+                        </div>
                       </div>
                     );
                   })}
@@ -774,35 +835,49 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
               </div>
 
               <div className="extras4-list">
-                {STEP4_EXTRAS.map(e => {
-                  const isSel  = selectedExtras.includes(e.id);
-                  const price  = e.perPerson ? `${e.price} € / Pers.` : `${e.price} €`;
-                  return (
-                    <div
-                      key={e.id}
-                      className={`extras4-card${isSel ? " selected" : ""}`}
-                      onClick={() => toggleExtra(e.id)}
-                    >
-                      <div className="extras4-icon">{e.icon}</div>
-                      <div className="extras4-info">
-                        <div className="extras4-top">
-                          <strong className="extras4-name">{e.name}</strong>
-                          <span className="extras4-price">{price}</span>
-                        </div>
-                        <p className="extras4-desc">{e.desc}</p>
-                        {e.id === "parking" ? (
-                          <span className="extras4-scarcity">
-                            <span className="scarcity-dot" style={{ background: "#E74C3C", animation: "none" }} />
-                            {e.note}
-                          </span>
-                        ) : (
-                          <span className="extras4-note" style={{ color: e.noteColor }}>{e.note}</span>
-                        )}
-                      </div>
-                      <div className={`extras4-check${isSel ? " visible" : ""}`}>✓</div>
-                    </div>
-                  );
-                })}
+
+                {/* VIP Parking */}
+                <div className={`extras4-card${parkingQty > 0 ? " selected" : ""}`}>
+                  <div className="extras4-icon">🚗</div>
+                  <div className="extras4-info">
+                    <strong className="extras4-name">VIP Parkplatz</strong>
+                    <p className="extras4-desc">Direkt neben dem Theater – näher dran geht nicht.</p>
+                    <span className="extras4-scarcity">
+                      <span className="scarcity-dot" style={{ background: "#E74C3C" }} />
+                      Nur 7 verfügbar
+                    </span>
+                  </div>
+                  <div className="extras4-qty-col">
+                    <span className="extras4-unit-price">15 €</span>
+                    <QtyControl
+                      value={parkingQty}
+                      onDec={decParking}
+                      onInc={incParking}
+                      canInc={parkingQty < 7}
+                    />
+                  </div>
+                </div>
+
+                {/* Flex-Option */}
+                <div className={`extras4-card${flexQty > 0 ? " selected" : ""}`}>
+                  <div className="extras4-icon">🔄</div>
+                  <div className="extras4-info">
+                    <strong className="extras4-name">Flex-Option</strong>
+                    <p className="extras4-desc">Kostenfreie Umbuchung bis 48h vor der Show.</p>
+                    <span className="extras4-note" style={{ color: "var(--muted)" }}>
+                      Gilt inkl. gebuchter Menüs und Zusatzleistungen.
+                    </span>
+                  </div>
+                  <div className="extras4-qty-col">
+                    <span className="extras4-unit-price">10 € / Pers.</span>
+                    <QtyControl
+                      value={flexQty}
+                      onDec={decFlex}
+                      onInc={incFlex}
+                      canInc={flexQty < qty}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="florian-note">
@@ -818,39 +893,54 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
           {step === 5 && (
             <div>
               <div className="order-summary">
+                {/* Show + Date */}
                 <div className="order-row" style={{ flexDirection: "column", gap: 2, alignItems: "flex-start" }}>
                   <span style={{ fontWeight: 600 }}>{resolvedShow?.name ?? "Show"}</span>
                   <span style={{ fontSize: 12, color: "var(--muted)" }}>
                     {resolvedDate?.displayDate ?? ""}{resolvedTime ? ` · ${resolvedTime.time} Uhr` : ""}
                   </span>
                 </div>
+                {/* Seats */}
                 <div className="order-row">
                   <span>
                     {qty} × {selectedSeat === "front-row" ? "Front Row VIP" : selectedSeat === "premium" ? "Premium" : "Parterre"}
                   </span>
                   <span>{seatPrice * qty} €</span>
                 </div>
-                {menuEntry && (
-                  <div className="order-row">
-                    <span>{qty} × {menuEntry.name}</span>
-                    <span>{menuTotal} €</span>
-                  </div>
-                )}
-                {stehtischEntry && (
-                  <div className="order-row">
-                    <span>{stehtischEntry.name}</span>
-                    <span>{fmt(stehtischTotal)} €</span>
-                  </div>
-                )}
-                {selectedExtras.map(id => {
-                  const e = STEP4_EXTRAS.find(x => x.id === id)!;
-                  const p = e.perPerson ? e.price * qty : e.price;
-                  return (
-                    <div key={id} className="order-row">
-                      <span>{e.name}</span><span>{p} €</span>
+                {/* Menus */}
+                {MENUS.map(m => {
+                  const mq = menuQtys[m.id] ?? 0;
+                  return mq > 0 ? (
+                    <div key={m.id} className="order-row">
+                      <span>{mq} × {m.name}</span>
+                      <span>{mq * m.price} €</span>
                     </div>
-                  );
+                  ) : null;
                 })}
+                {/* Stehtische */}
+                {STEHTISCHE.map(st => {
+                  const sq = stehtischQtys[st.id] ?? 0;
+                  return sq > 0 ? (
+                    <div key={st.id} className="order-row">
+                      <span>{sq} × {st.name}</span>
+                      <span>{fmt(sq * st.price)} €</span>
+                    </div>
+                  ) : null;
+                })}
+                {/* Parking */}
+                {parkingQty > 0 && (
+                  <div className="order-row">
+                    <span>{parkingQty} × VIP Parkplatz</span>
+                    <span>{parkingTotal} €</span>
+                  </div>
+                )}
+                {/* Flex */}
+                {flexQty > 0 && (
+                  <div className="order-row">
+                    <span>{flexQty} × Flex-Option</span>
+                    <span>{flexTotal} €</span>
+                  </div>
+                )}
                 <div className="order-row total">
                   <span>Gesamtbetrag</span>
                   <span>{fmt(total)} €</span>
