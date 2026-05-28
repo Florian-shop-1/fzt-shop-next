@@ -33,13 +33,40 @@ interface DateEntry {
   soldOut?: boolean;
 }
 
+interface MenuEntry {
+  id: string;
+  name: string;
+  tagline: string;
+  price: number;
+  badge?: string;
+  badgeColor?: string;
+  includes: string;
+  courses: string[];
+  perPerson: boolean;
+}
+
+interface StehtischEntry {
+  id: string;
+  name: string;
+  subtitle: string;
+  price: number;
+  priceLabel: string;
+  perPerson: boolean;
+  badge?: string;
+  highlight?: boolean;
+  luxury?: boolean;
+  items: string[];
+}
+
 interface ExtraEntry {
   id: string;
   name: string;
   desc: string;
+  note: string;
+  noteColor: string;
   price: number;
-  icon: string;
   perPerson: boolean;
+  icon: string;
 }
 
 interface BookingModalProps {
@@ -97,7 +124,7 @@ const SHOWS: ShowEntry[] = [
 
 const SHOW_DATES: Record<string, DateEntry[]> = {
   ulmfassbar: [
-    { id: "u1", weekday: "Sa", date: "31. Mai 2026",  displayDate: "Sa, 31. Mai 2026",  times: [{ id: "u1t1", time: "19:30", availableSeats: 18 }], low: true },
+    { id: "u1", weekday: "Sa", date: "31. Mai 2026",   displayDate: "Sa, 31. Mai 2026",   times: [{ id: "u1t1", time: "19:30", availableSeats: 18 }], low: true },
     { id: "u2", weekday: "Sa", date: "07. Juni 2026",  displayDate: "Sa, 07. Juni 2026",  times: [{ id: "u2t1", time: "15:00", availableSeats: 42 }, { id: "u2t2", time: "19:30", availableSeats: 38 }] },
     { id: "u3", weekday: "Sa", date: "14. Juni 2026",  displayDate: "Sa, 14. Juni 2026",  times: [{ id: "u3t1", time: "19:30", availableSeats: 44 }] },
     { id: "u4", weekday: "Sa", date: "21. Juni 2026",  displayDate: "Sa, 21. Juni 2026",  times: [{ id: "u4t1", time: "15:00", availableSeats: 40 }, { id: "u4t2", time: "19:30", availableSeats: 35 }] },
@@ -128,11 +155,135 @@ const SHOW_DATES: Record<string, DateEntry[]> = {
   ],
 };
 
-const EXTRAS: ExtraEntry[] = [
-  { id: "prosecco",   name: "Welcome-Prosecco",      desc: "Für alle Personen — beliebteste Wahl",           price: 7.5, icon: "🥂", perPerson: true  },
-  { id: "romantik",   name: "Romantik-Paket",         desc: "Rosen + persönliche Karte + Sektempfang",        price: 29,  icon: "🌹", perPerson: false },
-  { id: "geburtstag", name: "Geburtstags-Deko",       desc: "Personalisierter Tischaufsteller + Karte",       price: 19,  icon: "🎂", perPerson: false },
-  { id: "foto",       name: "Foto-Session backstage", desc: "Meet & Greet mit Florian Zimmer nach der Show",  price: 39,  icon: "📸", perPerson: false },
+const MENUS: MenuEntry[] = [
+  {
+    id: "classic",
+    name: "Magicuisine Classic",
+    tagline: "Das Original — ein kulinarisches Meisterwerk",
+    price: 69,
+    badge: "Beliebteste Wahl",
+    badgeColor: "#C9A84C",
+    includes: "inkl. Welcome-Cocktail",
+    courses: [
+      "Amuse-Bouche",
+      "Waldpilz-Cremesuppe mit Trüffelöl",
+      "Rinderfilet an Trüffeljus & Rotweinreduktion",
+      "Chocolat Fondant mit Vanilleeis",
+    ],
+    perPerson: true,
+  },
+  {
+    id: "sea",
+    name: "Magicuisine Sea",
+    tagline: "Meeresfrüchte & Fisch — handverlesen & frisch",
+    price: 69,
+    includes: "inkl. Welcome-Cocktail",
+    courses: [
+      "Amuse-Bouche",
+      "Hummercremesuppe",
+      "Steinbutt mit Meeresfrüchten & Buttersauce",
+      "Panna Cotta mit Beerencompote",
+    ],
+    perPerson: true,
+  },
+  {
+    id: "vegan",
+    name: "Magicuisine Vegan",
+    tagline: "Pflanzliche Gourmetküche auf höchstem Niveau",
+    price: 69,
+    includes: "inkl. Welcome-Cocktail",
+    courses: [
+      "Amuse-Bouche",
+      "Kürbiscremesuppe mit geröstetem Kürbiskern",
+      "Trüffel-Risotto mit frischen Kräutern",
+      "Mango-Sorbet",
+    ],
+    perPerson: true,
+  },
+  {
+    id: "kids",
+    name: "Kids Menü",
+    tagline: "Für unsere kleinen Zauberlehrlinge",
+    price: 29,
+    includes: "inkl. Kids-Cocktail",
+    courses: [
+      "Hausgemachte Gemüsesuppe",
+      "Schnitzel mit Pommes & Ketchup",
+      "Vanilleeis mit bunten Streuseln",
+    ],
+    perPerson: true,
+  },
+];
+
+const STEHTISCHE: StehtischEntry[] = [
+  {
+    id: "silver",
+    name: "Silver",
+    subtitle: "Für einzelne Gäste & kleine Gruppen",
+    price: 17.5,
+    priceLabel: "17,50 € / Pers.",
+    perPerson: true,
+    items: [
+      "1 Glas Magicuvée prickelnd",
+      "Zauberschnitte",
+      "Süßigkeit",
+    ],
+  },
+  {
+    id: "gold",
+    name: "Gold Date Table",
+    subtitle: "Perfekt für einen besonderen Abend zu zweit",
+    price: 55,
+    priceLabel: "55 € für 2",
+    perPerson: false,
+    badge: "Beliebt bei Paaren",
+    highlight: true,
+    items: [
+      "1 kl. Flasche Magicuvée prickelnd",
+      "Zauberschnitten",
+      "Popcorn",
+      "Reservierter Stehtisch",
+    ],
+  },
+  {
+    id: "diamond",
+    name: "Diamond",
+    subtitle: "Das luxuriöseste Pause-Erlebnis",
+    price: 109,
+    priceLabel: "109 € für 2",
+    perPerson: false,
+    badge: "Luxus",
+    luxury: true,
+    items: [
+      "Laurent Perrier Rosé",
+      "Zauberschnitten",
+      "Popcorn",
+      "Premium-Stehtisch",
+    ],
+  },
+];
+
+const STEP4_EXTRAS: ExtraEntry[] = [
+  {
+    id: "parking",
+    name: "VIP Parkplatz",
+    desc: "Direkt neben dem Theater – näher dran geht nicht.",
+    note: "Nur 7 verfügbar",
+    noteColor: "#E74C3C",
+    price: 15,
+    perPerson: false,
+    icon: "🚗",
+  },
+  {
+    id: "flex",
+    name: "Flex-Option",
+    desc: "Kostenfreie Umbuchung bis 48h vor der Show.",
+    note: "Gilt inkl. gebuchter Menüs und Zusatzleistungen.",
+    noteColor: "var(--muted)",
+    price: 10,
+    perPerson: true,
+    icon: "🔄",
+  },
 ];
 
 const SEAT_ZONES = [
@@ -151,7 +302,7 @@ const ZONE_ROWS: Record<string, { taken: number[]; cols: number; rows: number[] 
   "parterre":  { taken: STD_TAKEN,  cols: 12, rows: [0,1,2,3,4,5] },
 };
 
-const STEP_LABELS = ["Show & Termin", "Plätze", "Extras", "Kontakt"];
+const STEP_LABELS = ["Show & Termin", "Plätze", "Magicuisine", "Extras", "Checkout"];
 
 // ─────────────────────────────────────────────
 //  SVG ICONS
@@ -176,26 +327,40 @@ function IconClock({ size = 11 }: { size?: number }) {
   );
 }
 
+function IconChevronDown({ size = 13 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  );
+}
+
 // ─────────────────────────────────────────────
 //  COMPONENT
 // ─────────────────────────────────────────────
 
 export default function BookingModal({ open, initialShow, onClose }: BookingModalProps) {
-  const [step,           setStep]          = useState(1);
-  const [selectedShowId, setSelectedShowId] = useState(initialShow ?? "");
-  const [selectedDateId, setSelectedDateId] = useState<string | null>(null);
-  const [selectedTimeId, setSelectedTimeId] = useState<string | null>(null);
-  const [selectedSeat,   setSelectedSeat]   = useState("");
-  const [seatPrice,      setSeatPrice]      = useState(59);
-  const [qty,            setQty]            = useState(2);
-  const [extras,         setExtras]         = useState<string[]>([]);
+  const [step,               setStep]              = useState(1);
+  const [selectedShowId,     setSelectedShowId]    = useState(initialShow ?? "");
+  const [selectedDateId,     setSelectedDateId]    = useState<string | null>(null);
+  const [selectedTimeId,     setSelectedTimeId]    = useState<string | null>(null);
+  const [selectedSeat,       setSelectedSeat]      = useState("");
+  const [seatPrice,          setSeatPrice]         = useState(59);
+  const [qty,                setQty]               = useState(2);
+  const [selectedMenu,       setSelectedMenu]      = useState<string>("");
+  const [selectedStehtisch,  setSelectedStehtisch] = useState<string>("");
+  const [selectedExtras,     setSelectedExtras]    = useState<string[]>([]);
+  const [expandedMenu,       setExpandedMenu]      = useState<string | null>(null);
 
   useEffect(() => {
     if (open) {
       setStep(1);
       setSelectedSeat("");
       setSeatPrice(59);
-      setExtras([]);
+      setSelectedMenu("");
+      setSelectedStehtisch("");
+      setSelectedExtras([]);
+      setExpandedMenu(null);
       if (initialShow) {
         setSelectedShowId(initialShow);
         setSelectedDateId(null);
@@ -214,8 +379,25 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
 
   if (!open) return null;
 
-  // ── Helpers ──────────────────────────────
+  // ── Resolved entities ──────────────────────
+  const resolvedShow  = SHOWS.find(s => s.id === selectedShowId);
+  const resolvedDates = SHOW_DATES[selectedShowId] ?? [];
+  const resolvedDate  = resolvedDates.find(d => d.id === selectedDateId) ?? null;
+  const resolvedTime  = resolvedDate?.times.find(t => t.id === selectedTimeId) ?? null;
 
+  // ── Dynamic Menübeginn ──────────────────────
+  const getMenubeginn = (): string | null => {
+    if (!resolvedDate || !resolvedTime) return null;
+    if (resolvedDate.weekday === "So") return "Menü direkt nach der Show";
+    const [h, m] = resolvedTime.time.split(":").map(Number);
+    const totalMin = h * 60 + m - 90;
+    const mh = Math.floor(totalMin / 60);
+    const mm = totalMin % 60;
+    return `Menübeginn: ${mh}:${mm.toString().padStart(2, "0")} Uhr`;
+  };
+  const menubeginn = getMenubeginn();
+
+  // ── Helpers ──────────────────────────────
   const handleSelectShow = (id: string) => {
     if (selectedShowId === id) return;
     setSelectedShowId(id);
@@ -229,14 +411,26 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   };
 
   const toggleExtra = (id: string) =>
-    setExtras(prev => prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]);
+    setSelectedExtras(prev => prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]);
 
-  const extrasTotal = extras.reduce((sum, id) => {
-    const e = EXTRAS.find(x => x.id === id)!;
+  // ── Totals ──────────────────────────────
+  const menuEntry      = MENUS.find(m => m.id === selectedMenu);
+  const menuTotal      = menuEntry ? menuEntry.price * qty : 0;
+
+  const stehtischEntry = STEHTISCHE.find(s => s.id === selectedStehtisch);
+  const stehtischTotal = stehtischEntry
+    ? (stehtischEntry.perPerson ? stehtischEntry.price * qty : stehtischEntry.price)
+    : 0;
+
+  const extrasTotal = selectedExtras.reduce((sum, id) => {
+    const e = STEP4_EXTRAS.find(x => x.id === id)!;
     return sum + (e.perPerson ? e.price * qty : e.price);
   }, 0);
-  const total = seatPrice * qty + extrasTotal;
 
+  const total = seatPrice * qty + menuTotal + stehtischTotal + extrasTotal;
+  const fmt   = (n: number) => n % 1 === 0 ? `${n}` : n.toFixed(2);
+
+  // ── Flow control ──────────────────────────
   const canProceed = (() => {
     if (step === 1) return selectedShowId !== "" && selectedDateId !== null && selectedTimeId !== null;
     if (step === 2) return selectedSeat !== "";
@@ -244,21 +438,14 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   })();
 
   const nextStep = () => {
-    if (step < 4) setStep(s => s + 1);
+    if (step < 5) setStep(s => s + 1);
     else { alert("Vielen Dank! Ihre Buchung wird bearbeitet. ✨"); onClose(); }
   };
-
-  // Resolved entities for summary
-  const resolvedShow = SHOWS.find(s => s.id === selectedShowId);
-  const resolvedDates = SHOW_DATES[selectedShowId] ?? [];
-  const resolvedDate = resolvedDates.find(d => d.id === selectedDateId) ?? null;
-  const resolvedTime = resolvedDate?.times.find(t => t.id === selectedTimeId) ?? null;
 
   const dotClass  = (n: number) => `step-dot${step === n ? " active" : step > n ? " done" : ""}`;
   const lineClass = (n: number) => `step-line${step > n ? " done" : ""}`;
 
   // ── Render ───────────────────────────────
-
   return (
     <div className="modal-overlay active" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal">
@@ -268,10 +455,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
         <div className="modal-header">
           <h2>Jetzt buchen</h2>
           <div className="step-indicator">
-            {[1, 2, 3, 4].map((n, i) => (
+            {[1, 2, 3, 4, 5].map((n, i) => (
               <Fragment key={n}>
                 <div className={dotClass(n)}>{step > n ? "✓" : n}</div>
-                {i < 3 && <div className={lineClass(n)} />}
+                {i < 4 && <div className={lineClass(n)} />}
               </Fragment>
             ))}
           </div>
@@ -288,11 +475,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
         <div className="modal-body">
 
           {/* ══════════════════════════════════════
-              STEP 1 — Show + Datum & Uhrzeit
+              STEP 1 — Show & Termin
           ══════════════════════════════════════ */}
           {step === 1 && (
             <div>
-              {/* Show list */}
               <p className="step-hint">Wähle deine Show</p>
               <div className="show-list">
                 {SHOWS.map(show => (
@@ -301,17 +487,11 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                     className={`show-list-card${selectedShowId === show.id ? " selected" : ""}`}
                     onClick={() => handleSelectShow(show.id)}
                   >
-                    <div
-                      className="show-list-img"
-                      style={{ backgroundImage: `url('${show.image}')` }}
-                    />
+                    <div className="show-list-img" style={{ backgroundImage: `url('${show.image}')` }} />
                     <div className="show-list-info">
                       <div className="show-list-meta">
                         {show.badge && (
-                          <span
-                            className="show-list-badge"
-                            style={{ background: show.badgeColor }}
-                          >{show.badge}</span>
+                          <span className="show-list-badge" style={{ background: show.badgeColor }}>{show.badge}</span>
                         )}
                         <span className="show-list-duration">{show.duration}</span>
                         <span className="show-list-price">{show.price}</span>
@@ -319,21 +499,17 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                       <h4 className="show-list-name">{show.name}</h4>
                       <p className="show-list-desc">{show.desc}</p>
                     </div>
-                    <div className={`show-list-check${selectedShowId === show.id ? " visible" : ""}`}>
-                      ✓
-                    </div>
+                    <div className={`show-list-check${selectedShowId === show.id ? " visible" : ""}`}>✓</div>
                   </div>
                 ))}
               </div>
 
-              {/* Date & time section — appears when a show is selected */}
               {selectedShowId && (
                 <div className="date-section">
                   <div className="date-section-title">
                     <IconCalendar size={15} />
                     Datum &amp; Uhrzeit
                   </div>
-
                   <div className="date-cards">
                     {resolvedDates.map(d => {
                       const isActive = selectedDateId === d.id;
@@ -373,8 +549,6 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                       );
                     })}
                   </div>
-
-                  {/* Scarcity note for low-availability dates */}
                   {resolvedDate?.low && (
                     <div className="urgency-note" style={{ marginTop: 10 }}>
                       <span className="scarcity-dot" />
@@ -387,31 +561,27 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
           )}
 
           {/* ══════════════════════════════════════
-              STEP 2 — Saalplan
+              STEP 2 — Plätze
           ══════════════════════════════════════ */}
           {step === 2 && (
             <div>
-              <p className="step-hint">Wähle deine Platzkategorie im Saal</p>
+              <p className="step-hint-premium">
+                Wähle deinen Lieblingsplatz und erlebe Magie hautnah.
+              </p>
               <div className="seatmap-hint">
-                💡 Klicke auf eine Zone — goldene Sitze sind die ersten Reihen direkt vor der Bühne.
+                Goldene Sitze sind die ersten Reihen direkt vor der Bühne.
               </div>
 
               <div className="seatmap">
-                {/* Stage */}
                 <div className="seatmap-stage">
                   <div className="seatmap-stage-label">✦ &nbsp;BÜHNE &nbsp;✦</div>
                   <div className="seatmap-stage-sub">FLORIAN ZIMMER THEATER</div>
                 </div>
 
-                {/* Seat zones */}
                 {SEAT_ZONES.map(zone => {
-                  const cfg = ZONE_ROWS[zone.id];
-                  const dotCls =
-                    zone.id === "front-row" ? "golden-dot" :
-                    zone.id === "premium"   ? "premium-dot" : "standard-dot";
-                  const zoneCls =
-                    zone.id === "front-row" ? "golden-zone" :
-                    zone.id === "premium"   ? "premium-zone" : "standard-zone";
+                  const cfg     = ZONE_ROWS[zone.id];
+                  const dotCls  = zone.id === "front-row" ? "golden-dot"  : zone.id === "premium" ? "premium-dot" : "standard-dot";
+                  const zoneCls = zone.id === "front-row" ? "golden-zone" : zone.id === "premium" ? "premium-zone" : "standard-zone";
                   return (
                     <div
                       key={zone.id}
@@ -441,7 +611,6 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   );
                 })}
 
-                {/* VIP Loge */}
                 <div className="seatmap-loge-row">
                   <div className="loge-box" onClick={() => alert("VIP-Loge anfragen:\n📞 0731 7906 110\n✉ loge@florianzimmertheater.de")}>
                     <div className="loge-box-title">VIP Loge</div>
@@ -457,7 +626,6 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                 </div>
               </div>
 
-              {/* Legend */}
               <div style={{ display: "flex", gap: 20, margin: "14px 0 4px", fontSize: 11, color: "var(--muted)" }}>
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
                   <span style={{ width: 13, height: 9, borderRadius: "2px 2px 0 0", background: "var(--gold)", display: "inline-block" }} />
@@ -479,39 +647,176 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
           )}
 
           {/* ══════════════════════════════════════
-              STEP 3 — Extras
+              STEP 3 — Magicuisine & Pause
           ══════════════════════════════════════ */}
           {step === 3 && (
             <div>
-              <p className="step-hint">Mach den Abend noch unvergesslicher</p>
-              <div className="extras-step">
-                {EXTRAS.map(e => (
-                  <div
-                    key={e.id}
-                    className={`extra-opt${extras.includes(e.id) ? " selected" : ""}`}
-                    onClick={() => toggleExtra(e.id)}
-                  >
-                    <div className="extra-opt-check">{extras.includes(e.id) ? "✓" : ""}</div>
-                    <span className="extra-opt-icon">{e.icon}</span>
-                    <div className="extra-opt-info">
-                      <strong>{e.name}</strong>
-                      <p>{e.desc}</p>
+              {menubeginn && (
+                <div className="menubeginn-badge">
+                  <span className="menubeginn-dot" />
+                  {menubeginn}
+                </div>
+              )}
+
+              <div className="step3-intro">
+                <h3 className="step3-heading">Mach deinen Abend unvergesslich</h3>
+                <p className="step3-sub">Genieße ein exklusives 4-Gang-Menü in der Magicuisine.</p>
+              </div>
+
+              {/* Menu cards */}
+              <div className="menu-cards">
+                {MENUS.map(menu => {
+                  const isSelected = selectedMenu === menu.id;
+                  const isExpanded = expandedMenu === menu.id;
+                  return (
+                    <div
+                      key={menu.id}
+                      className={`menu-card${isSelected ? " selected" : ""}`}
+                      onClick={() => setSelectedMenu(isSelected ? "" : menu.id)}
+                    >
+                      <div className="menu-card-inner">
+                        {menu.badge && (
+                          <span
+                            className="menu-badge"
+                            style={{ background: menu.badgeColor ?? "var(--gold)" }}
+                          >
+                            {menu.badge}
+                          </span>
+                        )}
+                        <div className="menu-card-body">
+                          <div className="menu-card-main">
+                            <h4 className="menu-card-name">{menu.name}</h4>
+                            <p className="menu-card-tagline">{menu.tagline}</p>
+                            <div className="menu-card-price-row">
+                              <span className="menu-card-price">{menu.price} €</span>
+                              <span className="menu-card-per">/ Pers.</span>
+                              <span className="menu-card-includes">{menu.includes}</span>
+                            </div>
+                          </div>
+                          <div className={`menu-card-check${isSelected ? " visible" : ""}`}>✓</div>
+                        </div>
+
+                        {isExpanded && (
+                          <div className="menu-courses">
+                            <div className="menu-courses-label">Menüfolge</div>
+                            <ul className="menu-courses-list">
+                              {menu.courses.map((c, i) => <li key={i}>{c}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+
+                      <button
+                        className="menu-expand-btn"
+                        onClick={e => {
+                          e.stopPropagation();
+                          setExpandedMenu(isExpanded ? null : menu.id);
+                        }}
+                      >
+                        <span>{isExpanded ? "Weniger anzeigen" : "Menü ansehen"}</span>
+                        <span className={`menu-expand-chevron${isExpanded ? " open" : ""}`}>
+                          <IconChevronDown size={13} />
+                        </span>
+                      </button>
                     </div>
-                    <span className="extra-opt-price">
-                      {e.perPerson ? `${e.price} € / Pers.` : `${e.price} €`}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
+              </div>
+
+              {/* Stehtische / Pausenangebot */}
+              <div className="pause-section">
+                <div className="pause-section-header">
+                  <h4 className="pause-section-title">Dein reservierter Platz in der Pause</h4>
+                  <p className="pause-section-sub">
+                    Kein Anstehen – genieße die Pause entspannt an deinem reservierten Stehtisch.
+                  </p>
+                </div>
+
+                <div className="stehtisch-cards">
+                  {STEHTISCHE.map(st => {
+                    const isSel = selectedStehtisch === st.id;
+                    return (
+                      <div
+                        key={st.id}
+                        className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isSel ? " selected" : ""}`}
+                        onClick={() => setSelectedStehtisch(isSel ? "" : st.id)}
+                      >
+                        {st.badge && (
+                          <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>
+                            {st.badge}
+                          </span>
+                        )}
+                        <div className="stehtisch-top">
+                          <h5 className="stehtisch-name">{st.name}</h5>
+                          <span className="stehtisch-price">{st.priceLabel}</span>
+                        </div>
+                        <p className="stehtisch-subtitle">{st.subtitle}</p>
+                        <ul className="stehtisch-items">
+                          {st.items.map((item, i) => <li key={i}>{item}</li>)}
+                        </ul>
+                        <div className={`stehtisch-check${isSel ? " visible" : ""}`}>✓ Ausgewählt</div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
 
           {/* ══════════════════════════════════════
-              STEP 4 — Kontakt & Bezahlung
+              STEP 4 — Extras & Sicherheit
           ══════════════════════════════════════ */}
           {step === 4 && (
             <div>
-              {/* Order summary */}
+              <div className="step4-intro">
+                <h3 className="step4-heading">Letzte Details</h3>
+                <p className="step4-sub">Optionale Ergänzungen für euer perfektes Erlebnis.</p>
+              </div>
+
+              <div className="extras4-list">
+                {STEP4_EXTRAS.map(e => {
+                  const isSel  = selectedExtras.includes(e.id);
+                  const price  = e.perPerson ? `${e.price} € / Pers.` : `${e.price} €`;
+                  return (
+                    <div
+                      key={e.id}
+                      className={`extras4-card${isSel ? " selected" : ""}`}
+                      onClick={() => toggleExtra(e.id)}
+                    >
+                      <div className="extras4-icon">{e.icon}</div>
+                      <div className="extras4-info">
+                        <div className="extras4-top">
+                          <strong className="extras4-name">{e.name}</strong>
+                          <span className="extras4-price">{price}</span>
+                        </div>
+                        <p className="extras4-desc">{e.desc}</p>
+                        {e.id === "parking" ? (
+                          <span className="extras4-scarcity">
+                            <span className="scarcity-dot" style={{ background: "#E74C3C", animation: "none" }} />
+                            {e.note}
+                          </span>
+                        ) : (
+                          <span className="extras4-note" style={{ color: e.noteColor }}>{e.note}</span>
+                        )}
+                      </div>
+                      <div className={`extras4-check${isSel ? " visible" : ""}`}>✓</div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="florian-note">
+                <span className="florian-note-icon">📸</span>
+                <p>Nach der Show nimmt sich Florian Zimmer gerne Zeit für persönliche Fotos mit den Gästen.</p>
+              </div>
+            </div>
+          )}
+
+          {/* ══════════════════════════════════════
+              STEP 5 — Checkout
+          ══════════════════════════════════════ */}
+          {step === 5 && (
+            <div>
               <div className="order-summary">
                 <div className="order-row" style={{ flexDirection: "column", gap: 2, alignItems: "flex-start" }}>
                   <span style={{ fontWeight: 600 }}>{resolvedShow?.name ?? "Show"}</span>
@@ -520,11 +825,25 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </span>
                 </div>
                 <div className="order-row">
-                  <span>{qty} × {selectedSeat === "front-row" ? "Front Row VIP" : selectedSeat === "premium" ? "Premium" : "Parterre"}</span>
+                  <span>
+                    {qty} × {selectedSeat === "front-row" ? "Front Row VIP" : selectedSeat === "premium" ? "Premium" : "Parterre"}
+                  </span>
                   <span>{seatPrice * qty} €</span>
                 </div>
-                {extras.map(id => {
-                  const e = EXTRAS.find(x => x.id === id)!;
+                {menuEntry && (
+                  <div className="order-row">
+                    <span>{qty} × {menuEntry.name}</span>
+                    <span>{menuTotal} €</span>
+                  </div>
+                )}
+                {stehtischEntry && (
+                  <div className="order-row">
+                    <span>{stehtischEntry.name}</span>
+                    <span>{fmt(stehtischTotal)} €</span>
+                  </div>
+                )}
+                {selectedExtras.map(id => {
+                  const e = STEP4_EXTRAS.find(x => x.id === id)!;
                   const p = e.perPerson ? e.price * qty : e.price;
                   return (
                     <div key={id} className="order-row">
@@ -533,11 +852,11 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   );
                 })}
                 <div className="order-row total">
-                  <span>Gesamtbetrag</span><span>{total} €</span>
+                  <span>Gesamtbetrag</span>
+                  <span>{fmt(total)} €</span>
                 </div>
               </div>
 
-              {/* Payment */}
               <div className="pay-methods">
                 <button className="pay-btn">🍎 Apple Pay</button>
                 <button className="pay-btn">G Google Pay</button>
@@ -582,7 +901,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
             disabled={!canProceed}
             style={!canProceed ? { opacity: 0.38, cursor: "not-allowed", boxShadow: "none" } : {}}
           >
-            {step === 4 ? "Jetzt buchen ✦" : "Weiter →"}
+            {step === 5 ? "Jetzt buchen ✦" : "Weiter →"}
           </button>
         </div>
       </div>

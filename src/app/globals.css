@@ -664,3 +664,514 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   margin-left: 3px;
 }
 
+/* ══════════════════════════════════════════════════
+   PREMIUM STEP HINT (Step 2)
+══════════════════════════════════════════════════ */
+.step-hint-premium {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 18px;
+  font-family: var(--font-playfair), serif;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════
+   STEP 3 — INTRO
+══════════════════════════════════════════════════ */
+.menubeginn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,168,76,0.07);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 100px;
+  padding: 6px 14px 6px 10px;
+  font-size: 12px;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+  letter-spacing: 0.2px;
+}
+.menubeginn-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: pulse-dot 2s infinite;
+}
+
+.step3-intro { margin-bottom: 22px; }
+.step3-heading {
+  font-size: 22px;
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.step3-sub {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════════
+   MENU CARDS — Fine Dining style
+══════════════════════════════════════════════════ */
+.menu-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+@media (max-width: 540px) { .menu-cards { grid-template-columns: 1fr; } }
+
+.menu-card {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+.menu-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.menu-card.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.06);
+  box-shadow: 0 0 22px rgba(201,168,76,0.1);
+}
+
+.menu-card-inner {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.menu-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  color: #0a0a0a;
+}
+
+.menu-card-body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.menu-card-main { flex: 1; min-width: 0; }
+
+.menu-card-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+  font-family: var(--font-playfair), serif;
+  line-height: 1.3;
+}
+.menu-card-tagline {
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.menu-card-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.menu-card-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: var(--font-playfair), serif;
+  line-height: 1;
+}
+.menu-card-per {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+}
+.menu-card-includes {
+  font-size: 11px;
+  color: rgba(255,255,255,0.38);
+  margin-left: 2px;
+}
+
+.menu-card-check {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #0a0a0a;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0; transform: scale(0.4);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.menu-card-check.visible { opacity: 1; transform: scale(1); }
+
+/* Expandable courses */
+.menu-courses {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 12px;
+}
+.menu-courses-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+.menu-courses-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.menu-courses-list li {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+.menu-courses-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0; top: 1px;
+  font-size: 7px;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+/* Expand/collapse button — full-width bottom bar */
+.menu-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 9px 18px;
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: transparent;
+  color: rgba(255,255,255,0.38);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  margin-top: auto;
+}
+.menu-expand-btn:hover {
+  color: var(--gold-light);
+  background: rgba(255,255,255,0.02);
+}
+.menu-card.selected .menu-expand-btn {
+  border-top-color: rgba(201,168,76,0.2);
+}
+
+.menu-expand-chevron {
+  display: flex;
+  transition: transform 0.2s ease;
+}
+.menu-expand-chevron.open { transform: rotate(180deg); }
+
+/* ══════════════════════════════════════════════════
+   PAUSE SECTION — Stehtische
+══════════════════════════════════════════════════ */
+.pause-section {
+  margin-top: 32px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.pause-section-header { margin-bottom: 18px; }
+.pause-section-title {
+  font-size: 16px;
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 5px;
+}
+.pause-section-sub {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+.stehtisch-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 560px) { .stehtisch-cards { grid-template-columns: 1fr; } }
+
+.stehtisch-card {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stehtisch-card:hover {
+  border-color: rgba(201,168,76,0.28);
+  background: rgba(255,255,255,0.05);
+}
+.stehtisch-card.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.07);
+}
+
+/* Gold highlight — always visually prominent */
+.stehtisch-card.gold-highlight {
+  border-color: rgba(201,168,76,0.45);
+  background: rgba(201,168,76,0.04);
+}
+.stehtisch-card.gold-highlight:hover {
+  border-color: rgba(201,168,76,0.65);
+  background: rgba(201,168,76,0.08);
+}
+.stehtisch-card.gold-highlight.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  box-shadow: 0 0 20px rgba(201,168,76,0.12);
+}
+
+/* Diamond */
+.stehtisch-card.diamond-highlight {
+  border-color: rgba(255,255,255,0.14);
+}
+
+.stehtisch-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+.stehtisch-badge.gold-badge {
+  background: rgba(201,168,76,0.18);
+  color: var(--gold-light);
+}
+.stehtisch-badge.diamond-badge {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 1px;
+}
+
+.stehtisch-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.stehtisch-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  font-family: var(--font-playfair), serif;
+}
+.stehtisch-card.gold-highlight .stehtisch-name { color: var(--gold-light); }
+.stehtisch-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.stehtisch-subtitle {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.4;
+  margin-top: -4px;
+}
+
+.stehtisch-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  margin-top: 4px;
+}
+.stehtisch-items li {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.55);
+  padding-left: 11px;
+  position: relative;
+  line-height: 1.4;
+}
+.stehtisch-items li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  color: var(--gold);
+  font-size: 16px;
+  line-height: 0.85;
+}
+
+.stehtisch-check {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  margin-top: 2px;
+}
+.stehtisch-check.visible { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════════════════════════
+   STEP 4 — EXTRAS & SICHERHEIT
+══════════════════════════════════════════════════ */
+.step4-intro { margin-bottom: 24px; }
+.step4-heading {
+  font-size: 22px;
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.step4-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+}
+
+.extras4-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.extras4-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  position: relative;
+}
+.extras4-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.extras4-card.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+
+.extras4-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+.extras4-info { flex: 1; min-width: 0; }
+.extras4-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+.extras4-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+}
+.extras4-price {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.extras4-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.extras4-scarcity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #E74C3C;
+}
+.extras4-note {
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.extras4-check {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #0a0a0a;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.4);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.extras4-check.visible { opacity: 1; transform: scale(1); }
+
+/* Florian Foto note */
+.florian-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.14);
+  border-radius: 10px;
+}
+.florian-note-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.florian-note p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════════════════
+   STEP LABEL MOBILE (5 labels)
+══════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .step-dot { width: 24px; height: 24px; font-size: 10px; }
+  .step-label-text { font-size: 8.5px; letter-spacing: 0.3px; }
+  .menu-card-price { font-size: 19px; }
+  .stehtisch-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stehtisch-name { font-size: 13px; }
+  .extras4-top { flex-direction: column; gap: 3px; }
+}
+
