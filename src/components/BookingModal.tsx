@@ -263,7 +263,38 @@ const ZONE_ROWS: Record<string, { taken: number[]; cols: number; rows: number[] 
   "parterre":  { taken: STD_TAKEN,  cols: 12, rows: [0,1,2,3,4,5] },
 };
 
-const STEP_LABELS = ["Show & Termin", "Plätze", "Magicuisine", "Extras", "Checkout"];
+const VIP_BUNDLES = [
+  {
+    id: "kids",
+    name: "Kids Magic Bundle",
+    price: 29,
+    badge: "Für Kinder",
+    badgeColor: "#6d28d9",
+    desc: "Das perfekte Mitbringsel für kleine Zauberlehrlinge. Enthält Profi-Requisiten im Miniformat und kindgerechte Anleitungen zum Nachmachen zuhause.",
+    items: [
+      "Profi-Zauberstab inkl. Anleitung",
+      "Münzentrick-Set",
+      "Seidentücher (3 Farben)",
+      "Persönliche Zauberkarte von Florian Zimmer",
+    ],
+  },
+  {
+    id: "premium",
+    name: "Premium Magic Bundle",
+    price: 49,
+    badge: "Limitiert",
+    badgeColor: "#C9A84C",
+    desc: "Exklusives Erinnerungspaket für Magie-Liebhaber. Nur in limitierter Stückzahl erhältlich – direkt nach der Show abholbar.",
+    items: [
+      "Nummeriertes Profi-Kartendeck (signiert)",
+      "Magicuvée Pralinés (handgemacht)",
+      "Exklusive Postkarte mit Widmung",
+      "Backstage-Zertifikat",
+    ],
+  },
+];
+
+const STEP_LABELS = ["Show & Termin", "Plätze", "Magicuisine", "Pause & VIP", "Magie für Zuhause", "Checkout"];
 
 // ─────────────────────────────────────────────
 //  SVG ICONS
@@ -351,7 +382,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const [menuQtys,      setMenuQtys]      = useState<Record<string, number>>({});
   const [stehtischQtys, setStehtischQtys] = useState<Record<string, number>>({});
   const [parkingQty,    setParkingQty]    = useState(0);
-  const [flexSelected,  setFlexSelected]  = useState(false);
+  const [vipSilverQty,  setVipSilverQty]  = useState(0);
+  const [vipGoldQty,    setVipGoldQty]    = useState(0);
+  const [flexQty,       setFlexQty]       = useState(0);
+  const [bundleQtys,    setBundleQtys]    = useState<Record<string, number>>({});
 
   // ── Menu expand state ─────────────────────
   const [expandedMenu,  setExpandedMenu]  = useState<string | null>(null);
@@ -364,7 +398,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
       setMenuQtys({});
       setStehtischQtys({});
       setParkingQty(0);
-      setFlexSelected(false);
+      setVipSilverQty(0);
+      setVipGoldQty(0);
+      setFlexQty(0);
+      setBundleQtys({});
       setExpandedMenu(null);
       if (initialShow) {
         setSelectedShowId(initialShow);
@@ -443,14 +480,34 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const incParking = () => setParkingQty(q => Math.min(7, q + 1));
   const decParking = () => setParkingQty(q => Math.max(0, q - 1));
 
-  // Flex: immer = Ticketanzahl, nur an/aus
-  const flexTotal = flexSelected ? qty * 10 : 0;
+  // VIP Getränkeflat
+  const incVipSilver = () => setVipSilverQty(q => Math.min(qty, q + 1));
+  const decVipSilver = () => {
+    const next = Math.max(0, vipSilverQty - 1);
+    setVipSilverQty(next);
+    setVipGoldQty(g => Math.min(g, next));
+  };
+  const incVipGold = () => {
+    if (vipSilverQty > 0) setVipGoldQty(q => Math.min(vipSilverQty, q + 1));
+  };
+  const decVipGold = () => setVipGoldQty(q => Math.max(0, q - 1));
+
+  // Flex
+  const incFlex = () => setFlexQty(q => Math.min(qty, q + 1));
+  const decFlex = () => setFlexQty(q => Math.max(0, q - 1));
+
+  // Bundles
+  const incBundle = (id: string) => setBundleQtys(p => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
+  const decBundle = (id: string) => setBundleQtys(p => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
   // ── Price totals ──────────────────────────
   const menuTotal      = MENUS.reduce((s, m) => s + (menuQtys[m.id] ?? 0) * m.price, 0);
   const stehtischTotal = STEHTISCHE.reduce((s, st) => s + (stehtischQtys[st.id] ?? 0) * st.price, 0);
+  const vipTotal       = vipSilverQty * 19 + vipGoldQty * 10;
   const parkingTotal   = parkingQty * 15;
-  const total          = seatPrice * qty + menuTotal + stehtischTotal + parkingTotal + flexTotal;
+  const flexTotal      = flexQty * 10;
+  const bundleTotal    = VIP_BUNDLES.reduce((s, b) => s + (bundleQtys[b.id] ?? 0) * b.price, 0);
+  const total          = seatPrice * qty + menuTotal + stehtischTotal + vipTotal + parkingTotal + flexTotal + bundleTotal;
 
   // German-style price formatter
   const fmt = (n: number) => n % 1 === 0 ? `${n}` : n.toFixed(2).replace(".", ",");
@@ -463,7 +520,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   })();
 
   const nextStep = () => {
-    if (step < 5) setStep(s => s + 1);
+    if (step < 6) setStep(s => s + 1);
     else { alert("Vielen Dank! Ihre Buchung wird bearbeitet. ✨"); onClose(); }
   };
 
@@ -480,10 +537,10 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
         <div className="modal-header">
           <h2>Jetzt buchen</h2>
           <div className="step-indicator">
-            {[1, 2, 3, 4, 5].map((n, i) => (
+            {[1, 2, 3, 4, 5, 6].map((n, i) => (
               <Fragment key={n}>
                 <div className={dotClass(n)}>{step > n ? "✓" : n}</div>
-                {i < 4 && <div className={lineClass(n)} />}
+                {i < 5 && <div className={lineClass(n)} />}
               </Fragment>
             ))}
           </div>
@@ -755,6 +812,87 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                 })}
               </div>
 
+            </div>
+          )}
+
+          {/* ══════════════════════════════════════
+              STEP 4 — Pause & VIP
+          ══════════════════════════════════════ */}
+          {step === 4 && (
+            <div>
+              <div className="step4-intro">
+                <h3 className="step4-heading">Pause &amp; VIP</h3>
+                <p className="step4-sub">Mach die Pause und das Rahmenprogramm zu deinem Highlight.</p>
+              </div>
+
+              {/* ── VIP Getränkeflat ── */}
+              <div style={{ marginBottom: 28 }}>
+                <div className="pause-section-header" style={{ marginBottom: 14 }}>
+                  <h4 className="pause-section-title">VIP Getränkeflat</h4>
+                  <p className="pause-section-sub">Unbegrenzte Getränke an der Magic-Bar – ab 1h vor der Show und in der Pause.</p>
+                </div>
+
+                <div className="extras4-list" style={{ marginBottom: 0 }}>
+                  {/* Silver */}
+                  <div className={`extras4-card${vipSilverQty > 0 ? " selected" : ""}`}>
+                    <div className="extras4-icon">🍹</div>
+                    <div className="extras4-info">
+                      <div className="extras4-top">
+                        <strong className="extras4-name">VIP Getränkeflat Silver</strong>
+                        <span className="extras4-price-block">
+                          <span className="extras4-unit-price-inline">19 €</span>
+                          <span className="extras4-price-meta">/ Pers.</span>
+                        </span>
+                      </div>
+                      <p className="extras4-desc">
+                        Genieße ab 1 Stunde vor Showbeginn und in der Pause alle alkoholfreien Getränke
+                        an der Magic-Bar im Foyer. Ein Kind bis 12 Jahre trinkt kostenlos mit.
+                        Gültig ausschließlich an der Foyer-Bar, nicht im Restaurant Magicuisine.
+                      </p>
+                    </div>
+                    <div className="extras4-qty-col">
+                      <span className="extras4-unit-price" style={{ fontSize: 14 }}>{vipSilverQty > 0 ? `${vipSilverQty * 19} €` : ""}</span>
+                      <QtyControl
+                        value={vipSilverQty}
+                        onDec={decVipSilver}
+                        onInc={incVipSilver}
+                        canInc={vipSilverQty < qty}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Gold Upgrade — nur wenn Silver > 0 */}
+                  {vipSilverQty > 0 && (
+                    <div className={`extras4-card vip-gold-upgrade${vipGoldQty > 0 ? " selected" : ""}`}>
+                      <div className="extras4-icon">✨</div>
+                      <div className="extras4-info">
+                        <div className="extras4-top">
+                          <strong className="extras4-name">Gold Upgrade</strong>
+                          <span className="extras4-price-block">
+                            <span className="extras4-unit-price-inline" style={{ color: "var(--gold-light)" }}>+10 €</span>
+                            <span className="extras4-price-meta">/ Pers.</span>
+                          </span>
+                        </div>
+                        <p className="extras4-desc">
+                          Upgrade auf GOLD: Zusätzlich Bier, Wein, Sekt und Magicuvée inklusive.
+                        </p>
+                        <span className="vip-gold-limit-note">
+                          Max. {vipSilverQty} von {vipSilverQty} Silver-Bändchen upgradebare
+                        </span>
+                      </div>
+                      <div className="extras4-qty-col">
+                        <QtyControl
+                          value={vipGoldQty}
+                          onDec={decVipGold}
+                          onInc={incVipGold}
+                          canInc={vipGoldQty < vipSilverQty}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* ── Stehtische ── */}
               <div className="pause-section">
                 <div className="pause-section-header">
@@ -764,7 +902,6 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </p>
                 </div>
 
-                {/* Stehtisch-Kapazität */}
                 {stehtischPersonsUsed > 0 && (
                   <div className="upsell-capacity-bar" style={{ marginBottom: 14 }}>
                     <span className="capacity-dot" />
@@ -788,26 +925,20 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                             {st.badge}
                           </span>
                         )}
-
                         <div className="stehtisch-top">
                           <h5 className="stehtisch-name">{st.name}</h5>
                           <span className="stehtisch-price">{st.priceLabel}</span>
                         </div>
-
-                        {/* "Für 2 Personen" — prominent for pair packages */}
                         {st.personsPerUnit === 2 && (
                           <span className="stehtisch-for-two">Für 2 Personen</span>
                         )}
                         {st.personsPerUnit === 1 && (
                           <span className="stehtisch-per-person">Pro Person</span>
                         )}
-
                         <p className="stehtisch-subtitle">{st.subtitle}</p>
-
                         <ul className="stehtisch-items">
                           {st.items.map((item, i) => <li key={i}>{item}</li>)}
                         </ul>
-
                         <div className="stehtisch-qty-area">
                           <QtyControl
                             value={sq}
@@ -821,22 +952,9 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   })}
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* ══════════════════════════════════════
-              STEP 4 — Extras & Sicherheit
-          ══════════════════════════════════════ */}
-          {step === 4 && (
-            <div>
-              <div className="step4-intro">
-                <h3 className="step4-heading">Letzte Details</h3>
-                <p className="step4-sub">Optionale Ergänzungen für euer perfektes Erlebnis.</p>
-              </div>
-
-              <div className="extras4-list">
-
-                {/* VIP Parking */}
+              {/* ── VIP Parkplatz & Flex ── */}
+              <div className="extras4-list" style={{ marginTop: 28 }}>
                 <div className={`extras4-card${parkingQty > 0 ? " selected" : ""}`}>
                   <div className="extras4-icon">🚗</div>
                   <div className="extras4-info">
@@ -858,18 +976,14 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </div>
                 </div>
 
-                {/* Flex-Option — Toggle, qty automatisch = Ticketanzahl */}
-                <div
-                  className={`extras4-card extras4-card-flex${flexSelected ? " selected" : ""}`}
-                  onClick={() => setFlexSelected(f => !f)}
-                >
+                <div className={`extras4-card${flexQty > 0 ? " selected" : ""}`}>
                   <div className="extras4-icon">🔄</div>
                   <div className="extras4-info">
                     <div className="extras4-top">
                       <strong className="extras4-name">Flex-Option</strong>
                       <span className="extras4-price-block">
-                        <span className="extras4-unit-price-inline">10,00 €</span>
-                        <span className="extras4-price-meta">/ Ticket</span>
+                        <span className="extras4-unit-price-inline">10 €</span>
+                        <span className="extras4-price-meta">/ Gast</span>
                       </span>
                     </div>
                     <p className="extras4-desc">
@@ -877,17 +991,19 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                       kostenfrei auf einen Ticketgutschein umbuchen. Pro Flex-Option ist je ein Gast
                       inkl. aller Zusatzleistungen wie Magic-Menü, etc. abgesichert.
                     </p>
-                    <div className="flex-auto-row">
-                      <span className="flex-auto-badge">
-                        Automatisch für alle {qty} Ticket{qty !== 1 ? "s" : ""}
-                        {" "}· {fmt(flexTotal)} €
-                      </span>
-                    </div>
                     <span className="extras4-note" style={{ color: "var(--muted)" }}>
-                      inkl. MwSt &amp; VVK-Gebühren
+                      inkl. MwSt &amp; VVK-Gebühren · max. {qty} (Anzahl Tickets)
                     </span>
                   </div>
-                  <div className={`extras4-check${flexSelected ? " visible" : ""}`}>✓</div>
+                  <div className="extras4-qty-col">
+                    <span className="extras4-unit-price">{flexQty > 0 ? `${flexTotal} €` : ""}</span>
+                    <QtyControl
+                      value={flexQty}
+                      onDec={decFlex}
+                      onInc={incFlex}
+                      canInc={flexQty < qty}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -899,9 +1015,62 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
           )}
 
           {/* ══════════════════════════════════════
-              STEP 5 — Checkout
+              STEP 5 — Magie für Zuhause
           ══════════════════════════════════════ */}
           {step === 5 && (
+            <div>
+              <div className="step4-intro">
+                <h3 className="step4-heading">Magie für Zuhause</h3>
+                <p className="step4-sub">Unvergessliche Erinnerungen zum Mitnehmen.</p>
+              </div>
+
+              <div className="extras4-list">
+                {VIP_BUNDLES.map(bundle => {
+                  const bq = bundleQtys[bundle.id] ?? 0;
+                  return (
+                    <div key={bundle.id} className={`extras4-card${bq > 0 ? " selected" : ""}`}>
+                      <div className="extras4-icon">🎁</div>
+                      <div className="extras4-info">
+                        <div className="extras4-top">
+                          <div>
+                            {bundle.badge && (
+                              <span
+                                className="menu-badge"
+                                style={{ background: bundle.badgeColor, display: "inline-flex", marginBottom: 4 }}
+                              >
+                                {bundle.badge}
+                              </span>
+                            )}
+                            <strong className="extras4-name" style={{ display: "block" }}>{bundle.name}</strong>
+                          </div>
+                          <span className="extras4-price-block">
+                            <span className="extras4-unit-price-inline">{bundle.price} €</span>
+                          </span>
+                        </div>
+                        <p className="extras4-desc">{bundle.desc}</p>
+                        <ul className="stehtisch-items" style={{ marginTop: 4 }}>
+                          {bundle.items.map((item, i) => <li key={i}>{item}</li>)}
+                        </ul>
+                      </div>
+                      <div className="extras4-qty-col" style={{ alignSelf: "center" }}>
+                        <QtyControl
+                          value={bq}
+                          onDec={() => decBundle(bundle.id)}
+                          onInc={() => incBundle(bundle.id)}
+                          canInc={true}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* ══════════════════════════════════════
+              STEP 6 — Checkout
+          ══════════════════════════════════════ */}
+          {step === 6 && (
             <div>
               <div className="order-summary">
                 {/* Show + Date */}
@@ -938,6 +1107,19 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                     </div>
                   ) : null;
                 })}
+                {/* VIP Getränkeflat */}
+                {vipSilverQty > 0 && (
+                  <div className="order-row">
+                    <span>{vipSilverQty} × VIP Getränkeflat Silver</span>
+                    <span>{vipSilverQty * 19} €</span>
+                  </div>
+                )}
+                {vipGoldQty > 0 && (
+                  <div className="order-row">
+                    <span>{vipGoldQty} × Gold Upgrade</span>
+                    <span>{vipGoldQty * 10} €</span>
+                  </div>
+                )}
                 {/* Parking */}
                 {parkingQty > 0 && (
                   <div className="order-row">
@@ -946,12 +1128,22 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   </div>
                 )}
                 {/* Flex */}
-                {flexSelected && (
+                {flexQty > 0 && (
                   <div className="order-row">
-                    <span>{qty} × Flex-Option</span>
-                    <span>{fmt(flexTotal)} €</span>
+                    <span>{flexQty} × Flex-Option</span>
+                    <span>{flexTotal} €</span>
                   </div>
                 )}
+                {/* Bundles */}
+                {VIP_BUNDLES.map(b => {
+                  const bq = bundleQtys[b.id] ?? 0;
+                  return bq > 0 ? (
+                    <div key={b.id} className="order-row">
+                      <span>{bq} × {b.name}</span>
+                      <span>{bq * b.price} €</span>
+                    </div>
+                  ) : null;
+                })}
                 <div className="order-row total">
                   <span>Gesamtbetrag</span>
                   <span>{fmt(total)} €</span>
@@ -1002,7 +1194,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
             disabled={!canProceed}
             style={!canProceed ? { opacity: 0.38, cursor: "not-allowed", boxShadow: "none" } : {}}
           >
-            {step === 5 ? "Jetzt buchen ✦" : "Weiter →"}
+            {step === 6 ? "Jetzt buchen ✦" : "Weiter →"}
           </button>
         </div>
       </div>
