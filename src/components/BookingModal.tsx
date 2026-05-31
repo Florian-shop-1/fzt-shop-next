@@ -389,8 +389,9 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const [bundleQtys,    setBundleQtys]    = useState<Record<string, number>>({});
 
   // ── Menu expand state ─────────────────────
-  const [expandedMenu,   setExpandedMenu]   = useState<string | null>(null);
-  const [showMenuCards,  setShowMenuCards]  = useState(false);
+  const [expandedMenu,       setExpandedMenu]       = useState<string | null>(null);
+  const [showMenuCards,      setShowMenuCards]      = useState(false);
+  const [showStehtischCards, setShowStehtischCards] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -406,6 +407,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
       setBundleQtys({});
       setExpandedMenu(null);
       setShowMenuCards(false);
+      setShowStehtischCards(false);
       if (initialShow) {
         setSelectedShowId(initialShow);
         setSelectedDateId(null);
@@ -960,62 +962,125 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
 
               {/* ── Stehtische ── */}
               <div className="pause-section">
-                <div className="pause-section-header">
-                  <h4 className="pause-section-title">Dein reservierter Platz in der Pause</h4>
-                  <p className="pause-section-sub">
-                    Kein Anstehen – genieße die Pause entspannt an deinem reservierten Stehtisch.
-                  </p>
-                </div>
+                {!showStehtischCards ? (
+                  /* Hero: Stehtisch-Erlebnis verkaufen */
+                  <div className="mc-hero">
+                    <div className="mc-hero-img-wrap">
+                      <img
+                        src="https://tourismus.ulm.de/_thumbnails/9422_11_01_magiccuisine.jpg"
+                        alt="Magicuisine Foyer Bar"
+                        className="mc-hero-img"
+                        style={{ objectPosition: "center 20%" }}
+                      />
+                      <div className="mc-hero-img-overlay" />
+                      <span className="mc-hero-img-badge">✦ Kein Anstehen in der Pause</span>
+                    </div>
 
-                {stehtischPersonsUsed > 0 && (
-                  <div className="upsell-capacity-bar" style={{ marginBottom: 14 }}>
-                    <span className="capacity-dot" />
-                    <span>{stehtischPersonsUsed} von {qty} Personen versorgt</span>
-                    {stehtischPersonsUsed === qty && <span className="capacity-full">Alle versorgt</span>}
-                  </div>
-                )}
+                    <div className="mc-hero-body">
+                      <h3 className="mc-hero-headline">
+                        Dein reservierter Platz wartet bereits.
+                      </h3>
+                      <p className="mc-hero-text">
+                        Kein Gedränge, kein Suchen — genieße die Showpause entspannt
+                        mit Getränken und Snacks an deinem eigenen Stehtisch im Foyer.
+                      </p>
 
-                <div className="stehtisch-cards">
-                  {STEHTISCHE.map(st => {
-                    const sq      = stehtischQtys[st.id] ?? 0;
-                    const isActive = sq > 0;
-                    const canAdd  = canIncStehtisch(st.personsPerUnit);
-                    return (
-                      <div
-                        key={st.id}
-                        className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}`}
-                      >
-                        {st.badge && (
-                          <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>
-                            {st.badge}
-                          </span>
-                        )}
-                        <div className="stehtisch-top">
-                          <h5 className="stehtisch-name">{st.name}</h5>
-                          <span className="stehtisch-price">{st.priceLabel}</span>
-                        </div>
-                        {st.personsPerUnit === 2 && (
-                          <span className="stehtisch-for-two">Für 2 Personen</span>
-                        )}
-                        {st.personsPerUnit === 1 && (
-                          <span className="stehtisch-per-person">Pro Person</span>
-                        )}
-                        <p className="stehtisch-subtitle">{st.subtitle}</p>
-                        <ul className="stehtisch-items">
-                          {st.items.map((item, i) => <li key={i}>{item}</li>)}
-                        </ul>
-                        <div className="stehtisch-qty-area">
-                          <QtyControl
-                            value={sq}
-                            onDec={() => decStehtisch(st.id)}
-                            onInc={() => incStehtisch(st.id, st.personsPerUnit)}
-                            canInc={canAdd}
-                          />
-                        </div>
+                      <ul className="mc-hero-benefits">
+                        <li><span className="mc-benefit-icon">🥂</span>Reservierter Platz garantiert</li>
+                        <li><span className="mc-benefit-icon">🍿</span>Getränke &amp; Snacks inklusive</li>
+                        <li><span className="mc-benefit-icon">✨</span>Kein Anstehen, kein Warten</li>
+                        <li><span className="mc-benefit-icon">🎭</span>Direkt im Foyer des Theaters</li>
+                      </ul>
+
+                      <div className="mc-hero-price-row">
+                        <span className="mc-hero-price-label">ab</span>
+                        <span className="mc-hero-price">17,50 €</span>
+                        <span className="mc-hero-price-per">pro Person</span>
                       </div>
-                    );
-                  })}
-                </div>
+
+                      <button
+                        className="mc-hero-cta"
+                        onClick={() => setShowStehtischCards(true)}
+                      >
+                        Stehtisch auswählen
+                      </button>
+
+                      <button
+                        className="mc-hero-skip"
+                        onClick={() => setShowStehtischCards(true)}
+                        style={{ display: "none" }}
+                      >
+                        {/* intentionally hidden — Stehtisch ist optional, einfach nicht buchen */}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  /* Stehtisch-Karten */
+                  <>
+                    <div className="mc-confirmed-bar" style={{ marginBottom: 18 }}>
+                      <div className="mc-confirmed-left">
+                        <span className="mc-confirmed-check">✦</span>
+                        <span className="mc-confirmed-label">Stehtisch in der Pause</span>
+                      </div>
+                      <button
+                        className="mc-confirmed-remove"
+                        onClick={() => { setShowStehtischCards(false); setStehtischQtys({}); }}
+                      >
+                        entfernen
+                      </button>
+                    </div>
+
+                    {stehtischPersonsUsed > 0 && (
+                      <div className="upsell-capacity-bar" style={{ marginBottom: 14 }}>
+                        <span className="capacity-dot" />
+                        <span>{stehtischPersonsUsed} von {qty} Personen versorgt</span>
+                        {stehtischPersonsUsed === qty && <span className="capacity-full">Alle versorgt</span>}
+                      </div>
+                    )}
+
+                    <div className="stehtisch-cards">
+                      {STEHTISCHE.map(st => {
+                        const sq       = stehtischQtys[st.id] ?? 0;
+                        const isActive = sq > 0;
+                        const canAdd   = canIncStehtisch(st.personsPerUnit);
+                        return (
+                          <div
+                            key={st.id}
+                            className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}`}
+                          >
+                            {st.badge && (
+                              <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>
+                                {st.badge}
+                              </span>
+                            )}
+                            <div className="stehtisch-top">
+                              <h5 className="stehtisch-name">{st.name}</h5>
+                              <span className="stehtisch-price">{st.priceLabel}</span>
+                            </div>
+                            {st.personsPerUnit === 2 && (
+                              <span className="stehtisch-for-two">Für 2 Personen</span>
+                            )}
+                            {st.personsPerUnit === 1 && (
+                              <span className="stehtisch-per-person">Pro Person</span>
+                            )}
+                            <p className="stehtisch-subtitle">{st.subtitle}</p>
+                            <ul className="stehtisch-items">
+                              {st.items.map((item, i) => <li key={i}>{item}</li>)}
+                            </ul>
+                            <div className="stehtisch-qty-area">
+                              <QtyControl
+                                value={sq}
+                                onDec={() => decStehtisch(st.id)}
+                                onInc={() => incStehtisch(st.id, st.personsPerUnit)}
+                                canInc={canAdd}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* ── VIP Parkplatz & Flex ── */}
