@@ -1401,3 +1401,196 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   margin-top: 4px;
 }
 
+/* ══════════════════════════════════════════════════
+   MAGICUISINE HERO — Step 3
+══════════════════════════════════════════════════ */
+.mc-hero {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(255,255,255,0.02);
+}
+
+/* Image section */
+.mc-hero-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+.mc-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+.mc-hero-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,8,0.1) 0%,
+    rgba(8,8,8,0.55) 70%,
+    rgba(8,8,8,0.85) 100%
+  );
+}
+.mc-hero-img-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(201,168,76,0.92);
+  color: #0a0a0a;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+}
+
+/* Body section */
+.mc-hero-body {
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.mc-hero-headline {
+  font-family: var(--font-playfair), serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+}
+.mc-hero-text {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.65;
+}
+
+/* Benefits list */
+.mc-hero-benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.mc-hero-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+}
+.mc-benefit-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+}
+
+/* Price row */
+.mc-hero-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 12px 0 2px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.mc-hero-price-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+.mc-hero-price {
+  font-family: var(--font-playfair), serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.mc-hero-price-per {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* CTA button */
+.mc-hero-cta {
+  width: 100%;
+  padding: 15px 20px;
+  background: var(--gold);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  font-family: inherit;
+}
+.mc-hero-cta:hover {
+  background: var(--gold-light);
+  box-shadow: 0 4px 22px rgba(201,168,76,0.35);
+  transform: translateY(-1px);
+}
+.mc-hero-cta:active { transform: translateY(0); }
+
+/* Skip link */
+.mc-hero-skip {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.28);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 0.2px;
+  padding: 2px 0 4px;
+  transition: color 0.18s ease;
+}
+.mc-hero-skip:hover { color: rgba(255,255,255,0.5); }
+
+/* Confirmed bar (after CTA clicked) */
+.mc-confirmed-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+}
+.mc-confirmed-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mc-confirmed-check {
+  font-size: 13px;
+  color: var(--gold);
+}
+.mc-confirmed-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+.mc-confirmed-remove {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.3);
+  font-size: 11.5px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.mc-confirmed-remove:hover {
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.05);
+}
+

@@ -202,12 +202,13 @@ const MENUS: MenuEntry[] = [
 const STEHTISCHE: StehtischEntry[] = [
   {
     id: "silver",
-    name: "Silver",
-    subtitle: "Für einzelne Gäste & kleine Gruppen",
+    name: "Silver Stehtisch",
+    subtitle: "Reservierter Stehtisch · für einzelne Gäste & kleine Gruppen",
     price: 17.5,
     priceLabel: "17,50 €",
     personsPerUnit: 1,
     items: [
+      "Reservierter Stehtisch im Foyer",
       "1 Glas Magicuvée prickelnd",
       "Zauberschnitte",
       "Süßigkeit",
@@ -216,33 +217,33 @@ const STEHTISCHE: StehtischEntry[] = [
   {
     id: "gold",
     name: "Gold Date Table",
-    subtitle: "Perfekt für einen besonderen Abend zu zweit",
+    subtitle: "Reservierter Stehtisch · für einen besonderen Abend zu zweit",
     price: 55,
     priceLabel: "55 €",
     personsPerUnit: 2,
     badge: "Beliebt bei Paaren",
     highlight: true,
     items: [
+      "Reservierter Stehtisch im Foyer",
       "1 kl. Flasche Magicuvée prickelnd",
       "Zauberschnitten",
       "Popcorn",
-      "Reservierter Stehtisch",
     ],
   },
   {
     id: "diamond",
-    name: "Diamond",
-    subtitle: "Das luxuriöseste Pause-Erlebnis",
+    name: "Diamond Stehtisch",
+    subtitle: "Reservierter Premium-Stehtisch · das luxuriöseste Pause-Erlebnis",
     price: 109,
     priceLabel: "109 €",
     personsPerUnit: 2,
     badge: "Luxus",
     luxury: true,
     items: [
+      "Reservierter Premium-Stehtisch",
       "Laurent Perrier Rosé",
       "Zauberschnitten",
       "Popcorn",
-      "Premium-Stehtisch",
     ],
   },
 ];
@@ -388,7 +389,8 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const [bundleQtys,    setBundleQtys]    = useState<Record<string, number>>({});
 
   // ── Menu expand state ─────────────────────
-  const [expandedMenu,  setExpandedMenu]  = useState<string | null>(null);
+  const [expandedMenu,   setExpandedMenu]   = useState<string | null>(null);
+  const [showMenuCards,  setShowMenuCards]  = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -403,6 +405,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
       setFlexQty(0);
       setBundleQtys({});
       setExpandedMenu(null);
+      setShowMenuCards(false);
       if (initialShow) {
         setSelectedShowId(initialShow);
         setSelectedDateId(null);
@@ -723,7 +726,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
           )}
 
           {/* ══════════════════════════════════════
-              STEP 3 — Magicuisine & Pause
+              STEP 3 — Magicuisine
           ══════════════════════════════════════ */}
           {step === 3 && (
             <div>
@@ -734,84 +737,147 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                 </div>
               )}
 
-              <div className="step3-intro">
-                <h3 className="step3-heading">Mach deinen Abend unvergesslich</h3>
-                <p className="step3-sub">Genieße ein exklusives 4-Gang-Menü in der Magicuisine.</p>
-              </div>
+              {!showMenuCards ? (
+                /* ── Hero: Erlebnis verkaufen ── */
+                <div className="mc-hero">
+                  <div className="mc-hero-img-wrap">
+                    <img
+                      src="https://florianzimmertheater.de/wp-content/uploads/2025/09/FZ-MC-MagicDinner.png"
+                      alt="Magicuisine Magic Dinner"
+                      className="mc-hero-img"
+                    />
+                    <div className="mc-hero-img-overlay" />
+                    <span className="mc-hero-img-badge">⭐ Beliebteste Wahl unserer Gäste</span>
+                  </div>
 
-              {/* ── Menü-Kapazität ── */}
-              {totalMenuQty > 0 && (
-                <div className="upsell-capacity-bar">
-                  <span className="capacity-dot" />
-                  <span>{totalMenuQty} von {qty} Menüplätzen belegt</span>
-                  {totalMenuQty === qty && <span className="capacity-full">Alle vergeben</span>}
+                  <div className="mc-hero-body">
+                    <h3 className="mc-hero-headline">
+                      Ein Abend, der alle Sinne anspricht
+                    </h3>
+                    <p className="mc-hero-text">
+                      Die meisten Gäste beginnen ihren Abend mit einem exklusiven 4-Gang-Menü
+                      in der Magicuisine. Genieße einen Welcome-Cocktail, entspanne in
+                      besonderem Ambiente und wechsle anschließend direkt zur Show.
+                    </p>
+
+                    <ul className="mc-hero-benefits">
+                      <li><span className="mc-benefit-icon">🍷</span>Welcome-Cocktail inklusive</li>
+                      <li><span className="mc-benefit-icon">✨</span>Entspannt ankommen statt Restaurant suchen</li>
+                      <li><span className="mc-benefit-icon">🎩</span>Perfekter Start in einen magischen Abend</li>
+                      <li><span className="mc-benefit-icon">❤️</span>Besonders beliebt bei Paaren</li>
+                    </ul>
+
+                    <div className="mc-hero-price-row">
+                      <span className="mc-hero-price-label">Ab</span>
+                      <span className="mc-hero-price">69 €</span>
+                      <span className="mc-hero-price-per">pro Person</span>
+                    </div>
+
+                    <button
+                      className="mc-hero-cta"
+                      onClick={() => setShowMenuCards(true)}
+                    >
+                      ✦ &nbsp;Ja, ich möchte das Magic Dinner Erlebnis
+                    </button>
+
+                    <button
+                      className="mc-hero-skip"
+                      onClick={() => setStep(s => s + 1)}
+                    >
+                      Ohne Menü fortfahren →
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* ── Menüauswahl ── */
+                <div>
+                  {/* Bestätigung + Rückgabe-Link */}
+                  <div className="mc-confirmed-bar">
+                    <div className="mc-confirmed-left">
+                      <span className="mc-confirmed-check">✦</span>
+                      <span className="mc-confirmed-label">Magic Dinner Erlebnis</span>
+                    </div>
+                    <button
+                      className="mc-confirmed-remove"
+                      onClick={() => { setShowMenuCards(false); setMenuQtys({}); }}
+                    >
+                      entfernen
+                    </button>
+                  </div>
+
+                  {/* Kapazitäts-Anzeige */}
+                  {totalMenuQty > 0 && (
+                    <div className="upsell-capacity-bar" style={{ marginBottom: 16 }}>
+                      <span className="capacity-dot" />
+                      <span>{totalMenuQty} von {qty} Menüplätzen belegt</span>
+                      {totalMenuQty === qty && <span className="capacity-full">Alle vergeben</span>}
+                    </div>
+                  )}
+
+                  {/* Menükarten */}
+                  <div className="menu-cards">
+                    {MENUS.map(menu => {
+                      const mq         = menuQtys[menu.id] ?? 0;
+                      const isActive   = mq > 0;
+                      const isExpanded = expandedMenu === menu.id;
+                      const canAdd     = totalMenuQty < qty;
+                      return (
+                        <div key={menu.id} className={`menu-card${isActive ? " selected" : ""}`}>
+                          <div className="menu-card-inner">
+                            {menu.badge && (
+                              <span className="menu-badge" style={{ background: menu.badgeColor ?? "var(--gold)" }}>
+                                {menu.badge}
+                              </span>
+                            )}
+                            <div className="menu-card-body">
+                              <div className="menu-card-main">
+                                <h4 className="menu-card-name">{menu.name}</h4>
+                                <p className="menu-card-tagline">{menu.tagline}</p>
+                                <div className="menu-card-price-row">
+                                  <span className="menu-card-price">{menu.price} €</span>
+                                  <span className="menu-card-per">/ Pers.</span>
+                                  <span className="menu-card-includes">{menu.includes}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="menu-qty-area">
+                              <QtyControl
+                                value={mq}
+                                onDec={() => decMenu(menu.id)}
+                                onInc={() => incMenu(menu.id)}
+                                canInc={canAdd}
+                              />
+                            </div>
+
+                            {isExpanded && (
+                              <div className="menu-courses">
+                                <div className="menu-courses-label">Menüfolge</div>
+                                <ul className="menu-courses-list">
+                                  {menu.courses.map((c, i) => <li key={i}>{c}</li>)}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+
+                          <button
+                            className="menu-expand-btn"
+                            onClick={e => {
+                              e.stopPropagation();
+                              setExpandedMenu(isExpanded ? null : menu.id);
+                            }}
+                          >
+                            <span>{isExpanded ? "Weniger anzeigen" : "Menü ansehen"}</span>
+                            <span className={`menu-expand-chevron${isExpanded ? " open" : ""}`}>
+                              <IconChevronDown size={13} />
+                            </span>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
-
-              {/* ── Menu Cards ── */}
-              <div className="menu-cards">
-                {MENUS.map(menu => {
-                  const mq         = menuQtys[menu.id] ?? 0;
-                  const isActive   = mq > 0;
-                  const isExpanded = expandedMenu === menu.id;
-                  const canAdd     = totalMenuQty < qty;
-                  return (
-                    <div key={menu.id} className={`menu-card${isActive ? " selected" : ""}`}>
-                      <div className="menu-card-inner">
-                        {menu.badge && (
-                          <span className="menu-badge" style={{ background: menu.badgeColor ?? "var(--gold)" }}>
-                            {menu.badge}
-                          </span>
-                        )}
-                        <div className="menu-card-body">
-                          <div className="menu-card-main">
-                            <h4 className="menu-card-name">{menu.name}</h4>
-                            <p className="menu-card-tagline">{menu.tagline}</p>
-                            <div className="menu-card-price-row">
-                              <span className="menu-card-price">{menu.price} €</span>
-                              <span className="menu-card-per">/ Pers.</span>
-                              <span className="menu-card-includes">{menu.includes}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Quantity control */}
-                        <div className="menu-qty-area">
-                          <QtyControl
-                            value={mq}
-                            onDec={() => decMenu(menu.id)}
-                            onInc={() => incMenu(menu.id)}
-                            canInc={canAdd}
-                          />
-                        </div>
-
-                        {isExpanded && (
-                          <div className="menu-courses">
-                            <div className="menu-courses-label">Menüfolge</div>
-                            <ul className="menu-courses-list">
-                              {menu.courses.map((c, i) => <li key={i}>{c}</li>)}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-
-                      <button
-                        className="menu-expand-btn"
-                        onClick={e => {
-                          e.stopPropagation();
-                          setExpandedMenu(isExpanded ? null : menu.id);
-                        }}
-                      >
-                        <span>{isExpanded ? "Weniger anzeigen" : "Menü ansehen"}</span>
-                        <span className={`menu-expand-chevron${isExpanded ? " open" : ""}`}>
-                          <IconChevronDown size={13} />
-                        </span>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-
             </div>
           )}
 
