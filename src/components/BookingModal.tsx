@@ -742,33 +742,32 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                 <div className="mc-hero">
                   <div className="mc-hero-img-wrap">
                     <img
-                      src="https://florianzimmertheater.de/wp-content/uploads/2025/09/FZ-MC-MagicDinner.png"
-                      alt="Magicuisine Magic Dinner"
+                      src="https://tourismus.ulm.de/_thumbnails/9420_16_00_magiccuisine.jpg"
+                      alt="Magicuisine Restaurant Ambiente"
                       className="mc-hero-img"
                     />
                     <div className="mc-hero-img-overlay" />
-                    <span className="mc-hero-img-badge">⭐ Beliebteste Wahl unserer Gäste</span>
+                    <span className="mc-hero-img-badge">⭐ Beliebteste Zusatzbuchung</span>
                   </div>
 
                   <div className="mc-hero-body">
                     <h3 className="mc-hero-headline">
-                      Ein Abend, der alle Sinne anspricht
+                      Die meisten Gäste ergänzen ihren Theaterabend mit einem Magic-Menü.
                     </h3>
                     <p className="mc-hero-text">
-                      Die meisten Gäste beginnen ihren Abend mit einem exklusiven 4-Gang-Menü
-                      in der Magicuisine. Genieße einen Welcome-Cocktail, entspanne in
-                      besonderem Ambiente und wechsle anschließend direkt zur Show.
+                      Beginne deinen Abend entspannt mit einem exklusiven 4-Gang-Menü
+                      inklusive Welcome-Cocktail in der Magicuisine.
                     </p>
 
                     <ul className="mc-hero-benefits">
                       <li><span className="mc-benefit-icon">🍷</span>Welcome-Cocktail inklusive</li>
-                      <li><span className="mc-benefit-icon">✨</span>Entspannt ankommen statt Restaurant suchen</li>
-                      <li><span className="mc-benefit-icon">🎩</span>Perfekter Start in einen magischen Abend</li>
+                      <li><span className="mc-benefit-icon">🍽️</span>Classic, Sea oder Vegan zur Auswahl</li>
+                      <li><span className="mc-benefit-icon">✨</span>Direkt vor der Show genießen</li>
                       <li><span className="mc-benefit-icon">❤️</span>Besonders beliebt bei Paaren</li>
                     </ul>
 
                     <div className="mc-hero-price-row">
-                      <span className="mc-hero-price-label">Ab</span>
+                      <span className="mc-hero-price-label">ab</span>
                       <span className="mc-hero-price">69 €</span>
                       <span className="mc-hero-price-per">pro Person</span>
                     </div>
@@ -777,14 +776,14 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                       className="mc-hero-cta"
                       onClick={() => setShowMenuCards(true)}
                     >
-                      ✦ &nbsp;Ja, ich möchte das Magic Dinner Erlebnis
+                      Menü auswählen
                     </button>
 
                     <button
                       className="mc-hero-skip"
                       onClick={() => setStep(s => s + 1)}
                     >
-                      Ohne Menü fortfahren →
+                      Ohne Menü fortfahren
                     </button>
                   </div>
                 </div>
