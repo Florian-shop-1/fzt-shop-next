@@ -130,7 +130,7 @@ export default function Home() {
           </div>
 
           <div className="show-card reveal reveal-d2" onClick={() => openBooking("flo-zirkus")}>
-            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')" }} />
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/flo-zirkus-neu.png')", backgroundPosition: "center 20%" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
               <span className="show-badge" style={{ background: "#2a6aad" }}>Neu 2025</span>
