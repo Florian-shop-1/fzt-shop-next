@@ -95,20 +95,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* PRIMARY: ULMFASSBAR + MAGIC DINNER */}
-        <div className="shows-grid-primary">
+        <div className="shows-grid">
           <div className="show-card reveal" onClick={() => openBooking("ulmfassbar")}>
             <div className="show-card-img" style={{ backgroundImage: "url('/images/show-ulmfassbar.jpg')" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
-              <span className="show-badge">★ Signature Show</span>
+              <span className="show-badge">★ Bestseller</span>
               <h3>ULMFASSBAR</h3>
-              <p>Florian Zimmers Signature-Show. Zwei­einhalb Stunden Weltklasse-Magie — persönlich, atemberaubend, unvergesslich.</p>
+              <p>Florian Zimmers Signature-Show. Zweieinhalb Stunden Weltklasse-Magie — persönlich, atemberaubend, unvergesslich.</p>
               <div className="show-meta">
                 <span className="show-price">ab 59 €</span>
-                <span className="show-rating">★★★★★</span>
+                <span className="show-rating">★★★★★ 847 Bewertungen</span>
               </div>
-              <div className="show-card-btn">Abend sichern &nbsp;→</div>
+              <div className="show-card-btn">Plätze sichern &nbsp;→</div>
             </div>
           </div>
 
@@ -121,49 +120,39 @@ export default function Home() {
               <p>Show &amp; exklusives 4-Gang-Menü. Der vollkommenste Abend des Jahres — alles aus einer Hand, vollständig durchkomponiert.</p>
               <div className="show-meta">
                 <span className="show-price">ab 129 €</span>
-                <span className="show-rating">★★★★★</span>
+                <span className="show-rating">★★★★★ 512 Bewertungen</span>
               </div>
               <div className="show-card-btn">Tisch reservieren &nbsp;→</div>
             </div>
           </div>
-        </div>
 
-        {/* SECONDARY: FLO-ZIRKUS + THIS IS MAGIC */}
-        <div className="shows-secondary">
-          <div className="container">
-            <div className="shows-secondary-label reveal">
-              <span className="section-label" style={{ marginBottom: 0 }}>Weitere Erlebnisse</span>
+          <div className="show-card reveal reveal-d2" onClick={() => openBooking("flo-zirkus")}>
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')" }} />
+            <div className="show-card-overlay" />
+            <div className="show-card-content">
+              <span className="show-badge" style={{ background: "#2a6aad" }}>Neu 2025</span>
+              <h3>Flo-Zirkus</h3>
+              <p>Zirkus, Akrobatik und Magie — ein spektakuläres Erlebnis für alle Sinne.</p>
+              <div className="show-meta">
+                <span className="show-price">ab 45 €</span>
+                <span className="show-rating">★★★★★ 203 Bewertungen</span>
+              </div>
+              <div className="show-card-btn">Tickets sichern &nbsp;→</div>
             </div>
           </div>
-          <div className="shows-grid-secondary">
-            <div className="show-card reveal" onClick={() => openBooking("flo-zirkus")}>
-              <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')" }} />
-              <div className="show-card-overlay" />
-              <div className="show-card-content">
-                <span className="show-badge" style={{ background: "#2a6aad" }}>Neu 2025</span>
-                <h3>Flo-Zirkus</h3>
-                <p>Zirkus, Akrobatik und Magie — ein spektakuläres Erlebnis für alle Sinne.</p>
-                <div className="show-meta">
-                  <span className="show-price">ab 45 €</span>
-                  <span className="show-rating">★★★★★</span>
-                </div>
-                <div className="show-card-btn">Tickets sichern &nbsp;→</div>
-              </div>
-            </div>
 
-            <div className="show-card reveal reveal-d1" onClick={() => openBooking("this-is-magic")}>
-              <div className="show-card-img" style={{ backgroundImage: "url('/images/show-ulmfassbar-2.jpg')" }} />
-              <div className="show-card-overlay" />
-              <div className="show-card-content">
-                <span className="show-badge" style={{ background: "#5a2d82" }}>Familienshow</span>
-                <h3>This is Magic!</h3>
-                <p>Magie, die Herzen öffnet — für die ganze Familie ab 4 Jahren.</p>
-                <div className="show-meta">
-                  <span className="show-price">ab 39 €</span>
-                  <span className="show-rating">★★★★★</span>
-                </div>
-                <div className="show-card-btn">Familienticket &nbsp;→</div>
+          <div className="show-card reveal reveal-d3" onClick={() => openBooking("this-is-magic")}>
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-ulmfassbar-2.jpg')" }} />
+            <div className="show-card-overlay" />
+            <div className="show-card-content">
+              <span className="show-badge" style={{ background: "#5a2d82" }}>Familienshow</span>
+              <h3>This is Magic!</h3>
+              <p>Magie, die Herzen öffnet — für die ganze Familie ab 4 Jahren.</p>
+              <div className="show-meta">
+                <span className="show-price">ab 39 €</span>
+                <span className="show-rating">★★★★★ 389 Bewertungen</span>
               </div>
+              <div className="show-card-btn">Familienticket &nbsp;→</div>
             </div>
           </div>
         </div>
