@@ -110,7 +110,7 @@ export default function Home() {
                 <span className="show-price">ab 59 €</span>
                 <span className="show-rating">★★★★★ 847 Bewertungen</span>
               </div>
-              <div className="show-card-btn">Plätze sichern &nbsp;→</div>
+              <div className="show-card-btn">Tickets sichern &nbsp;→</div>
             </div>
           </div>
 
@@ -125,7 +125,7 @@ export default function Home() {
                 <span className="show-price">ab 129 €</span>
                 <span className="show-rating">★★★★★ 512 Bewertungen</span>
               </div>
-              <div className="show-card-btn">Tisch reservieren &nbsp;→</div>
+              <div className="show-card-btn">Tickets sichern &nbsp;→</div>
             </div>
           </div>
 
@@ -155,7 +155,7 @@ export default function Home() {
                 <span className="show-price">ab 129 €</span>
                 <span className="show-rating">★★★★★ 512 Bewertungen</span>
               </div>
-              <div className="show-card-btn">Tisch reservieren &nbsp;→</div>
+              <div className="show-card-btn">Tickets sichern &nbsp;→</div>
             </div>
           </div>
         </div>
