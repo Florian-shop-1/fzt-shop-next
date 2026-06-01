@@ -328,32 +328,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EXTRAS */}
-      <section id="extras">
-        <div className="container">
-          <div className="section-header text-center reveal">
-            <span className="section-label">Den Abend vollenden</span>
-            <h2>Mach den Abend <em>unvergesslich</em></h2>
-            <div className="divider divider-center" />
-          </div>
-          <div className="extras-grid">
-            {[
-              { icon: "🥂", name: "Welcome-Prosecco", desc: "Für alle Personen — ein eleganter Auftakt zum magischen Abend.", price: "7,50 € / Person", badge: "Beliebt" },
-              { icon: "🌹", name: "Romantik-Paket", desc: "Rosen, persönliche Karte und Sektempfang — für den perfekten Abend zu zweit.", price: "29 €", badge: "" },
-              { icon: "🎂", name: "Geburtstags-Deko", desc: "Personalisierter Tischaufsteller und handgeschriebene Karte für den Jubilar.", price: "19 €", badge: "" },
-              { icon: "📸", name: "Foto-Session", desc: "Meet & Greet backstage mit Florian Zimmer nach der Show.", price: "39 €", badge: "Exklusiv" },
-            ].map((e, i) => (
-              <div key={e.name} className={`extra-card reveal${i > 0 ? ` reveal-d${i}` : ""}`}>
-                <div className="extra-icon">{e.icon}</div>
-                <h3>{e.name}</h3>
-                <p>{e.desc}</p>
-                <div className="extra-price">{e.price}</div>
-                {e.badge && <span className="extra-badge">{e.badge}</span>}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* GUTSCHEIN */}
       <section id="gutschein">
