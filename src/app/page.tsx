@@ -344,7 +344,7 @@ export default function Home() {
               <div className="gutschein-msg">&ldquo;Eine Nacht voller Magie — unvergesslich, zauberhaft, einzigartig.&rdquo;</div>
               <div className="gutschein-footer">
                 <div className="gutschein-code">MAGIC-X7K2</div>
-                <div>3 Jahre gültig · kein Ablauf</div>
+                <div>Unbegrenzt gültig · kein Ablaufdatum</div>
               </div>
             </div>
             <div className="gutschein-text reveal reveal-d1">
@@ -373,7 +373,7 @@ export default function Home() {
               <div className="voucher-bonus" style={{ marginTop: 16 }}>
                 <div className="voucher-bonus-title">Was ist inbegriffen?</div>
                 <ul className="voucher-bonus-list">
-                  <li>Für jede Show einlösbar — 3 Jahre gültig, kein Ablaufdatum</li>
+                  <li>Für jede Show einlösbar — unbegrenzt gültig, kein Ablaufdatum</li>
                   <li>Sofort digital verfügbar oder als Premium-Karte per Post</li>
                   <li>{voucherValue >= 100 ? "Kostenloser Versand + exklusives Zauber-Geschenk" : "Kostenloser digitaler Versand"}</li>
                   <li>Persönliche Widmung mit eigenem Text inklusive</li>
