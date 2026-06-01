@@ -12,9 +12,9 @@ export default function CinematicVideo() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="cv-img"
-            src="https://img.youtube.com/vi/lyn08-Lqlps/maxresdefault.jpg"
-            alt="Florian Zimmer Theater Showreel"
-            onError={e => { (e.target as HTMLImageElement).src = "/images/hero-theater.jpg"; }}
+            src="https://img.youtube.com/vi/RvWYpFJmvkM/maxresdefault.jpg"
+            alt="ULMFASSBAR — Florian Zimmer Theater"
+            onError={e => { (e.target as HTMLImageElement).src = "/images/show-ulmfassbar.jpg"; }}
           />
           <div className="cv-overlay" />
           <div className="cv-gold-frame" />
@@ -31,13 +31,15 @@ export default function CinematicVideo() {
       ) : (
         <div className="cv-iframe-wrap">
           <button className="cv-close" onClick={() => setPlaying(false)} aria-label="Video schließen">✕</button>
-          <iframe
-            src="https://www.youtube.com/embed/lyn08-Lqlps?autoplay=1&rel=0"
-            title="Florian Zimmer Theater Showreel"
-            allowFullScreen
-            allow="autoplay; fullscreen"
-            style={{ width: "100%", height: "100%", border: "none" }}
-          />
+          <div className="yt-no-logo" style={{ width: "100%", height: "100%" }}>
+            <iframe
+              src="https://www.youtube.com/embed/RvWYpFJmvkM?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3"
+              title="ULMFASSBAR — Florian Zimmer Theater"
+              allowFullScreen
+              allow="autoplay; fullscreen"
+              style={{ width: "100%", height: "100%", border: "none" }}
+            />
+          </div>
         </div>
       )}
     </section>

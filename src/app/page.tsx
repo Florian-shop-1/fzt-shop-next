@@ -212,12 +212,14 @@ export default function Home() {
               {docuPlaying ? (
                 <div className="docu-iframe-wrap">
                   <button className="docu-iframe-close" onClick={() => setDocuPlaying(false)} aria-label="Video schließen">✕</button>
-                  <iframe
-                    src="https://www.youtube.com/embed/-WyTAS4L5Sw?autoplay=1&rel=0"
-                    title="Florian Zimmer Theater — Dokumentation"
-                    allowFullScreen
-                    allow="autoplay; fullscreen"
-                  />
+                  <div className="yt-no-logo" style={{ width: "100%", height: "100%" }}>
+                    <iframe
+                      src="https://www.youtube.com/embed/-WyTAS4L5Sw?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3"
+                      title="Florian Zimmer Theater — Dokumentation"
+                      allowFullScreen
+                      allow="autoplay; fullscreen"
+                    />
+                  </div>
                 </div>
               ) : (
                 <>

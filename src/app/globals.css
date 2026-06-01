@@ -1716,6 +1716,19 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 /* Show card gold glow on hover */
 .show-card:hover { box-shadow: 0 0 40px rgba(201,168,76,0.1), inset 0 0 0 1px rgba(201,168,76,0.15); }
 
+/* ===================== YOUTUBE LOGO BLOCKER ===================== */
+/* Transparente Overlays über den Logo-Ecken — kein Klick auf YouTube möglich */
+.yt-no-logo { position: relative; display: block; }
+.yt-no-logo::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 140px; height: 52px; z-index: 10; pointer-events: auto;
+}
+.yt-no-logo::after {
+  content: ''; position: absolute; bottom: 0; right: 0;
+  width: 160px; height: 52px; z-index: 10; pointer-events: auto;
+}
+.yt-no-logo iframe { display: block; width: 100%; height: 100%; border: none; }
+
 /* ===================== MAGICIAN SECTION ===================== */
 #magician { background: var(--dark); }
 .magician-inner {

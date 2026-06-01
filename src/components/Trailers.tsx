@@ -38,12 +38,14 @@ export default function Trailers() {
             <div key={t.id} className="trailer-block reveal">
               {playing === t.id ? (
                 <div className="trailer-iframe active">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${t.youtubeId}?autoplay=1&rel=0`}
-                    title={t.title}
-                    allowFullScreen
-                    allow="autoplay"
-                  />
+                  <div className="yt-no-logo" style={{ width: "100%", height: "100%" }}>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${t.youtubeId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`}
+                      title={t.title}
+                      allowFullScreen
+                      allow="autoplay; fullscreen"
+                    />
+                  </div>
                 </div>
               ) : (
                 <div className="trailer-thumb" onClick={() => setPlaying(t.id)}>
