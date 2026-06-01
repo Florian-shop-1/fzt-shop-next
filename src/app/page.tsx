@@ -67,15 +67,17 @@ export default function Home() {
       {/* TRUST BAR */}
       <div className="trust-bar">
         <div className="trust-inner">
-          <div className="trust-item"><strong>50.000+</strong><span>begeisterte Gäste</span></div>
+          <div className="trust-item"><strong>100.000+</strong><span>begeisterte Gäste</span></div>
           <div className="trust-sep" />
-          <div className="trust-item"><strong>★ 4.9</strong><span>TripAdvisor</span></div>
+          <div className="trust-item"><strong>★ 4,8</strong><span>Google</span></div>
           <div className="trust-sep" />
-          <div className="trust-item"><strong>Top 10%</strong><span>weltweit</span></div>
+          <div className="trust-item"><strong>Top 19%</strong><span>weltweit</span></div>
           <div className="trust-sep" />
-          <div className="trust-item"><strong>Golden Lion</strong><span>Award Winner</span></div>
-          <div className="trust-sep" />
-          <div className="trust-item"><strong>Travellers&apos; Choice</strong><span>2025 &amp; 2026</span></div>
+          <div className="trust-item" style={{ flexDirection: "column", alignItems: "center", gap: 2 }}>
+            <span style={{ fontSize: 10, letterSpacing: 1, color: "var(--gold)", textTransform: "uppercase", opacity: 0.8 }}># 1 Attraktion in Neu-Ulm</span>
+            <strong>Travellers&apos; Choice</strong>
+            <span>2025 &amp; 2026</span>
+          </div>
         </div>
       </div>
 
