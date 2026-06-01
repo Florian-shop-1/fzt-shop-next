@@ -452,55 +452,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRESS & AWARDS */}
-      <section id="press">
-        <div className="container">
-          <div className="text-center reveal" style={{ marginBottom: 40 }}>
-            <span className="section-label">Presse &amp; Auszeichnungen</span>
-          </div>
-          <div className="press-logos reveal">
-            {["SüdwestPresse", "RegioTV", "SWR", "TOP Magazin", "Radio 7", "Augsburger Allgemeine"].map(p => (
-              <div key={p} className="press-logo">{p}</div>
-            ))}
-          </div>
-          <div className="award-banner reveal">
-            {[
-              { icon: "🦁", title: "Golden Lion Award", sub: "Internationaler Zauberpreis" },
-              { icon: "🏆", title: "Travellers' Choice", sub: "TripAdvisor 2025 & 2026" },
-              { icon: "⭐", title: "Top 10% weltweit", sub: "TripAdvisor Ranking" },
-              { icon: "🎭", title: "Adele · Michael Jackson", sub: "Prominente Referenzen" },
-            ].map(a => (
-              <div key={a.title} className="award-item">
-                <div className="award-icon">{a.icon}</div>
-                <div className="award-title">{a.title}</div>
-                <div className="award-sub">{a.sub}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="tripadvisor-badge reveal" style={{ maxWidth: 460, margin: "32px auto 0" }}>
-            <svg className="ta-owl" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="18" cy="18" r="18" fill="#00AA6C"/>
-              <circle cx="11" cy="21" r="6.5" fill="white"/>
-              <circle cx="25" cy="21" r="6.5" fill="white"/>
-              <circle cx="11" cy="21" r="3.5" fill="#00AA6C"/>
-              <circle cx="25" cy="21" r="3.5" fill="#00AA6C"/>
-              <circle cx="12" cy="20" r="1" fill="white"/>
-              <circle cx="26" cy="20" r="1" fill="white"/>
-              <path d="M13 12 Q18 8 23 12" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-            </svg>
-            <div className="ta-text">
-              <div className="ta-label">Tripadvisor · Ausgezeichnet</div>
-              <div className="ta-title">Travellers&apos; Choice Award</div>
-              <div className="ta-sub">Top 10% weltweit · #1 Attraktion in Neu-Ulm</div>
-              <div className="ta-years">
-                <span className="ta-year">2025</span>
-                <span className="ta-year">2026</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* FOOTER */}
       <footer>
