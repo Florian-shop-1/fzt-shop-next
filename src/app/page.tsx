@@ -365,7 +365,7 @@ export default function Home() {
                   <span className="gift-icon">🪄</span>
                   <div>
                     <strong>Kostenloses Zauber-Geschenk inklusive!</strong>
-                    <p>Ab 100 € erhält dein Beschenkter ein hochwertiges Zaubertrick-Set — von Florian Zimmer persönlich ausgewählt.</p>
+                    <p>Ab 100 € erhältst du einen erscheinenden Zauberstab kostenlos dazu.</p>
                   </div>
                 </div>
               )}
