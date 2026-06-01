@@ -543,7 +543,20 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   return (
     <div className="modal-overlay active" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal">
-        <button className="modal-close" onClick={onClose}>✕</button>
+        {/* ── Show Image Banner ── */}
+        {resolvedShow && (
+          <div className="modal-show-banner" style={{ backgroundImage: `url('${resolvedShow.image}')` }}>
+            <div className="modal-show-banner-overlay" />
+            <div className="modal-show-banner-content">
+              {resolvedShow.badge && (
+                <span className="show-list-badge" style={{ background: resolvedShow.badgeColor }}>{resolvedShow.badge}</span>
+              )}
+              <span className="modal-show-banner-name">{resolvedShow.name}</span>
+            </div>
+          </div>
+        )}
+
+        <button className="modal-close" style={resolvedShow ? { top: 10, right: 12 } : {}} onClick={onClose}>✕</button>
 
         {/* ── Header ── */}
         <div className="modal-header">

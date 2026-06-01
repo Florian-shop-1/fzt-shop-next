@@ -1716,6 +1716,26 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 /* Show card gold glow on hover */
 .show-card:hover { box-shadow: 0 0 40px rgba(201,168,76,0.1), inset 0 0 0 1px rgba(201,168,76,0.15); }
 
+/* ===================== MODAL SHOW BANNER ===================== */
+.modal-show-banner {
+  position: relative; width: 100%; height: 120px;
+  background-size: cover; background-position: center 35%;
+  border-radius: 8px 8px 0 0; overflow: hidden; flex-shrink: 0;
+}
+.modal-show-banner-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0.72) 100%);
+}
+.modal-show-banner-content {
+  position: absolute; bottom: 14px; left: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.modal-show-banner-name {
+  font-family: var(--font-playfair), serif;
+  font-size: 17px; font-weight: 600; color: var(--white);
+  letter-spacing: 0.3px;
+}
+
 /* ===================== YOUTUBE LOGO BLOCKER ===================== */
 /* Transparente Overlays über den Logo-Ecken — kein Klick auf YouTube möglich */
 .yt-no-logo { position: relative; display: block; }
