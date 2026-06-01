@@ -100,7 +100,7 @@ export default function Home() {
 
         <div className="shows-grid">
           <div className="show-card reveal" onClick={() => openBooking("ulmfassbar")}>
-            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')", backgroundPosition: "center 15%" }} />
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')", backgroundPosition: "center top" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
               <span className="show-badge">★ Bestseller</span>
