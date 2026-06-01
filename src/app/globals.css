@@ -1618,3 +1618,101 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   background: rgba(255,255,255,0.05);
 }
 
+/* ===================== GOLD PARTICLES ===================== */
+/* Canvas is rendered by HeroParticles.tsx — no CSS needed beyond positioning */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg { animation: none !important; }
+  .scroll-line { animation: none !important; }
+  .dot-live { animation: none !important; }
+}
+
+/* ===================== CINEMATIC VIDEO SECTION ===================== */
+.cinematic-video { position: relative; background: #000; overflow: hidden; }
+
+.cv-thumb {
+  position: relative; width: 100%; aspect-ratio: 16/9; max-height: 85vh;
+  cursor: pointer; overflow: hidden; display: block;
+}
+.cv-img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(0.55);
+  transition: transform 0.8s cubic-bezier(0.4,0,0.2,1), filter 0.6s ease;
+}
+.cv-thumb:hover .cv-img { transform: scale(1.03); filter: brightness(0.7); }
+
+.cv-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,8,0.45) 0%, rgba(8,8,8,0.05) 35%, rgba(8,8,8,0.05) 65%, rgba(8,8,8,0.55) 100%);
+}
+.cv-gold-frame {
+  position: absolute; inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(201,168,76,0);
+  transition: box-shadow 0.5s ease;
+}
+.cv-thumb:hover .cv-gold-frame { box-shadow: inset 0 0 0 1px rgba(201,168,76,0.22); }
+
+.cv-center {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  transition: transform 0.4s ease;
+}
+.cv-thumb:hover .cv-center { transform: translate(-50%, -53%); }
+
+.cv-play-btn {
+  width: 88px; height: 88px; border-radius: 50%;
+  border: 1.5px solid rgba(201,168,76,0.65);
+  background: rgba(8,8,8,0.45);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  transition: all 0.4s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 0 rgba(201,168,76,0.2);
+}
+.cv-thumb:hover .cv-play-btn {
+  background: rgba(201,168,76,0.14);
+  border-color: var(--gold);
+  box-shadow: 0 0 50px rgba(201,168,76,0.22), 0 0 0 14px rgba(201,168,76,0.05);
+}
+
+.cv-play-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.65);
+}
+.cv-caption {
+  position: absolute; bottom: 28px; left: 0; right: 0;
+  text-align: center; pointer-events: none;
+}
+.cv-caption em {
+  font-size: clamp(15px, 2vw, 22px);
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-playfair), serif;
+}
+
+.cv-iframe-wrap {
+  position: relative; width: 100%; aspect-ratio: 16/9; max-height: 85vh; background: #000;
+}
+.cv-close {
+  position: absolute; top: 14px; right: 14px; z-index: 10;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(8,8,8,0.7); border: 1px solid var(--border);
+  color: var(--white); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition);
+}
+.cv-close:hover { background: rgba(201,168,76,0.2); border-color: var(--gold); }
+
+/* ===================== MAGIC SECTION DIVIDER ===================== */
+.magic-divider {
+  display: flex; align-items: center; justify-content: center;
+  height: 52px; background: var(--black);
+}
+.magic-divider span {
+  font-size: 13px; color: var(--gold); opacity: 0.4; letter-spacing: 10px;
+  transition: opacity 0.3s;
+}
+.magic-divider:hover span { opacity: 0.7; }
+
+/* Show card gold glow on hover */
+.show-card:hover { box-shadow: 0 0 40px rgba(201,168,76,0.1), inset 0 0 0 1px rgba(201,168,76,0.15); }
+

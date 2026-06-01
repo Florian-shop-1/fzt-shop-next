@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
 import Trailers from "@/components/Trailers";
 import BookingModal from "@/components/BookingModal";
+import HeroParticles from "@/components/HeroParticles";
+import CinematicVideo from "@/components/CinematicVideo";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -32,6 +34,7 @@ export default function Home() {
         <div className="hero-bg" />
         <div className="hero-overlay" />
         <div className="hero-glow" />
+        <HeroParticles />
         <div className="hero-content">
           <div className="hero-logo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -72,6 +75,12 @@ export default function Home() {
           <div className="trust-item"><strong>DSGVO</strong><span>sichere Buchung</span></div>
         </div>
       </div>
+
+      {/* CINEMATIC VIDEO */}
+      <CinematicVideo />
+
+      {/* MAGIC DIVIDER */}
+      <div className="magic-divider"><span>✦ &nbsp; ✦ &nbsp; ✦</span></div>
 
       {/* SHOWS */}
       <section id="shows" style={{ padding: "100px 0 0" }}>

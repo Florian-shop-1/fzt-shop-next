@@ -3,6 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 const PASSWORD = "ditixupgrade";
 
 export function proxy(request: NextRequest) {
+  const host = request.headers.get("host") ?? "";
+  if (host.startsWith("localhost") || host.startsWith("127.0.0.1")) {
+    return NextResponse.next();
+  }
+
   const basicAuth = request.headers.get("authorization");
 
   if (basicAuth) {
