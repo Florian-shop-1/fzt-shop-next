@@ -186,7 +186,7 @@ section { padding: 100px 0; }
 .price-per { font-size: 13px; color: var(--muted); }
 
 /* ===================== VIP LOGE ===================== */
-#loge { position: relative; min-height: 70vh; display: flex; align-items: center; overflow: hidden; }
+#loge { position: relative; display: flex; align-items: flex-start; overflow: hidden; padding: 0; }
 .loge-bg { position: absolute; inset: 0; background-image: url('/images/loge.jpg'); background-size: cover; background-position: center; }
 .loge-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.7) 50%, rgba(8,8,8,0.92) 100%); }
 .loge-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 50%, rgba(201,168,76,0.08) 0%, transparent 60%); }
