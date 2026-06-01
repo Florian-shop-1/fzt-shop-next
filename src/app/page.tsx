@@ -13,6 +13,7 @@ export default function Home() {
   const [initialShow, setInitialShow] = useState("");
   const [voucherValue, setVoucherValue] = useState(100);
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
+  const [docuPlaying, setDocuPlaying] = useState(false);
 
   const openBooking = (show = "") => { setInitialShow(show); setBookingOpen(true); };
 
@@ -162,6 +163,118 @@ export default function Home() {
 
       {/* TRAILERS */}
       <Trailers />
+
+      {/* FLORIAN ZIMMER — DER MAGIER */}
+      <section id="magician">
+        <div className="container">
+          <div className="section-header text-center reveal">
+            <span className="section-label">Der Magier</span>
+            <h2>Florian Zimmer</h2>
+            <div className="divider divider-center" />
+          </div>
+
+          <div className="magician-inner">
+            {/* BIO + TOP AWARDS */}
+            <div className="reveal">
+              <p className="magician-eyebrow-meta">Geboren 3. Mai 1982 in Ulm</p>
+              <p className="magician-bio-intro">
+                Einer der weltweit gefeiertsten Magier und kreativsten Visionäre der Zauberkunst.
+              </p>
+              <p className="magician-bio-body">
+                Als einziger Deutscher wurde er mit dem prestigeträchtigen <strong style={{ color: "var(--white)" }}>Siegfried &amp; Roy Golden Lion Award</strong> in Las Vegas ausgezeichnet. Schon früh Deutscher Meister und Europameister der Magie, verzauberte er Stars wie <strong style={{ color: "var(--white)" }}>Michael Jackson</strong> und <strong style={{ color: "var(--white)" }}>Adele</strong>. Im Rahmen einer US-Fernsehshow erhielt er den <strong style={{ color: "var(--white)" }}>World Magic Award</strong> als bester zeitgenössischer Magier.
+              </p>
+
+              <div className="magician-quote">
+                <p className="magician-quote-text">»Kreativsten Magier der Welt«</p>
+                <p className="magician-quote-source">International Magic Society (I.M.S.)</p>
+              </div>
+
+              <div className="magician-top-awards">
+                {[
+                  { icon: "✦", title: "Siegfried & Roy Golden Lion Award", sub: "Las Vegas — der prestigeträchtigste Preis der Zauberkunst. Einziger Deutscher Preisträger." },
+                  { icon: "✦", title: "World Magic Award", sub: "USA — Ausgezeichnet als »Bester zeitgenössischer Magier« im Rahmen einer Fernsehshow." },
+                  { icon: "✦", title: "Europameister & Deutscher Meister", sub: "Magie-Weltmeisterschaft — Höchste offizielle Auszeichnung Europas und Deutschlands." },
+                  { icon: "✦", title: "IMS Merlin Award", sub: "Internationale Magievereinigung — »Kreativsten Magier der Welt«." },
+                ].map(a => (
+                  <div key={a.title} className="magician-award-card">
+                    <span className="award-card-icon">{a.icon}</span>
+                    <div>
+                      <p className="award-card-title">{a.title}</p>
+                      <p className="award-card-sub">{a.sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DOKUMENTATION */}
+            <div className="docu-video-wrap reveal reveal-d1">
+              {docuPlaying ? (
+                <div className="docu-iframe-wrap">
+                  <button className="docu-iframe-close" onClick={() => setDocuPlaying(false)} aria-label="Video schließen">✕</button>
+                  <iframe
+                    src="https://www.youtube.com/embed/-WyTAS4L5Sw?autoplay=1&rel=0"
+                    title="Florian Zimmer Theater — Dokumentation"
+                    allowFullScreen
+                    allow="autoplay; fullscreen"
+                  />
+                </div>
+              ) : (
+                <>
+                  <div
+                    className="docu-thumb"
+                    onClick={() => setDocuPlaying(true)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={e => e.key === "Enter" && setDocuPlaying(true)}
+                    aria-label="Dokumentation abspielen"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="docu-thumb-img"
+                      src="https://img.youtube.com/vi/-WyTAS4L5Sw/maxresdefault.jpg"
+                      alt="Dokumentation — Florian Zimmer Theater"
+                      onError={e => { (e.target as HTMLImageElement).src = "/images/hero-theater.jpg"; }}
+                    />
+                    <div className="docu-thumb-overlay" />
+                    <div className="docu-play-center">
+                      <div className="docu-play-btn" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26" style={{ marginLeft: 4 }}>
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <span className="docu-play-label">Dokumentation ansehen</span>
+                    </div>
+                  </div>
+                  <p className="docu-caption">»Die Geschichte hinter dem Theater« — Dokumentarfilm</p>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* ALLE AUSZEICHNUNGEN */}
+          <div className="awards-strip reveal">
+            {[
+              "Siegfried & Roy Golden Lion Award",
+              "World Magic Award",
+              "Europameister der Magier",
+              "Deutscher Meister der Zauberkunst",
+              "IMS Merlin Award",
+              "Goldene Ringe von Lausanne",
+              "Monte Carlo Magic Star",
+              "Marc Klasser Award",
+              "Colombe d'Or",
+              "Artistika",
+              "Kleinkunstpreis Baden-Württemberg",
+            ].map(award => (
+              <span key={award} className="award-chip">
+                <span className="award-chip-star">✦</span>
+                {award}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* MAGIC DINNER FEATURE */}
       <section id="magic-dinner">
