@@ -133,7 +133,7 @@ export default function Home() {
             <div className="show-card-img" style={{ backgroundImage: "url('/images/flo-zirkus-neu.png')", backgroundPosition: "center 20%" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
-              <span className="show-badge" style={{ background: "#2a6aad" }}>Neu 2025</span>
+              <span className="show-badge" style={{ background: "#2a6aad" }}>Kindershow</span>
               <h3>Flo-Zirkus</h3>
               <p>Zirkus, Akrobatik und Magie — ein spektakuläres Erlebnis für alle Sinne.</p>
               <div className="show-meta">
