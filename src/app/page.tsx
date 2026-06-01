@@ -118,9 +118,9 @@ export default function Home() {
             <div className="show-card-img" style={{ backgroundImage: "url('/images/show-magic-dinner.jpg')", backgroundPosition: "center 20%" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
-              <span className="show-badge show-badge--premium">♥ Beliebteste Wahl</span>
-              <h3>Magic Dinner</h3>
-              <p>Show &amp; exklusives 4-Gang-Menü. Der vollkommenste Abend des Jahres — alles aus einer Hand, vollständig durchkomponiert.</p>
+              <span className="show-badge show-badge--premium">✦ Neue Show</span>
+              <h3>Magic Memories</h3>
+              <p>Florian Zimmers brandneue Show. Zweieinhalb Stunden voller Staunen, Emotionen und magischer Momente.</p>
               <div className="show-meta">
                 <span className="show-price">ab 129 €</span>
                 <span className="show-rating">★★★★★ 512 Bewertungen</span>
@@ -290,7 +290,7 @@ export default function Home() {
             </div>
             <div className="md-text reveal reveal-d1">
               <span className="section-label">Das besondere Erlebnis</span>
-              <h2>Magic Dinner —<br /><em>Magie trifft Genuss</em></h2>
+              <h2>Magic Memories —<br /><em>Magie trifft Emotion</em></h2>
               <div className="divider" />
               <p>Ein Abend, der vollständig für Sie gestaltet ist. Vier Gänge, ein Welcome-Cocktail, die beste Sicht — und Magie, die Sie sprachlos zurücklässt.</p>
               <div className="price-tag">

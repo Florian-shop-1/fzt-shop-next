@@ -81,8 +81,8 @@ const SHOWS: ShowEntry[] = [
   },
   {
     id: "magic-dinner",
-    name: "Magic Dinner",
-    desc: "Show + exklusives 3-Gänge-Menü. Der romantischste Abend des Jahres — vollständig durchkomponiert.",
+    name: "Magic Memories",
+    desc: "Florian Zimmers brandneue Show. Zweieinhalb Stunden voller Staunen, Emotionen und magischer Momente.",
     image: "/images/show-magic-dinner.jpg",
     duration: "4h",
     badge: "Exklusiv",
