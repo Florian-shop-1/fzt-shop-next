@@ -145,7 +145,7 @@ export default function Home() {
           </div>
 
           <div className="show-card reveal reveal-d3" onClick={() => openBooking("magic-dinner")}>
-            <div className="show-card-img" style={{ backgroundImage: "url('/images/magic-dinner-neu.jpeg')", backgroundPosition: "center top" }} />
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/magic-dinner-neu2.png')", backgroundPosition: "center top" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
               <span className="show-badge" style={{ background: "linear-gradient(135deg,#C9A84C,#8B6914)" }}>♥ Dinner & Magie</span>
