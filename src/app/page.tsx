@@ -442,7 +442,7 @@ export default function Home() {
             ))}
           </div>
           <div className="stats-bar">
-            {[{ num: "50.000+", label: "begeisterte Gäste seit 2015" }, { num: "4.9 ★", label: "Durchschnittsbewertung" }, { num: "Top 10%", label: "weltweit auf TripAdvisor" }, { num: "98%", label: "würden uns weiterempfehlen" }].map((s, i) => (
+            {[{ num: "100.000+", label: "begeisterte Gäste seit 2022" }, { num: "4.9 ★", label: "Durchschnittsbewertung" }, { num: "Top 10%", label: "weltweit auf TripAdvisor" }, { num: "98%", label: "würden uns weiterempfehlen" }].map((s, i) => (
               <div key={s.label} className={`stat-item reveal${i > 0 ? ` reveal-d${i}` : ""}`}>
                 <div className="stat-number">{s.num}</div>
                 <div className="stat-label">{s.label}</div>
