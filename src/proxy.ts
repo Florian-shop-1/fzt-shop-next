@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const PASSWORD = "ditixupgrade";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const basicAuth = request.headers.get("authorization");
 
   if (basicAuth) {
