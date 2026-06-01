@@ -144,18 +144,18 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="show-card reveal reveal-d3" onClick={() => openBooking("this-is-magic")}>
-            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-ulmfassbar-2.jpg')" }} />
+          <div className="show-card reveal reveal-d3" onClick={() => openBooking("magic-dinner")}>
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/magic-dinner-neu.jpeg')", backgroundPosition: "center top" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
-              <span className="show-badge" style={{ background: "#5a2d82" }}>Familienshow</span>
-              <h3>This is Magic!</h3>
-              <p>Magie, die Herzen öffnet — für die ganze Familie ab 4 Jahren.</p>
+              <span className="show-badge" style={{ background: "linear-gradient(135deg,#C9A84C,#8B6914)" }}>♥ Dinner & Magie</span>
+              <h3>Magic Dinner</h3>
+              <p>Exklusives Dinner-Erlebnis. Vier Gänge, außergewöhnliche Küche und Magie direkt am Tisch.</p>
               <div className="show-meta">
-                <span className="show-price">ab 39 €</span>
-                <span className="show-rating">★★★★★ 389 Bewertungen</span>
+                <span className="show-price">ab 129 €</span>
+                <span className="show-rating">★★★★★ 512 Bewertungen</span>
               </div>
-              <div className="show-card-btn">Familienticket &nbsp;→</div>
+              <div className="show-card-btn">Tisch reservieren &nbsp;→</div>
             </div>
           </div>
         </div>
