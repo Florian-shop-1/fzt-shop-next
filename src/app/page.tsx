@@ -6,11 +6,13 @@ import Trailers from "@/components/Trailers";
 import BookingModal from "@/components/BookingModal";
 import HeroParticles from "@/components/HeroParticles";
 import CinematicVideo from "@/components/CinematicVideo";
+import InquiryModal from "@/components/InquiryModal";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [initialShow, setInitialShow] = useState("");
   const [voucherValue, setVoucherValue] = useState(100);
+  const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
 
   const openBooking = (show = "") => { setInitialShow(show); setBookingOpen(true); };
 
@@ -27,7 +29,8 @@ export default function Home() {
   return (
     <>
       <Nav onBooking={() => openBooking()} />
-      <BookingModal open={bookingOpen} initialShow={initialShow} onClose={() => setBookingOpen(false)} />
+      <BookingModal open={bookingOpen} initialShow={initialShow} onClose={() => setBookingOpen(false)} onLogeInquiry={() => { setBookingOpen(false); setInquiryType("loge"); }} />
+      <InquiryModal type={inquiryType} onClose={() => setInquiryType(null)} />
 
       {/* HERO */}
       <section className="hero" id="hero">
@@ -43,12 +46,12 @@ export default function Home() {
           <p className="hero-eyebrow">✦ HOME OF MAGIC ✦</p>
           <h1>Eine Nacht,<br />die du <em>nie</em> vergisst.</h1>
           <p className="hero-sub">
-            Live-Magie auf Weltklasse-Niveau — atemberaubend, persönlich, unvergesslich.<br />
-            Erlebe Illusionen, die du für unmöglich gehalten hast.
+            Der Abend beginnt hier. Live-Magie, die dich und deine Begleitung<br />
+            für immer verbindet — persönlich, atemberaubend, einzigartig.
           </p>
           <div className="hero-ctas">
-            <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Jetzt Erlebnis sichern</button>
-            <a href="#shows" className="btn-secondary">Shows entdecken</a>
+            <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Abend reservieren</button>
+            <a href="#shows" className="btn-secondary">Alle Erlebnisse</a>
           </div>
           <div className="hero-avail">
             <span className="dot-live" />
@@ -72,7 +75,7 @@ export default function Home() {
           <div className="trust-sep" />
           <div className="trust-item"><strong>Golden Lion</strong><span>Award Winner</span></div>
           <div className="trust-sep" />
-          <div className="trust-item"><strong>DSGVO</strong><span>sichere Buchung</span></div>
+          <div className="trust-item"><strong>Travellers&apos; Choice</strong><span>2025 &amp; 2026</span></div>
         </div>
       </div>
 
@@ -83,83 +86,120 @@ export default function Home() {
       <div className="magic-divider"><span>✦ &nbsp; ✦ &nbsp; ✦</span></div>
 
       {/* SHOWS */}
-      <section id="shows" style={{ padding: "100px 0 0" }}>
+      <section id="shows" style={{ padding: "80px 0 0" }}>
         <div className="container">
           <div className="section-header text-center reveal">
-            <span className="section-label">Unsere Shows</span>
-            <h2>Wähle dein Erlebnis</h2>
+            <span className="section-label">Erlebe Florian Zimmer</span>
+            <h2>Jeder Abend einzigartig.</h2>
             <div className="divider divider-center" />
           </div>
         </div>
-        <div className="shows-grid">
-          {[
-            { id: "ulmfassbar", img: "/images/show-ulmfassbar.jpg", badge: "★ Bestseller", badgeBg: "", name: "ULMFASSBAR", desc: "Die Magishow, über die alle reden. 2,5 Stunden Weltklasse-Illusionen — du wirst es nicht glauben.", price: "ab 59 €", rating: "★★★★★ 847 Bewertungen", cta: "Plätze sichern", scarcity: "⚡ Nur noch 18 Plätze für Sa. 31. Mai!", occasions: ["♥ Date Night", "🎂 Geburtstag", "🎉 Gruppenabend"] },
-            { id: "magic-dinner", img: "/images/show-magic-dinner.jpg", badge: "♥ Beliebteste Wahl", badgeBg: "linear-gradient(135deg,#C9A84C,#8B6914)", name: "Magic Dinner", desc: "Die romantischste Entscheidung des Jahres. Show + 3-Gänge-Menü — ein perfekter Abend aus einem Guss.", price: "ab 129 €", rating: "★★★★★ 512 Bewertungen", cta: "Tisch reservieren", scarcity: "", occasions: ["♥ Date Night", "💍 Jahrestag", "🥂 Besonderer Anlass"] },
-            { id: "flo-zirkus", img: "/images/show-atmosphere.jpg", badge: "Neu 2025", badgeBg: "#2a6aad", name: "Flo-Zirkus", desc: "Zirkus, Akrobatik und Magie unter einem Dach. Ein spektakuläres Gesamterlebnis für alle Sinne.", price: "ab 45 €", rating: "★★★★★ 203 Bewertungen", cta: "Tickets sichern", scarcity: "", occasions: [] },
-            { id: "this-is-magic", img: "/images/show-ulmfassbar-2.jpg", badge: "Familienshow", badgeBg: "#5a2d82", name: "This is Magic!", desc: "Magie, die Herzen öffnet. Staunen, Lachen, Gänsehaut — für die ganze Familie ab 4 Jahren.", price: "ab 39 €", rating: "★★★★★ 389 Bewertungen", cta: "Familienticket", scarcity: "", occasions: ["👨‍👩‍👧 Familie", "🎂 Kindergeburtstag"] },
-          ].map((show, i) => (
-            <div key={show.id} className={`show-card reveal${i > 0 ? ` reveal-d${i}` : ""}`} onClick={() => openBooking(show.id)}>
-              <div className="show-card-img" style={{ backgroundImage: `url('${show.img}')` }} />
+
+        {/* PRIMARY: ULMFASSBAR + MAGIC DINNER */}
+        <div className="shows-grid-primary">
+          <div className="show-card reveal" onClick={() => openBooking("ulmfassbar")}>
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-ulmfassbar.jpg')" }} />
+            <div className="show-card-overlay" />
+            <div className="show-card-content">
+              <span className="show-badge">★ Signature Show</span>
+              <h3>ULMFASSBAR</h3>
+              <p>Florian Zimmers Signature-Show. Zwei­einhalb Stunden Weltklasse-Magie — persönlich, atemberaubend, unvergesslich.</p>
+              <div className="show-meta">
+                <span className="show-price">ab 59 €</span>
+                <span className="show-rating">★★★★★</span>
+              </div>
+              <div className="show-card-btn">Abend sichern &nbsp;→</div>
+            </div>
+          </div>
+
+          <div className="show-card show-card--featured reveal reveal-d1" onClick={() => openBooking("magic-dinner")}>
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/show-magic-dinner.jpg')" }} />
+            <div className="show-card-overlay" />
+            <div className="show-card-content">
+              <span className="show-badge show-badge--premium">♥ Beliebteste Wahl</span>
+              <h3>Magic Dinner</h3>
+              <p>Show &amp; exklusives 4-Gang-Menü. Der vollkommenste Abend des Jahres — alles aus einer Hand, vollständig durchkomponiert.</p>
+              <div className="show-meta">
+                <span className="show-price">ab 129 €</span>
+                <span className="show-rating">★★★★★</span>
+              </div>
+              <div className="show-card-btn">Tisch reservieren &nbsp;→</div>
+            </div>
+          </div>
+        </div>
+
+        {/* SECONDARY: FLO-ZIRKUS + THIS IS MAGIC */}
+        <div className="shows-secondary">
+          <div className="container">
+            <div className="shows-secondary-label reveal">
+              <span className="section-label" style={{ marginBottom: 0 }}>Weitere Erlebnisse</span>
+            </div>
+          </div>
+          <div className="shows-grid-secondary">
+            <div className="show-card reveal" onClick={() => openBooking("flo-zirkus")}>
+              <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')" }} />
               <div className="show-card-overlay" />
               <div className="show-card-content">
-                <span className="show-badge" style={show.badgeBg ? { background: show.badgeBg } : {}}>{show.badge}</span>
-                <h3>{show.name}</h3>
-                <p>{show.desc}</p>
-                {show.occasions.length > 0 && (
-                  <div className="occasion-tags" style={{ marginTop: 10, marginBottom: 8 }}>
-                    {show.occasions.map(tag => (
-                      <span key={tag} className="occasion-tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-                {show.scarcity && (
-                  <div className="scarcity-note" style={{ marginBottom: 10 }}>
-                    <span className="scarcity-dot" />
-                    {show.scarcity}
-                  </div>
-                )}
+                <span className="show-badge" style={{ background: "#2a6aad" }}>Neu 2025</span>
+                <h3>Flo-Zirkus</h3>
+                <p>Zirkus, Akrobatik und Magie — ein spektakuläres Erlebnis für alle Sinne.</p>
                 <div className="show-meta">
-                  <span className="show-price">{show.price}</span>
-                  <span className="show-rating">{show.rating}</span>
+                  <span className="show-price">ab 45 €</span>
+                  <span className="show-rating">★★★★★</span>
                 </div>
-                <div className="show-card-btn">{show.cta} &nbsp;→</div>
+                <div className="show-card-btn">Tickets sichern &nbsp;→</div>
               </div>
             </div>
-          ))}
+
+            <div className="show-card reveal reveal-d1" onClick={() => openBooking("this-is-magic")}>
+              <div className="show-card-img" style={{ backgroundImage: "url('/images/show-ulmfassbar-2.jpg')" }} />
+              <div className="show-card-overlay" />
+              <div className="show-card-content">
+                <span className="show-badge" style={{ background: "#5a2d82" }}>Familienshow</span>
+                <h3>This is Magic!</h3>
+                <p>Magie, die Herzen öffnet — für die ganze Familie ab 4 Jahren.</p>
+                <div className="show-meta">
+                  <span className="show-price">ab 39 €</span>
+                  <span className="show-rating">★★★★★</span>
+                </div>
+                <div className="show-card-btn">Familienticket &nbsp;→</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* TRAILERS */}
       <Trailers />
 
-      {/* MAGIC DINNER */}
+      {/* MAGIC DINNER FEATURE */}
       <section id="magic-dinner">
         <div className="container">
           <div className="md-inner">
             <div className="md-visual reveal">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="md-img" src="/images/show-magic-dinner.jpg" alt="Magic Dinner" />
-              <div className="md-badge">♥ Bestseller</div>
+              <div className="md-badge">♥ Beliebteste Wahl</div>
               <div className="md-glow" />
             </div>
             <div className="md-text reveal reveal-d1">
               <span className="section-label">Das besondere Erlebnis</span>
               <h2>Magic Dinner —<br /><em>Magie trifft Genuss</em></h2>
               <div className="divider" />
-              <p>Erlebe eine vollständige Magishow kombiniert mit einem exklusiven 3-Gänge-Menü in edler Atmosphäre. Der gesamte Abend ist durchkomponiert — von der Ankunft bis zum letzten Bissen.</p>
+              <p>Ein Abend, der vollständig für Sie gestaltet ist. Vier Gänge, ein Welcome-Cocktail, die beste Sicht — und Magie, die Sie sprachlos zurücklässt.</p>
               <div className="price-tag">
                 <span className="price-from">ab</span>
                 <span className="price-amount">129€</span>
                 <span className="price-per">/ Person</span>
               </div>
               <ul className="features-list">
-                <li><span className="feat-icon">✦</span> Exklusives 3-Gänge-Menü vor der Show</li>
-                <li><span className="feat-icon">✦</span> Erlesene Weinbegleitung inklusive</li>
+                <li><span className="feat-icon">✦</span> Exklusives 4-Gang-Menü inkl. Welcome-Cocktail</li>
+                <li><span className="feat-icon">✦</span> Erlesene Weinbegleitung verfügbar</li>
                 <li><span className="feat-icon">✦</span> Reservierter Premium-Tisch mit bester Sicht</li>
                 <li><span className="feat-icon">✦</span> Persönliche Begrüßung durch das Team</li>
-                <li><span className="feat-icon">✦</span> 4 Stunden unvergessliches Gesamterlebnis</li>
+                <li><span className="feat-icon">✦</span> Vier Stunden — vollständig durchkomponiert</li>
               </ul>
-              <button className="btn-primary" onClick={() => openBooking("magic-dinner")}>✦ &nbsp;Magic Dinner buchen</button>
+              <button className="btn-primary" onClick={() => openBooking("magic-dinner")}>✦ &nbsp;Magic Dinner reservieren</button>
             </div>
           </div>
         </div>
@@ -180,7 +220,7 @@ export default function Home() {
               <div key={p} className="loge-perk"><span className="perk-dot" />{p}</div>
             ))}
           </div>
-          <button className="btn-primary" onClick={() => alert("Bitte rufen Sie uns an: 0731 7906 110\noder: loge@florianzimmertheater.de")}>✦ &nbsp;Loge anfragen</button>
+          <button className="btn-primary" onClick={() => setInquiryType("loge")}>✦ &nbsp;Loge anfragen</button>
         </div>
       </section>
 
@@ -188,7 +228,7 @@ export default function Home() {
       <section id="extras">
         <div className="container">
           <div className="section-header text-center reveal">
-            <span className="section-label">Erlebnis aufwerten</span>
+            <span className="section-label">Den Abend vollenden</span>
             <h2>Mach den Abend <em>unvergesslich</em></h2>
             <div className="divider divider-center" />
           </div>
@@ -197,7 +237,7 @@ export default function Home() {
               { icon: "🥂", name: "Welcome-Prosecco", desc: "Für alle Personen — ein eleganter Auftakt zum magischen Abend.", price: "7,50 € / Person", badge: "Beliebt" },
               { icon: "🌹", name: "Romantik-Paket", desc: "Rosen, persönliche Karte und Sektempfang — für den perfekten Abend zu zweit.", price: "29 €", badge: "" },
               { icon: "🎂", name: "Geburtstags-Deko", desc: "Personalisierter Tischaufsteller und handgeschriebene Karte für den Jubilar.", price: "19 €", badge: "" },
-              { icon: "📸", name: "Foto-Session", desc: "Meet & Greet backstage mit Florian Zimmer nach der Show. Unvergesslich.", price: "39 €", badge: "Exklusiv" },
+              { icon: "📸", name: "Foto-Session", desc: "Meet & Greet backstage mit Florian Zimmer nach der Show.", price: "39 €", badge: "Exklusiv" },
             ].map((e, i) => (
               <div key={e.name} className={`extra-card reveal${i > 0 ? ` reveal-d${i}` : ""}`}>
                 <div className="extra-icon">{e.icon}</div>
@@ -231,27 +271,21 @@ export default function Home() {
               <span className="section-label">Das perfekte Geschenk</span>
               <h2>Verschenke <em>Magie</em></h2>
               <div className="divider" />
-              <p>Gib dem Menschen, den du liebst, eine Nacht voller Wunder — ein Erlebnis, das alle anderen Geschenke übertrifft. Für jeden Anlass.</p>
+              <p>Gib dem Menschen, den du liebst, eine Nacht voller Wunder — ein Erlebnis, das alle anderen Geschenke übertrifft.</p>
 
-              {/* Wertauswahl */}
               <div className="voucher-values">
                 {[50, 75, 100, 150, 200].map(v => (
-                  <button
-                    key={v}
-                    className={`voucher-val-btn${voucherValue === v ? " active" : ""}`}
-                    onClick={() => setVoucherValue(v)}
-                  >{v} €</button>
+                  <button key={v} className={`voucher-val-btn${voucherValue === v ? " active" : ""}`} onClick={() => setVoucherValue(v)}>{v} €</button>
                 ))}
                 <button className="voucher-val-custom">Wunschbetrag</button>
               </div>
 
-              {/* Zauber-Geschenk ab 100€ */}
               {voucherValue >= 100 && (
                 <div className="magic-gift-badge">
                   <span className="gift-icon">🪄</span>
                   <div>
                     <strong>Kostenloses Zauber-Geschenk inklusive!</strong>
-                    <p>Ab 100 € erhält dein Beschenkter ein hochwertiges Zaubertrick-Set — von Florian Zimmer persönlich ausgewählt, kostenlos versendet.</p>
+                    <p>Ab 100 € erhält dein Beschenkter ein hochwertiges Zaubertrick-Set — von Florian Zimmer persönlich ausgewählt.</p>
                   </div>
                 </div>
               )}
@@ -264,12 +298,6 @@ export default function Home() {
                   <li>{voucherValue >= 100 ? "Kostenloser Versand + exklusives Zauber-Geschenk" : "Kostenloser digitaler Versand"}</li>
                   <li>Persönliche Widmung mit eigenem Text inklusive</li>
                 </ul>
-              </div>
-
-              <div className="occasion-tags">
-                {["♥ Date Night", "🎂 Geburtstag", "💍 Jahrestag", "🎄 Weihnachten", "🎓 Abschluss", "🎁 Einfach so"].map(tag => (
-                  <span key={tag} className="occasion-tag">{tag}</span>
-                ))}
               </div>
 
               <div className="gutschein-opts">
@@ -304,7 +332,7 @@ export default function Home() {
                   <div key={b.label} className="firmen-bullet"><div className="num">{b.num}</div><p>{b.label}</p></div>
                 ))}
               </div>
-              <button className="btn-primary" onClick={() => alert("Bitte rufen Sie uns an: 0731 7906 110\noder: firmen@florianzimmertheater.de")}>✦ &nbsp;Unverbindlich anfragen</button>
+              <button className="btn-primary" onClick={() => setInquiryType("firmen")}>✦ &nbsp;Unverbindlich anfragen</button>
             </div>
             <div className="reveal reveal-d1">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -372,7 +400,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* TripAdvisor Badge */}
           <div className="tripadvisor-badge reveal" style={{ maxWidth: 460, margin: "32px auto 0" }}>
             <svg className="ta-owl" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="18" cy="18" r="18" fill="#00AA6C"/>
@@ -421,7 +448,7 @@ export default function Home() {
             </div>
             <div className="footer-col">
               <h4>Theater</h4>
-              <a href="tel:+497317906110">📞 0731 7906 110</a><a href="#">Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="#">Datenschutz</a><a href="#">Impressum</a>
+              <a href="tel:+497317906110">0731 7906 110</a><a href="#">Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="#">Datenschutz</a><a href="#">Impressum</a>
             </div>
           </div>
           <div className="footer-bottom">
@@ -433,7 +460,7 @@ export default function Home() {
 
       {/* STICKY MOBILE BAR */}
       <div className="sticky-bar">
-        <button className="btn-secondary" onClick={() => openBooking()}>🎁 Gutschein</button>
+        <button className="btn-secondary" onClick={() => openBooking()}>Gutschein</button>
         <button className="btn-primary" onClick={() => openBooking()}>Jetzt buchen</button>
       </div>
     </>

@@ -61,6 +61,7 @@ interface BookingModalProps {
   open: boolean;
   initialShow?: string;
   onClose: () => void;
+  onLogeInquiry?: () => void;
 }
 
 // ─────────────────────────────────────────────
@@ -369,7 +370,7 @@ function QtyControl({
 //  COMPONENT
 // ─────────────────────────────────────────────
 
-export default function BookingModal({ open, initialShow, onClose }: BookingModalProps) {
+export default function BookingModal({ open, initialShow, onClose, onLogeInquiry }: BookingModalProps) {
   // ── Show / Date / Seat state ──────────────
   const [step,          setStep]          = useState(1);
   const [selectedShowId, setSelectedShowId] = useState(initialShow ?? "");
@@ -392,6 +393,9 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
   const [expandedMenu,       setExpandedMenu]       = useState<string | null>(null);
   const [showMenuCards,      setShowMenuCards]      = useState(false);
   const [showStehtischCards, setShowStehtischCards] = useState(false);
+  const [showAllShows,       setShowAllShows]       = useState(false);
+  const [confirmed,          setConfirmed]          = useState(false);
+  const [logeInfoOpen,       setLogeInfoOpen]       = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -408,6 +412,9 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
       setExpandedMenu(null);
       setShowMenuCards(false);
       setShowStehtischCards(false);
+      setShowAllShows(false);
+      setConfirmed(false);
+      setLogeInfoOpen(false);
       if (initialShow) {
         setSelectedShowId(initialShow);
         setSelectedDateId(null);
@@ -526,7 +533,7 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
 
   const nextStep = () => {
     if (step < 6) setStep(s => s + 1);
-    else { alert("Vielen Dank! Ihre Buchung wird bearbeitet. ✨"); onClose(); }
+    else setConfirmed(true);
   };
 
   const dotClass  = (n: number) => `step-dot${step === n ? " active" : step > n ? " done" : ""}`;
@@ -561,35 +568,72 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
         {/* ── Body ── */}
         <div className="modal-body">
 
+          {/* ══════ CONFIRMED SUCCESS STATE ══════ */}
+          {confirmed && (
+            <div className="modal-success">
+              <div className="modal-success-icon">✦</div>
+              <h2>Ihr Abend ist gesichert.</h2>
+              <p>Sie erhalten in Kürze eine Buchungsbestätigung per E-Mail.<br />Wir freuen uns auf Sie.</p>
+              <div className="modal-success-details">
+                <span>{resolvedShow?.name ?? "Ihre Show"}</span>
+                <span>{resolvedDate?.displayDate ?? ""}{resolvedTime ? ` · ${resolvedTime.time} Uhr` : ""}</span>
+              </div>
+              <button className="btn-primary" onClick={onClose} style={{ margin: "0 auto", display: "flex" }}>
+                Zurück zur Übersicht
+              </button>
+            </div>
+          )}
+
+          {!confirmed && <>
+
           {/* ══════════════════════════════════════
               STEP 1 — Show & Termin
           ══════════════════════════════════════ */}
           {step === 1 && (
             <div>
-              <p className="step-hint">Wähle deine Show</p>
-              <div className="show-list">
-                {SHOWS.map(show => (
-                  <div
-                    key={show.id}
-                    className={`show-list-card${selectedShowId === show.id ? " selected" : ""}`}
-                    onClick={() => handleSelectShow(show.id)}
-                  >
-                    <div className="show-list-img" style={{ backgroundImage: `url('${show.image}')` }} />
-                    <div className="show-list-info">
-                      <div className="show-list-meta">
-                        {show.badge && (
-                          <span className="show-list-badge" style={{ background: show.badgeColor }}>{show.badge}</span>
-                        )}
-                        <span className="show-list-duration">{show.duration}</span>
-                        <span className="show-list-price">{show.price}</span>
-                      </div>
-                      <h4 className="show-list-name">{show.name}</h4>
-                      <p className="show-list-desc">{show.desc}</p>
+              {/* Pre-selected show: collapsed header with "ändern" option */}
+              {initialShow && !showAllShows ? (
+                <div className="preselected-show">
+                  <div className="preselected-show-img" style={{ backgroundImage: `url('${resolvedShow?.image}')` }} />
+                  <div className="preselected-show-info">
+                    {resolvedShow?.badge && <span className="show-list-badge" style={{ background: resolvedShow.badgeColor, marginBottom: 4, display: "inline-block" }}>{resolvedShow.badge}</span>}
+                    <h4 className="preselected-show-name">{resolvedShow?.name}</h4>
+                    <div className="preselected-show-meta">
+                      <span>{resolvedShow?.duration}</span>
+                      <span>·</span>
+                      <span>{resolvedShow?.price}</span>
                     </div>
-                    <div className={`show-list-check${selectedShowId === show.id ? " visible" : ""}`}>✓</div>
                   </div>
-                ))}
-              </div>
+                  <button className="change-show-btn" onClick={() => setShowAllShows(true)}>ändern</button>
+                </div>
+              ) : (
+                <>
+                  <p className="step-hint">Wähle deine Show</p>
+                  <div className="show-list">
+                    {SHOWS.map(show => (
+                      <div
+                        key={show.id}
+                        className={`show-list-card${selectedShowId === show.id ? " selected" : ""}`}
+                        onClick={() => handleSelectShow(show.id)}
+                      >
+                        <div className="show-list-img" style={{ backgroundImage: `url('${show.image}')` }} />
+                        <div className="show-list-info">
+                          <div className="show-list-meta">
+                            {show.badge && (
+                              <span className="show-list-badge" style={{ background: show.badgeColor }}>{show.badge}</span>
+                            )}
+                            <span className="show-list-duration">{show.duration}</span>
+                            <span className="show-list-price">{show.price}</span>
+                          </div>
+                          <h4 className="show-list-name">{show.name}</h4>
+                          <p className="show-list-desc">{show.desc}</p>
+                        </div>
+                        <div className={`show-list-check${selectedShowId === show.id ? " visible" : ""}`}>✓</div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
 
               {selectedShowId && (
                 <div className="date-section">
@@ -695,19 +739,35 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
                   );
                 })}
                 <div className="seatmap-loge-row">
-                  <div className="loge-box" onClick={() => alert("VIP-Loge anfragen:\n📞 0731 7906 110\n✉ loge@florianzimmertheater.de")}>
+                  <div className="loge-box" onClick={() => setLogeInfoOpen(v => !v)}>
                     <div className="loge-box-title">VIP Loge</div>
                     <div className="loge-box-price">ab 599 €</div>
                     <div className="loge-box-cta">anfragen →</div>
                   </div>
                   <div className="seatmap-loge-center">EINGANG · AUSGANG</div>
-                  <div className="loge-box" onClick={() => alert("VIP-Loge anfragen:\n📞 0731 7906 110\n✉ loge@florianzimmertheater.de")}>
+                  <div className="loge-box" onClick={() => setLogeInfoOpen(v => !v)}>
                     <div className="loge-box-title">VIP Loge</div>
                     <div className="loge-box-price">ab 599 €</div>
                     <div className="loge-box-cta">anfragen →</div>
                   </div>
                 </div>
               </div>
+
+              {logeInfoOpen && (
+                <div className="loge-inquiry-panel">
+                  <button className="loge-box-close" onClick={() => setLogeInfoOpen(false)}>schließen ✕</button>
+                  <h5>VIP-Loge anfragen</h5>
+                  <p>Privater Bereich für bis zu 8 Personen — ab 599 €.<br />
+                    Rufen Sie uns an: <a href="tel:+497317906110">0731 7906 110</a><br />
+                    oder: <a href="mailto:loge@florianzimmertheater.de">loge@florianzimmertheater.de</a>
+                  </p>
+                  {onLogeInquiry && (
+                    <button className="mc-hero-cta" style={{ marginTop: 12, fontSize: 13 }} onClick={onLogeInquiry}>
+                      Anfrage-Formular öffnen →
+                    </button>
+                  )}
+                </div>
+              )}
 
               <div style={{ display: "flex", gap: 20, margin: "14px 0 4px", fontSize: 11, color: "var(--muted)" }}>
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -1309,24 +1369,28 @@ export default function BookingModal({ open, initialShow, onClose }: BookingModa
               </div>
             </div>
           )}
+
+          </>}
         </div>
 
         {/* ── Footer ── */}
-        <div className="modal-footer">
-          <button
-            className="btn-back"
-            style={{ visibility: step === 1 ? "hidden" : "visible" }}
-            onClick={() => setStep(s => s - 1)}
-          >← Zurück</button>
-          <button
-            className="btn-next"
-            onClick={nextStep}
-            disabled={!canProceed}
-            style={!canProceed ? { opacity: 0.38, cursor: "not-allowed", boxShadow: "none" } : {}}
-          >
-            {step === 6 ? "Jetzt buchen ✦" : "Weiter →"}
-          </button>
-        </div>
+        {!confirmed && (
+          <div className="modal-footer">
+            <button
+              className="btn-back"
+              style={{ visibility: step === 1 ? "hidden" : "visible" }}
+              onClick={() => setStep(s => s - 1)}
+            >← Zurück</button>
+            <button
+              className="btn-next"
+              onClick={nextStep}
+              disabled={!canProceed}
+              style={!canProceed ? { opacity: 0.38, cursor: "not-allowed", boxShadow: "none" } : {}}
+            >
+              {step === 6 ? "Jetzt buchen ✦" : "Weiter →"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1716,3 +1716,169 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 /* Show card gold glow on hover */
 .show-card:hover { box-shadow: 0 0 40px rgba(201,168,76,0.1), inset 0 0 0 1px rgba(201,168,76,0.15); }
 
+/* ===================== PRIMARY SHOW GRID (ULMFASSBAR + MAGIC DINNER) ===================== */
+.shows-grid-primary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.shows-grid-primary .show-card {
+  aspect-ratio: 2/3;
+  min-height: 420px;
+}
+@media (max-width: 680px) {
+  .shows-grid-primary { grid-template-columns: 1fr; }
+  .shows-grid-primary .show-card { aspect-ratio: 4/5; min-height: 360px; }
+}
+
+/* Featured show treatment (Magic Dinner) */
+.show-card--featured {
+  box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.45);
+}
+.show-card--featured .show-card-overlay {
+  background: linear-gradient(180deg, rgba(8,8,8,0.08) 0%, rgba(8,8,8,0.88) 100%);
+}
+.show-card--featured:hover {
+  box-shadow: 0 0 50px rgba(201,168,76,0.15), inset 0 0 0 1.5px rgba(201,168,76,0.7);
+}
+.show-badge--premium {
+  background: linear-gradient(135deg, #C9A84C, #8B6914) !important;
+  font-size: 11px !important; padding: 5px 12px !important;
+}
+
+/* ===================== SECONDARY SHOW GRID (FLO-ZIRKUS + THIS IS MAGIC) ===================== */
+.shows-secondary { margin-top: 48px; }
+.shows-secondary-label {
+  padding: 0 0 16px;
+  display: flex; align-items: center; gap: 16px;
+  opacity: 0.65;
+}
+.shows-secondary-label::before,
+.shows-secondary-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border));
+}
+.shows-secondary-label::after {
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+.shows-grid-secondary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.shows-grid-secondary .show-card { aspect-ratio: 16/9; min-height: 200px; }
+@media (max-width: 680px) {
+  .shows-grid-secondary { grid-template-columns: 1fr; }
+  .shows-grid-secondary .show-card { aspect-ratio: 4/3; }
+}
+
+/* ===================== INQUIRY MODAL ===================== */
+.inquiry-overlay {
+  display: flex; position: fixed; inset: 0; z-index: 3000;
+  background: rgba(8,8,8,0.9); backdrop-filter: blur(14px);
+  align-items: center; justify-content: center; padding: 24px;
+}
+.inquiry-modal {
+  background: var(--dark); border: 1px solid var(--border);
+  border-radius: 8px; width: 100%; max-width: 520px;
+  padding: 48px 44px 40px; position: relative;
+  animation: modalIn 0.35s ease;
+}
+.inquiry-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.07); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer; transition: background var(--transition);
+  border: none;
+}
+.inquiry-close:hover { background: rgba(201,168,76,0.15); }
+.inquiry-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
+.inquiry-modal h3 { font-size: clamp(22px,3vw,30px); margin-bottom: 10px; }
+.inquiry-modal > p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 28px; }
+.inquiry-fields { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.inquiry-field { display: flex; flex-direction: column; gap: 6px; }
+.inquiry-field label { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+.inquiry-field input,
+.inquiry-field textarea {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 13px 16px; color: var(--white);
+  font-size: 14px; font-family: inherit; outline: none;
+  transition: border-color var(--transition);
+}
+.inquiry-field input:focus,
+.inquiry-field textarea:focus { border-color: var(--gold); }
+.inquiry-field textarea { resize: vertical; min-height: 80px; }
+.inquiry-submit {
+  width: 100%; background: var(--gold); color: var(--black);
+  padding: 15px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+  border-radius: var(--radius); cursor: pointer; border: none;
+  font-family: inherit; transition: all var(--transition);
+}
+.inquiry-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+.inquiry-success {
+  text-align: center; padding: 16px 0 8px;
+}
+.inquiry-success-icon {
+  font-size: 36px; color: var(--gold); margin-bottom: 16px; display: block;
+  font-family: var(--font-playfair), serif;
+}
+.inquiry-success h4 { font-size: 20px; margin-bottom: 10px; }
+.inquiry-success p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+/* ===================== BOOKING MODAL SUCCESS STATE ===================== */
+.modal-success {
+  text-align: center; padding: 24px 0 8px;
+  animation: fadeUp 0.5s ease;
+}
+.modal-success-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(201,168,76,0.12); border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 28px; color: var(--gold);
+  font-family: var(--font-playfair), serif;
+}
+.modal-success h2 { font-size: 24px; margin-bottom: 12px; }
+.modal-success > p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 24px; }
+.modal-success-details {
+  background: rgba(201,168,76,0.05); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px; margin-bottom: 28px;
+  display: flex; flex-direction: column; gap: 4px; text-align: left;
+}
+.modal-success-details span { font-size: 13px; color: rgba(255,255,255,0.75); }
+.modal-success-details span:first-child { font-weight: 600; color: var(--white); }
+
+/* ===================== LOGE INQUIRY PANEL (in-modal) ===================== */
+.loge-inquiry-panel {
+  background: rgba(201,168,76,0.05); border: 1px solid var(--border);
+  border-radius: 6px; padding: 20px 22px; margin-top: 14px;
+  animation: fadeUp 0.3s ease;
+}
+.loge-inquiry-panel h5 { font-size: 14px; margin-bottom: 8px; color: var(--gold); }
+.loge-inquiry-panel p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.loge-inquiry-panel a { color: var(--gold); text-decoration: none; }
+.loge-inquiry-panel a:hover { text-decoration: underline; }
+.loge-box-close { font-size: 11px; color: var(--muted); cursor: pointer; float: right; margin-top: -2px; }
+
+/* ===================== PRESELECTED SHOW (Booking Modal Step 1) ===================== */
+.preselected-show {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(201,168,76,0.05); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px; margin-bottom: 24px;
+}
+.preselected-show-img {
+  width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0;
+  background-size: cover; background-position: center;
+}
+.preselected-show-info { flex: 1; }
+.preselected-show-info h4 { font-size: 15px; margin-bottom: 4px; }
+.preselected-show-meta { font-size: 12px; color: var(--muted); display: flex; gap: 10px; }
+.change-show-btn {
+  font-size: 12px; color: rgba(255,255,255,0.4); cursor: pointer;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px;
+  background: none; font-family: inherit;
+  transition: all var(--transition); flex-shrink: 0;
+}
+.change-show-btn:hover { color: var(--gold); border-color: var(--gold); }
+
