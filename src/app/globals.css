@@ -2244,8 +2244,8 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 }
 
 /* Menü-/Stehtisch-Karten: ganze Kachel klickbar (+1) */
-.menu-card.clickable, .stehtisch-card.clickable { cursor: pointer; }
-.menu-card.clickable:hover, .stehtisch-card.clickable:hover { border-color: rgba(201,168,76,0.45); }
+.menu-card.clickable, .stehtisch-card.clickable, .extras4-card.clickable { cursor: pointer; }
+.menu-card.clickable:hover, .stehtisch-card.clickable:hover, .extras4-card.clickable:hover { border-color: rgba(201,168,76,0.45); }
 
 /* ===================== FLEX-OPTION (Ja/Nein) ===================== */
 .flex-toggle-card { cursor: pointer; align-items: flex-start; }
@@ -2288,3 +2288,87 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 /* Spinner dezenter */
 .voucher-custom-input input::-webkit-outer-spin-button,
 .voucher-custom-input input::-webkit-inner-spin-button { opacity: 0.4; }
+
+/* ===================== GUTSCHEIN GESTALTEN (Designer) ===================== */
+.gc-overlay {
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(8,8,8,0.92); backdrop-filter: blur(12px);
+  display: flex; align-items: flex-start; justify-content: center;
+  overflow-y: auto; padding: 24px;
+}
+.gc-modal {
+  background: var(--dark); border: 1px solid var(--border);
+  border-radius: 10px; width: 100%; max-width: 920px; margin: auto;
+  position: relative; animation: modalIn 0.35s ease; padding: 40px;
+}
+@media (max-width: 720px) { .gc-modal { padding: 28px 20px; } }
+.gc-close {
+  position: absolute; top: 14px; right: 14px; z-index: 10;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.07); color: var(--white); border: none;
+  font-size: 16px; cursor: pointer; transition: background var(--transition);
+}
+.gc-close:hover { background: rgba(201,168,76,0.2); }
+.gc-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 14px; }
+.gc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+@media (max-width: 720px) { .gc-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Vorschau-Spalte */
+.gc-preview-col { position: sticky; top: 0; }
+.gc-preview { margin: 0; }
+.gc-from { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 10px; font-style: italic; }
+
+/* Motiv-Varianten der Vorschau */
+.gc-preview.motif-night { background: linear-gradient(135deg, #0e1630 0%, #1a2550 100%) !important; }
+.gc-preview.motif-night .gutschein-logo, .gc-preview.motif-night .gutschein-tagline,
+.gc-preview.motif-night .gutschein-value, .gc-preview.motif-night .gutschein-code { color: #cdd8ff !important; }
+.gc-preview.motif-night::before { background: radial-gradient(circle, rgba(120,150,255,0.25) 0%, transparent 70%) !important; }
+.gc-preview.motif-romantik { background: linear-gradient(135deg, #2a1620 0%, #3a1f2c 100%) !important; }
+.gc-preview.motif-romantik .gutschein-logo, .gc-preview.motif-romantik .gutschein-tagline,
+.gc-preview.motif-romantik .gutschein-value, .gc-preview.motif-romantik .gutschein-code { color: #f0c0cf !important; }
+.gc-preview.motif-romantik::before { background: radial-gradient(circle, rgba(240,170,200,0.22) 0%, transparent 70%) !important; }
+
+/* Formular */
+.gc-form-col h3 { font-size: 26px; margin-bottom: 22px; }
+.gc-field { margin-bottom: 18px; display: flex; flex-direction: column; gap: 7px; position: relative; }
+.gc-field label { font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+.gc-field input, .gc-field textarea {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 14px; color: var(--white); font-size: 14px; font-family: inherit; outline: none;
+  transition: border-color var(--transition);
+}
+.gc-field input:focus, .gc-field textarea:focus { border-color: var(--gold); }
+.gc-field textarea { resize: vertical; min-height: 72px; }
+.gc-charcount { position: absolute; right: 4px; bottom: -16px; font-size: 10px; color: var(--muted); }
+.gc-hint { font-size: 11px; color: var(--muted); }
+
+.gc-motifs { display: flex; gap: 8px; flex-wrap: wrap; }
+.gc-motif {
+  flex: 1; min-width: 90px; padding: 10px 8px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.75); font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: all var(--transition);
+}
+.gc-motif:hover { border-color: var(--gold); }
+.gc-motif.active { border-color: var(--gold); color: var(--white); }
+.gc-motif-classic.active { background: rgba(201,168,76,0.15); }
+.gc-motif-night.active { background: rgba(120,150,255,0.15); border-color: #7896ff; }
+.gc-motif-romantik.active { background: rgba(240,170,200,0.13); border-color: #f0aac8; }
+
+.gc-delivery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.gc-delivery-opt {
+  text-align: left; padding: 12px 14px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+  cursor: pointer; font-family: inherit; transition: all var(--transition);
+}
+.gc-delivery-opt strong { display: block; font-size: 13px; color: var(--white); margin-bottom: 2px; }
+.gc-delivery-opt span { font-size: 11px; color: var(--muted); }
+.gc-delivery-opt.active { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+.gc-cta-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; border-top: 1px solid var(--border); padding-top: 22px; }
+.gc-total { font-size: 24px; font-family: var(--font-playfair), serif; color: var(--gold); }
+
+.gc-success { text-align: center; padding: 30px 10px; }
+.gc-success-icon { width: 70px; height: 70px; border-radius: 50%; background: rgba(201,168,76,0.12); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 28px; color: var(--gold); }
+.gc-success h3 { font-size: 24px; margin-bottom: 12px; }
+.gc-success p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 24px; max-width: 420px; margin-left: auto; margin-right: auto; }

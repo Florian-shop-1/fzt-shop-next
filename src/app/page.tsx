@@ -9,12 +9,14 @@ import InquiryModal from "@/components/InquiryModal";
 import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
 import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHints";
 import ShowDetail from "@/components/ShowDetail";
+import GiftCardModal from "@/components/GiftCardModal";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [initialShow, setInitialShow] = useState("");
   const [voucherValue, setVoucherValue] = useState(100);
   const [voucherCustom, setVoucherCustom] = useState(false);
+  const [giftCardOpen, setGiftCardOpen] = useState(false);
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
   const [docuPlaying, setDocuPlaying] = useState(false);
   const [detailShow, setDetailShow] = useState<string | null>(null);
@@ -47,6 +49,7 @@ export default function Home() {
       <InquiryModal type={inquiryType} onClose={() => setInquiryType(null)} />
       <SouvenirCountdown />
       <ReturningVisitorHint />
+      <GiftCardModal open={giftCardOpen} value={voucherValue} onClose={() => setGiftCardOpen(false)} />
       <ShowDetail
         showKey={detailShow}
         onClose={() => setDetailShow(null)}
@@ -400,7 +403,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Gutschein jetzt gestalten</button>
+              <button className="btn-primary" onClick={() => setGiftCardOpen(true)}>✦ &nbsp;Gutschein jetzt gestalten</button>
             </div>
           </div>
         </div>

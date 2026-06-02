@@ -1257,7 +1257,13 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
 
               {/* ── VIP Parkplatz & Flex ── */}
               <div className="extras4-list" style={{ marginTop: 28 }}>
-                <div className={`extras4-card${parkingQty > 0 ? " selected" : ""}`}>
+                <div
+                  className={`extras4-card clickable${parkingQty > 0 ? " selected" : ""}`}
+                  onClick={() => parkingQty < 7 && incParking()}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => (e.key === "Enter" || e.key === " ") && parkingQty < 7 && incParking()}
+                >
                   <div className="extras4-icon">🚗</div>
                   <div className="extras4-info">
                     <strong className="extras4-name">VIP Parkplatz</strong>
