@@ -78,6 +78,7 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
       "Manchmal wird es richtig laut, wenn alle gleichzeitig schreien, weil Willi wieder heimlich schummelt. Ein fantastischer Nachmittag für die kleinen Großen — gemeinsam mit Mama, Papa oder Begleitung.",
     ],
     facts: [
+      "Dauer ca. 50 Minuten",
       "Altersempfehlung ab 0 Jahren",
       "Kinder von 0–3 Jahren kostenlos (auf dem Schoß der Eltern)",
       "Hauseigener Parkplatz direkt am Theater — kostenlos (begrenzte Anzahl)",
@@ -97,7 +98,7 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
       "Der perfekte Abend für ein romantisches Dinner oder eine kleine Feier. Die Teilnehmerzahl ist bewusst begrenzt — für eine Nähe, die man sonst nirgends erlebt.",
     ],
     facts: [
-      "Dauer ca. 4 Stunden · inkl. Aperitif",
+      "Dauer ca. 3,5 Stunden · inkl. Aperitif",
       "Deluxe: inkl. aller Getränke außer Champagner",
       "Hauseigener Parkplatz direkt am Theater — kostenlos (begrenzte Anzahl)",
     ],
