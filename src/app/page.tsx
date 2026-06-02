@@ -9,6 +9,7 @@ import CinematicVideo from "@/components/CinematicVideo";
 import InquiryModal from "@/components/InquiryModal";
 import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
 import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHints";
+import ShowDetail from "@/components/ShowDetail";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -16,6 +17,12 @@ export default function Home() {
   const [voucherValue, setVoucherValue] = useState(100);
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
   const [docuPlaying, setDocuPlaying] = useState(false);
+  const [detailShow, setDetailShow] = useState<string | null>(null);
+
+  const openDetail = (show: string) => {
+    setDetailShow(show);
+    try { localStorage.setItem("fztTicketsViewed", "1"); } catch {}
+  };
 
   const openBooking = (show = "") => {
     setInitialShow(show);
@@ -40,6 +47,11 @@ export default function Home() {
       <InquiryModal type={inquiryType} onClose={() => setInquiryType(null)} />
       <SouvenirCountdown />
       <ReturningVisitorHint />
+      <ShowDetail
+        showKey={detailShow}
+        onClose={() => setDetailShow(null)}
+        onBook={key => { setDetailShow(null); openBooking(key); }}
+      />
 
       {/* HERO */}
       <section className="hero" id="hero">
@@ -114,7 +126,7 @@ export default function Home() {
         </div>
 
         <div className="shows-grid">
-          <div className="show-card reveal" onClick={() => openBooking("ulmfassbar")}>
+          <div className="show-card reveal" onClick={() => openDetail("ulmfassbar")}>
             <div className="show-card-img" style={{ backgroundImage: "url('/images/show-atmosphere.jpg')", backgroundPosition: "center top" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
@@ -129,7 +141,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="show-card show-card--featured reveal reveal-d1" onClick={() => openBooking("magic-dinner")}>
+          <div className="show-card show-card--featured reveal reveal-d1" onClick={() => openDetail("magic-memories")}>
             <div className="show-card-img" style={{ backgroundImage: "url('/images/show-magic-dinner.jpg')", backgroundPosition: "center 20%" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
@@ -144,7 +156,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="show-card reveal reveal-d2" onClick={() => openBooking("flo-zirkus")}>
+          <div className="show-card reveal reveal-d2" onClick={() => openDetail("flo-zirkus")}>
             <div className="show-card-img" style={{ backgroundImage: "url('/images/flo-zirkus-neu.png')", backgroundPosition: "center 20%" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
@@ -159,7 +171,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="show-card reveal reveal-d3" onClick={() => openBooking("magic-dinner")}>
+          <div className="show-card reveal reveal-d3" onClick={() => openDetail("magic-dinner")}>
             <div className="show-card-img" style={{ backgroundImage: "url('/images/magic-dinner-neu2.png')", backgroundPosition: "center top" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
