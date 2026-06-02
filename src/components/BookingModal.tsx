@@ -529,9 +529,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   };
   const decVipGold = () => setVipGoldQty(q => Math.max(0, q - 1));
 
-  // Flex
-  const incFlex = () => setFlexQty(q => Math.min(qty, q + 1));
-  const decFlex = () => setFlexQty(q => Math.max(0, q - 1));
+  // Flex (Ja/Nein — gilt für alle Tickets)
 
   // Bundles
   const incBundle = (id: string) => setBundleQtys(p => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
@@ -604,7 +602,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   <h3>Wirklich ohne Ticket-Schutz?</h3>
                   <p>Mit der Flex-Option bleibst du flexibel, falls kurzfristig etwas dazwischenkommt — du kannst dein Ticket bis zu 48 h vor der Veranstaltung kostenfrei auf einen Gutschein umbuchen. Pro Flex-Option ist ein Gast inkl. aller Zusatzleistungen wie Magic-Menü abgesichert.</p>
                   <div className="nudge-actions">
-                    <button className="nudge-btn-primary" onClick={() => setActivePrompt(null)}>Ticket-Schutz hinzufügen</button>
+                    <button className="nudge-btn-primary" onClick={() => { setFlexQty(qty); setActivePrompt(null); }}>Ticket-Schutz hinzufügen</button>
                     <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Ohne Ticket-Schutz fortfahren</button>
                   </div>
                 </>
@@ -1258,34 +1256,34 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   </div>
                 </div>
 
-                <div className={`extras4-card${flexQty > 0 ? " selected" : ""}`}>
-                  <div className="extras4-icon">🔄</div>
+                <div
+                  className={`extras4-card flex-toggle-card${flexQty > 0 ? " selected" : ""}`}
+                  onClick={() => setFlexQty(flexQty > 0 ? 0 : qty)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => (e.key === "Enter" || e.key === " ") && setFlexQty(flexQty > 0 ? 0 : qty)}
+                >
+                  <div className={`flex-checkbox${flexQty > 0 ? " checked" : ""}`}>{flexQty > 0 ? "✓" : ""}</div>
                   <div className="extras4-info">
                     <div className="extras4-top">
-                      <strong className="extras4-name">Flex-Option</strong>
+                      <strong className="extras4-name">Flex-Option — Ticket-Schutz</strong>
                       <span className="extras4-price-block">
                         <span className="extras4-unit-price-inline">10 €</span>
-                        <span className="extras4-price-meta">/ Gast</span>
+                        <span className="extras4-price-meta">/ Ticket</span>
                       </span>
                     </div>
                     <p className="extras4-desc">
                       Mit der Flex-Option kannst du dein Ticket bis zu 48h vor Veranstaltungsbeginn
-                      kostenfrei auf einen Ticketgutschein umbuchen. Pro Flex-Option ist je ein Gast
+                      kostenfrei auf einen Ticketgutschein umbuchen. Pro Ticket ist je ein Gast
                       inkl. aller Zusatzleistungen wie Magic-Menü, etc. abgesichert.
                     </p>
                     <span className="extras4-note" style={{ color: "var(--muted)" }}>
-                      inkl. MwSt &amp; VVK-Gebühren · max. {qty} (Anzahl Tickets)
+                      inkl. MwSt &amp; VVK-Gebühren · gilt für alle {qty} Tickets
                     </span>
                   </div>
-                  <div className="extras4-qty-col">
-                    <span className="extras4-unit-price">{flexQty > 0 ? `${flexTotal} €` : ""}</span>
-                    <QtyControl
-                      value={flexQty}
-                      onDec={decFlex}
-                      onInc={incFlex}
-                      canInc={flexQty < qty}
-                    />
-                  </div>
+                  {flexQty > 0 && (
+                    <span className="flex-total-badge">{flexTotal} €</span>
+                  )}
                 </div>
               </div>
 

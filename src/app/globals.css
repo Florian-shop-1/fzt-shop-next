@@ -2243,6 +2243,22 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 
+/* ===================== FLEX-OPTION (Ja/Nein) ===================== */
+.flex-toggle-card { cursor: pointer; align-items: flex-start; }
+.flex-checkbox {
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+  border: 1.5px solid var(--border); background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--black); font-size: 14px; font-weight: 700;
+  transition: all var(--transition); margin-top: 2px;
+}
+.flex-toggle-card:hover .flex-checkbox { border-color: var(--gold); }
+.flex-checkbox.checked { background: var(--gold); border-color: var(--gold); }
+.flex-total-badge {
+  align-self: center; font-size: 16px; font-weight: 700; color: var(--gold);
+  font-family: var(--font-playfair), serif; white-space: nowrap;
+}
+
 /* Bundle Abhol-Hinweis (Magie für Zuhause) */
 .bundle-pickup {
   display: flex; align-items: center; gap: 8px; margin-top: 12px;
