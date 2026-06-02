@@ -419,6 +419,7 @@ export default function Home() {
               <h2>Wenn dein Team einen<br />Abend <em>nie vergisst</em></h2>
               <div className="divider" />
               <p>Weihnachtsfeiern, Teambuilding, Incentives, Jubiläen — Florian Zimmer Theater ist die ausgefallenste Eventlocation in der Region.</p>
+              <p>Auf Wunsch buchst du das Theater <strong style={{ color: "var(--white)" }}>exklusiv für dich</strong>. Wir stellen dir ein individuelles Angebot zusammen — Show, Menü, Fingerfood, After-Show-Party und mehr, ganz nach deinen Vorstellungen.</p>
               <div className="firmen-bullets">
                 {[{ num: "500+", label: "Firmenkunden pro Jahr" }, { num: "100%", label: "Weiterempfehlungsrate" }, { num: "10–300", label: "Personen möglich" }, { num: "✓", label: "Rechnung & USt." }].map(b => (
                   <div key={b.label} className="firmen-bullet"><div className="num">{b.num}</div><p>{b.label}</p></div>
