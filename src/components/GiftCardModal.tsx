@@ -28,6 +28,7 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
   const [motif, setMotif] = useState("classic");
   const [delivery, setDelivery] = useState<"digital" | "post">("digital");
   const [sendDate, setSendDate] = useState("");
+  const [giftBox, setGiftBox] = useState(false);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
@@ -43,7 +44,10 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
 
   if (!open) return null;
 
-  const total = value + (delivery === "post" ? 4.9 : 0);
+  const freeGift = value >= 100;                       // ab 100 €: Gratis-Versand + Zauberstab
+  const postFee = delivery === "post" && !freeGift && !giftBox ? 4.9 : 0;
+  const boxFee = giftBox ? 14.9 : 0;
+  const total = value + postFee + boxFee;
   const fmt = (n: number) => (n % 1 === 0 ? `${n}` : n.toFixed(2).replace(".", ","));
 
   return (
@@ -111,6 +115,15 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                 </div>
               </div>
 
+              {freeGift && (
+                <div className="gc-freegift">
+                  <span className="gc-freegift-icon">🪄</span>
+                  <div>
+                    <strong>Ab 100 € geschenkt:</strong> kostenloser Postversand + ein erscheinender Zauberstab — gratis dazu.
+                  </div>
+                </div>
+              )}
+
               <div className="gc-field">
                 <label>Versand</label>
                 <div className="gc-delivery">
@@ -120,8 +133,26 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                   </button>
                   <button className={`gc-delivery-opt${delivery === "post" ? " active" : ""}`} onClick={() => setDelivery("post")}>
                     <strong>Premium-Karte</strong>
-                    <span>Per Post · 4,90 €</span>
+                    <span>Per Post · {freeGift || giftBox ? "kostenlos" : "4,90 €"}</span>
                   </button>
+                </div>
+              </div>
+
+              {/* Geschenkbox-Upgrade */}
+              <div
+                className={`gc-box-upgrade${giftBox ? " active" : ""}`}
+                onClick={() => { setGiftBox(!giftBox); if (!giftBox) setDelivery("post"); }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => (e.key === "Enter" || e.key === " ") && setGiftBox(!giftBox)}
+              >
+                <div className={`gc-box-check${giftBox ? " checked" : ""}`}>{giftBox ? "✓" : ""}</div>
+                <div className="gc-box-info">
+                  <div className="gc-box-top">
+                    <strong>🎁 Geschenkbox-Upgrade</strong>
+                    <span className="gc-box-price">+14,90 €</span>
+                  </div>
+                  <p>Edle Box mit Profi-Kartenspiel, deinem Gutschein und einem erscheinenden Zauberstab. Versand kostenlos.</p>
                 </div>
               </div>
 

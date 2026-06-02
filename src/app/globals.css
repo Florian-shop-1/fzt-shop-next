@@ -2372,3 +2372,33 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .gc-success-icon { width: 70px; height: 70px; border-radius: 50%; background: rgba(201,168,76,0.12); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 28px; color: var(--gold); }
 .gc-success h3 { font-size: 24px; margin-bottom: 12px; }
 .gc-success p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 24px; max-width: 420px; margin-left: auto; margin-right: auto; }
+
+/* ===================== GUTSCHEIN: Gratis-Geschenk + Box-Upgrade ===================== */
+.gc-freegift {
+  display: flex; gap: 12px; align-items: flex-start; margin-bottom: 18px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.03));
+  border: 1px solid var(--gold); border-radius: var(--radius); padding: 13px 15px;
+}
+.gc-freegift-icon { font-size: 22px; flex-shrink: 0; }
+.gc-freegift div { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.5; }
+.gc-freegift strong { color: var(--gold-light); }
+
+.gc-box-upgrade {
+  display: flex; gap: 14px; align-items: flex-start; margin-bottom: 4px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px;
+  background: rgba(255,255,255,0.03); transition: all var(--transition);
+}
+.gc-box-upgrade:hover { border-color: rgba(201,168,76,0.45); }
+.gc-box-upgrade.active { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+.gc-box-check {
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0; margin-top: 1px;
+  border: 1.5px solid var(--border); background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--black); font-size: 14px; font-weight: 700; transition: all var(--transition);
+}
+.gc-box-check.checked { background: var(--gold); border-color: var(--gold); }
+.gc-box-info { flex: 1; }
+.gc-box-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.gc-box-top strong { font-size: 14px; color: var(--white); }
+.gc-box-price { font-size: 14px; font-weight: 700; color: var(--gold); white-space: nowrap; }
+.gc-box-info p { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5; }
