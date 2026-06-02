@@ -302,38 +302,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MAGIC DINNER FEATURE */}
-      <section id="magic-dinner">
-        <div className="container">
-          <div className="md-inner">
-            <div className="md-visual reveal">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="md-img" src="/images/show-magic-dinner.jpg" alt="Magic Dinner" />
-              <div className="md-badge">♥ Beliebteste Wahl</div>
-              <div className="md-glow" />
-            </div>
-            <div className="md-text reveal reveal-d1">
-              <span className="section-label">Das besondere Erlebnis</span>
-              <h2>Magic Dinner —<br /><em>Magie trifft Genuss</em></h2>
-              <div className="divider" />
-              <p>Ein Abend, der vollständig für dich gestaltet ist. Vier Gänge, ein Welcome-Cocktail, die beste Sicht — und Magie, die dich sprachlos zurücklässt.</p>
-              <div className="price-tag">
-                <span className="price-from">ab</span>
-                <span className="price-amount">129€</span>
-                <span className="price-per">/ Person</span>
-              </div>
-              <ul className="features-list">
-                <li><span className="feat-icon">✦</span> Exklusives 4-Gang-Menü inkl. Welcome-Cocktail</li>
-                <li><span className="feat-icon">✦</span> Erlesene Weinbegleitung verfügbar</li>
-                <li><span className="feat-icon">✦</span> Reservierter Premium-Tisch mit bester Sicht</li>
-                <li><span className="feat-icon">✦</span> Persönliche Begrüßung durch das Team</li>
-                <li><span className="feat-icon">✦</span> Vier Stunden — vollständig durchkomponiert</li>
-              </ul>
-              <button className="btn-primary" onClick={() => openBooking("magic-dinner")}>✦ &nbsp;Magic Dinner reservieren</button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* VIP LOGE */}
       <section id="loge">
