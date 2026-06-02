@@ -396,6 +396,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const [showAllShows,       setShowAllShows]       = useState(false);
   const [confirmed,          setConfirmed]          = useState(false);
   const [logeInfoOpen,       setLogeInfoOpen]       = useState(false);
+  const [souvenir,           setSouvenir]           = useState(false);
   const [activePrompt,       setActivePrompt]       = useState<null | "menu" | "secure">(null);
   const [menuPromptShown,    setMenuPromptShown]    = useState(false);
   const [securePromptShown,  setSecurePromptShown]  = useState(false);
@@ -436,6 +437,12 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
+
+  // Rückkehr über Brevo-Mail 3: Souvenirglas automatisch (1 Glas pro Ticket)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (new URLSearchParams(window.location.search).get("souvenirglass") === "1") setSouvenir(true);
+  }, []);
 
   if (!open) return null;
 
@@ -1407,6 +1414,23 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   <span>{fmt(total)} €</span>
                 </div>
               </div>
+
+              {/* Souvenirglas — Rückkehr über Magic-Mail (1 Glas pro Ticket) */}
+              {souvenir && (
+                <div className="souvenir-cart-card">
+                  <div className="souvenir-cart-head">
+                    <strong>🎁 {qty} × Florian Zimmer Theater Souvenirglas</strong>
+                    <span className="souvenir-cart-price">0,00 €</span>
+                  </div>
+                  <p>Zu jedem Ticket schenken wir dir ein exklusives Florian Zimmer Theater Souvenirglas. Dieses Erinnerungsstück erhältst du ausschließlich im Florian Zimmer Theater.</p>
+                  <ul className="souvenir-cart-list">
+                    <li>Darf mit in die Show genommen werden</li>
+                    <li>Perfekt für Erinnerungsfotos</li>
+                    <li>Spülmaschinenfest und langlebig</li>
+                    <li>Nimm die Magic mit</li>
+                  </ul>
+                </div>
+              )}
 
               <div className="pay-methods">
                 <button className="pay-btn">🍎 Apple Pay</button>

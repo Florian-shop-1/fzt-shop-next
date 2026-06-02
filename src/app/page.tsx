@@ -8,6 +8,7 @@ import HeroParticles from "@/components/HeroParticles";
 import CinematicVideo from "@/components/CinematicVideo";
 import InquiryModal from "@/components/InquiryModal";
 import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
+import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHints";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -16,7 +17,11 @@ export default function Home() {
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
   const [docuPlaying, setDocuPlaying] = useState(false);
 
-  const openBooking = (show = "") => { setInitialShow(show); setBookingOpen(true); };
+  const openBooking = (show = "") => {
+    setInitialShow(show);
+    setBookingOpen(true);
+    try { localStorage.setItem("fztTicketsViewed", "1"); } catch {}
+  };
 
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
@@ -33,6 +38,8 @@ export default function Home() {
       <Nav onBooking={() => openBooking()} />
       <BookingModal open={bookingOpen} initialShow={initialShow} onClose={() => setBookingOpen(false)} onLogeInquiry={() => { setBookingOpen(false); setInquiryType("loge"); }} />
       <InquiryModal type={inquiryType} onClose={() => setInquiryType(null)} />
+      <SouvenirCountdown />
+      <ReturningVisitorHint />
 
       {/* HERO */}
       <section className="hero" id="hero">
