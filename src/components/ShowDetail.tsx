@@ -31,7 +31,7 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
     badgeColor: "var(--gold)",
     image: "/images/show-atmosphere.jpg",
     imagePos: "center top",
-    trailerId: "lyn08-Lqlps",
+    trailerId: "RvWYpFJmvkM",
     tagline: "Zweieinhalb Stunden, in denen du vergisst, dass es Erklärungen gibt.",
     paragraphs: [
       "Florian Zimmer — vom »kreativsten Magier der Welt« (Markus Lanz) — zeigt brandneue Illusionen, die so nah passieren, dass dein Verstand kapituliert. Mal spektakulär groß auf der Bühne, mal direkt in deinen Händen.",
@@ -49,8 +49,8 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
     name: "Magic Memories",
     badge: "✦ Neue Show",
     badgeColor: "linear-gradient(135deg,#C9A84C,#8B6914)",
-    image: "/images/magic-dinner-neu2.png",
-    imagePos: "center top",
+    image: "/images/show-magic-dinner.jpg",
+    imagePos: "center 20%",
     trailerId: "",
     tagline: "Florian Zimmers brandneue Show — und vielleicht seine persönlichste.",
     paragraphs: [
@@ -71,7 +71,7 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
     badgeColor: "#3a7fd0",
     image: "/images/flo-zirkus-neu.png",
     imagePos: "center 20%",
-    trailerId: "",
+    trailerId: "lyn08-Lqlps",
     tagline: "Tauch ein in die zauberhafte Welt von Waschbär Willi und seinen Freunden.",
     paragraphs: [
       "Willi liest Gedanken, ein unsichtbares Gespenst sorgt für Abenteuer — und im »Zimmer der Wunder« wird gestaunt, gelacht und kräftig mitgemacht. Die Kinder werden aktiv Teil der Magie.",
@@ -90,7 +90,7 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
     badgeColor: "linear-gradient(135deg,#C9A84C,#8B6914)",
     image: "/images/magic-dinner-neu2.png",
     imagePos: "center top",
-    trailerId: "RvWYpFJmvkM",
+    trailerId: "OVk3MdjTasc",
     tagline: "Magie in ihrer intimsten Form — an ausgewählten Terminen.",
     paragraphs: [
       "Auf der Event-Galerie serviert dir unser Magicuisine-Team ein feines 4-Gänge-Menü — und zwischen den Gängen verzaubert dich Florian Zimmer. Die Illusionen passieren direkt vor deinen Augen und sogar in deinen Händen.",
