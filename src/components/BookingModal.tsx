@@ -409,9 +409,10 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const [confirmed,          setConfirmed]          = useState(false);
   const [logeInfoOpen,       setLogeInfoOpen]       = useState(false);
   const [souvenir,           setSouvenir]           = useState(false);
-  const [activePrompt,       setActivePrompt]       = useState<null | "menu" | "secure">(null);
-  const [menuPromptShown,    setMenuPromptShown]    = useState(false);
-  const [securePromptShown,  setSecurePromptShown]  = useState(false);
+  const [activePrompt,         setActivePrompt]         = useState<null | "menu" | "menu-partial" | "secure">(null);
+  const [menuPromptShown,      setMenuPromptShown]      = useState(false);
+  const [menuPartialShown,     setMenuPartialShown]     = useState(false);
+  const [securePromptShown,    setSecurePromptShown]    = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -433,6 +434,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setLogeInfoOpen(false);
       setActivePrompt(null);
       setMenuPromptShown(false);
+      setMenuPartialShown(false);
       setSecurePromptShown(false);
       if (initialShow) {
         setSelectedShowId(initialShow);
@@ -566,6 +568,12 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setActivePrompt("menu");
       return;
     }
+    // Schritt 3: nicht alle Personen haben ein Menü
+    if (step === 3 && totalMenuQty > 0 && totalMenuQty < qty && !menuPartialShown) {
+      setMenuPartialShown(true);
+      setActivePrompt("menu-partial");
+      return;
+    }
     // Schritt 4: dezente Ticket-Schutz-Nachfrage (nur einmal)
     if (step === 4 && flexQty === 0 && !securePromptShown) {
       setSecurePromptShown(true);
@@ -586,7 +594,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
         {activePrompt && (
           <div className="nudge-overlay">
             <div className="nudge-card">
-              {activePrompt === "menu" ? (
+              {activePrompt === "menu" && (
                 <>
                   <span className="nudge-eyebrow">✦ Magic Menü</span>
                   <h3>Ohne Magic Menü weitermachen?</h3>
@@ -596,7 +604,19 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Nur Show buchen</button>
                   </div>
                 </>
-              ) : (
+              )}
+              {activePrompt === "menu-partial" && (
+                <>
+                  <span className="nudge-eyebrow">✦ Magic Menü</span>
+                  <h3>Nicht für alle Gäste ein Menü?</h3>
+                  <p>Du hast {totalMenuQty} von {qty} Gästen ein Magic Menü zugeordnet. Möchtest du auch für die übrigen {qty - totalMenuQty} ein Menü hinzufügen?</p>
+                  <div className="nudge-actions">
+                    <button className="nudge-btn-primary" onClick={() => setActivePrompt(null)}>Menü ergänzen</button>
+                    <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>So fortfahren</button>
+                  </div>
+                </>
+              )}
+              {activePrompt === "secure" && (
                 <>
                   <span className="nudge-eyebrow">✦ Flex-Option</span>
                   <h3>Wirklich ohne Ticket-Schutz?</h3>
