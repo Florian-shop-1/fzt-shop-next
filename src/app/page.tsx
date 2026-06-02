@@ -7,6 +7,7 @@ import BookingModal from "@/components/BookingModal";
 import HeroParticles from "@/components/HeroParticles";
 import CinematicVideo from "@/components/CinematicVideo";
 import InquiryModal from "@/components/InquiryModal";
+import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -462,8 +463,9 @@ export default function Home() {
       </section>
 
 
-      {/* FOOTER */}
+      {/* MAGIC NEWS */}
       <footer>
+        <MagicNewsFooter />
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
@@ -495,6 +497,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* MAGIC NEWS OVERLAYS (45s + Exit-Intent) */}
+      <MagicNewsOverlays />
 
       {/* STICKY MOBILE BAR */}
       <div className="sticky-bar">
