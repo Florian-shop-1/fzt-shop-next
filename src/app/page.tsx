@@ -54,7 +54,14 @@ export default function Home() {
             <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Abend reservieren</button>
             <a href="#shows" className="btn-secondary">Alle Erlebnisse</a>
           </div>
-          <div className="hero-avail">
+          <div
+            className="hero-avail"
+            role="button"
+            tabIndex={0}
+            style={{ cursor: "pointer" }}
+            onClick={() => openBooking("ulmfassbar")}
+            onKeyDown={e => (e.key === "Enter" || e.key === " ") && openBooking("ulmfassbar")}
+          >
             <span className="dot-live" />
             <span>Nächste Show: <strong>Samstag, 31. Mai — noch 18 Plätze</strong></span>
           </div>
