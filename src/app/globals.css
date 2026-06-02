@@ -2267,3 +2267,20 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   font-size: 12px; color: var(--gold-light); line-height: 1.4;
 }
 .bundle-pickup-icon { flex-shrink: 0; }
+
+/* ===================== GUTSCHEIN WUNSCHBETRAG ===================== */
+.voucher-custom-input {
+  display: flex; align-items: center; gap: 10px; margin: 14px 0 4px; max-width: 240px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--gold);
+  border-radius: var(--radius); padding: 4px 16px 4px 4px;
+}
+.voucher-custom-input input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--white); font-size: 20px; font-family: var(--font-playfair), serif;
+  padding: 12px 14px; width: 100%;
+}
+.voucher-custom-input input::placeholder { color: rgba(255,255,255,0.35); font-family: var(--font-inter), sans-serif; font-size: 14px; }
+.voucher-custom-currency { font-size: 20px; color: var(--gold); font-family: var(--font-playfair), serif; }
+/* Spinner dezenter */
+.voucher-custom-input input::-webkit-outer-spin-button,
+.voucher-custom-input input::-webkit-inner-spin-button { opacity: 0.4; }

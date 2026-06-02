@@ -14,6 +14,7 @@ export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [initialShow, setInitialShow] = useState("");
   const [voucherValue, setVoucherValue] = useState(100);
+  const [voucherCustom, setVoucherCustom] = useState(false);
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
   const [docuPlaying, setDocuPlaying] = useState(false);
   const [detailShow, setDetailShow] = useState<string | null>(null);
@@ -347,10 +348,25 @@ export default function Home() {
 
               <div className="voucher-values">
                 {[50, 75, 100, 150, 200].map(v => (
-                  <button key={v} className={`voucher-val-btn${voucherValue === v ? " active" : ""}`} onClick={() => setVoucherValue(v)}>{v} €</button>
+                  <button key={v} className={`voucher-val-btn${!voucherCustom && voucherValue === v ? " active" : ""}`} onClick={() => { setVoucherCustom(false); setVoucherValue(v); }}>{v} €</button>
                 ))}
-                <button className="voucher-val-custom">Wunschbetrag</button>
+                <button className={`voucher-val-custom${voucherCustom ? " active" : ""}`} onClick={() => setVoucherCustom(true)}>Wunschbetrag</button>
               </div>
+
+              {voucherCustom && (
+                <div className="voucher-custom-input">
+                  <input
+                    type="number"
+                    min={10}
+                    max={1000}
+                    step={5}
+                    autoFocus
+                    placeholder="Betrag eingeben"
+                    onChange={e => setVoucherValue(Math.max(0, Number(e.target.value) || 0))}
+                  />
+                  <span className="voucher-custom-currency">€</span>
+                </div>
+              )}
 
               {voucherValue >= 100 && (
                 <div className="magic-gift-badge">
