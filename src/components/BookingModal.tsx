@@ -278,7 +278,7 @@ const VIP_BUNDLES = [
   {
     id: "kids",
     name: "Kids Magic Bundle",
-    price: 29,
+    price: 49,
     badge: "Für Kinder",
     badgeColor: "#6d28d9",
     desc: "Echte Profi-Tricks zum Selbermachen — inkl. Online-Pass, in dem Florian jeden Trick Schritt für Schritt im Video erklärt (mit Vorführtipps für den Wow-Effekt).",
