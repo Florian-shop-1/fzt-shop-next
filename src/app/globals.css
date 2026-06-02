@@ -2226,17 +2226,22 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 }
 .menu-card.has-image::before, .stehtisch-card.has-image::before {
   content: ''; position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(180deg, rgba(8,8,8,0.72) 0%, rgba(8,8,8,0.86) 55%, rgba(8,8,8,0.94) 100%);
+  background: linear-gradient(180deg, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.9) 50%, rgba(8,8,8,0.95) 100%);
   transition: background var(--transition);
 }
 .menu-card.has-image:hover::before, .stehtisch-card.has-image:hover::before {
-  background: linear-gradient(180deg, rgba(8,8,8,0.6) 0%, rgba(8,8,8,0.8) 55%, rgba(8,8,8,0.92) 100%);
+  background: linear-gradient(180deg, rgba(8,8,8,0.8) 0%, rgba(8,8,8,0.85) 50%, rgba(8,8,8,0.93) 100%);
 }
 .menu-card.has-image.selected::before, .stehtisch-card.has-image.selected::before {
-  background: linear-gradient(180deg, rgba(28,22,8,0.68) 0%, rgba(8,8,8,0.86) 55%, rgba(8,8,8,0.94) 100%);
+  background: linear-gradient(180deg, rgba(28,22,8,0.82) 0%, rgba(8,8,8,0.9) 50%, rgba(8,8,8,0.95) 100%);
 }
-/* Inhalt über das Overlay heben */
+/* Inhalt über das Overlay heben + Text-Schutz */
 .menu-card.has-image > *, .stehtisch-card.has-image > * { position: relative; z-index: 1; }
+.menu-card.has-image .menu-card-name, .menu-card.has-image .menu-card-tagline,
+.stehtisch-card.has-image .stehtisch-name, .stehtisch-card.has-image .stehtisch-subtitle,
+.stehtisch-card.has-image .stehtisch-items li {
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+}
 
 /* Bundle Abhol-Hinweis (Magie für Zuhause) */
 .bundle-pickup {
