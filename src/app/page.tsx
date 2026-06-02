@@ -314,7 +314,7 @@ export default function Home() {
             </div>
             <div className="md-text reveal reveal-d1">
               <span className="section-label">Das besondere Erlebnis</span>
-              <h2>Magic Memories —<br /><em>Magie trifft Emotion</em></h2>
+              <h2>Magic Dinner —<br /><em>Magie trifft Genuss</em></h2>
               <div className="divider" />
               <p>Ein Abend, der vollständig für dich gestaltet ist. Vier Gänge, ein Welcome-Cocktail, die beste Sicht — und Magie, die dich sprachlos zurücklässt.</p>
               <div className="price-tag">
@@ -496,7 +496,7 @@ export default function Home() {
             </div>
             <div className="footer-col">
               <h4>Shows</h4>
-              <a href="#">ULMFASSBAR</a><a href="#">Magic Dinner</a><a href="#">Flo-Zirkus</a><a href="#">This is Magic!</a><a href="#">VIP-Loge</a>
+              <a href="#">ULMFASSBAR</a><a href="#">Magic Memories</a><a href="#">Flo-Zirkus</a><a href="#">Magic Dinner</a><a href="#">VIP-Loge</a>
             </div>
             <div className="footer-col">
               <h4>Services</h4>
