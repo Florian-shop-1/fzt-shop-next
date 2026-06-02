@@ -1,110 +1,68 @@
-# Design-Repo: Arbeitsanleitung für Claude Code
+# Anweisungen für Claude
 
-Du arbeitest an der **Frontend- und Design-Schicht** des FZT-Shops.
-API-Logik, Zahlungsabwicklung und Datenbankanbindung sind **nicht deine Aufgabe** — diese
-Schicht existiert bereits in einem separaten Produktions-Repo und wird später mit deinen
-Komponenten zusammengeführt.
+Du arbeitest an einem Next.js Ticketshop für das Florian Zimmer Theater.
+Deine Aufgabe ist ausschließlich **Design und Frontend**. API-Logik, Zahlungsabwicklung
+und Datenbankanbindung existieren bereits in einem separaten Produktions-Repo —
+du siehst und berührst diese Schicht nicht.
 
 ---
 
-## Was du bearbeitest
+## Diese Dateien bearbeitest du
 
-| Datei / Ordner | Aufgabe |
-|---|---|
-| `src/app/globals.css` | Alle Styles |
-| `src/components/*.tsx` | UI-Komponenten |
-| `src/app/page.tsx` | Startseite |
-| `public/images/` | Bilder und Assets |
-| `src/lib/mock-data.ts` | Statische Testdaten (siehe unten) |
+- `src/app/globals.css` — alle Styles
+- `src/components/*.tsx` — UI-Komponenten
+- `src/app/page.tsx` — Startseite
+- `public/images/` — Bilder
 
-**Nicht anfassen:**
-- `src/app/api/**` — wird im Produktions-Repo ersetzt
+## Diese Dateien berührst du nie
+
+- `src/app/api/**` — alle API-Routes
 - `src/lib/ditix.ts` / `src/lib/ditix-client.ts`
 
 ---
 
-## Datenbeschaffung: Immer über `/api/ditix/...`
+## API-Aufrufe in Komponenten
 
-Alle Komponenten fetchen Daten über dieselben API-Routen wie in Produktion.
-In diesem Repo antworten diese Routen mit **statischen Mock-Daten** (kein echter API-Zugang nötig).
-Du musst keine Fetch-URLs oder Logik ändern — die Komponenten funktionieren in Produktion
-automatisch mit echten Daten.
+Komponenten fetchen Daten immer über diese internen Routen — nie direkt extern:
+
+| Route | Methode | Zweck |
+|---|---|---|
+| `/api/ditix/events` | GET | Alle kommenden Events |
+| `/api/ditix/ticket-types` | POST `{ eventId }` | Ticket-Types + Upsells eines Events |
+| `/api/ditix/seating-prices` | POST `{ seatmapSchemaId }` | Preise pro Sitzkategorie |
+| `/api/ditix/seatmap` | POST `{ seatmapEventId }` | Saalplan-Geometrie |
+| `/api/ditix/reserve` | POST | Sitzplatz reservieren |
+| `/api/ditix/cart/add` | POST | Ticket in Warenkorb |
+| `/api/ditix/checkout/prepare` | POST | Checkout vorbereiten |
+| `/api/google-rating` | GET | Google-Bewertung |
+| `/api/ditix/shop-config` | GET | Stripe/PayPal Keys |
+
+Wenn du eine neue Komponente baust die Daten braucht: fetch von diesen Routen,
+genau so wie es die bestehenden Komponenten bereits tun.
 
 ---
 
-## Mock-Datenstrukturen
+## Datenstrukturen
 
-### `/api/ditix/events` → `GET` → `DitixEvent[]`
-
+### Event
 ```ts
 interface DitixEvent {
-  id: string;                        // z.B. "evt-001"
-  code: string;                      // z.B. "ULMFASSBAR-2025-06"
-  name: string;                      // z.B. "ULMFASSBAR by Florian Zimmer"
-  timestampStart: number;            // Unix ms, z.B. 1748800800000
-  timestampEnd: number;              // Unix ms
-  location: string | null;           // z.B. "Florian Zimmer Theater, Neu-Ulm"
+  id: string;
+  code: string;
+  name: string;                  // z.B. "ULMFASSBAR by Florian Zimmer"
+  timestampStart: number;        // Unix Millisekunden
+  timestampEnd: number;
+  location: string | null;
   coverImageId: string | null;
-  ticketSaleState: string | null;    // "AVAILABLE" | "SOLD_OUT" | null
-  kind: "SEATED" | "GA";            // SEATED = Saalplan, GA = Freie Plätze
+  ticketSaleState: string | null; // "AVAILABLE" | "SOLD_OUT" | null
+  kind: "SEATED" | "GA";         // SEATED = Saalplan, GA = freie Plätze
   seatmapEventId: string | null;
   seatmapSchemaId: string | null;
   seatingPlanVersionId: string | null;
 }
 ```
 
-**Beispiel Mock-Events (3 Shows, realistisch):**
-```json
-[
-  {
-    "id": "evt-001",
-    "code": "ULMFASSBAR-2025-06-14",
-    "name": "ULMFASSBAR by Florian Zimmer",
-    "timestampStart": 1749916800000,
-    "timestampEnd": 1749927600000,
-    "location": "Florian Zimmer Theater, Neu-Ulm",
-    "coverImageId": null,
-    "ticketSaleState": "AVAILABLE",
-    "kind": "SEATED",
-    "seatmapEventId": "sme-001",
-    "seatmapSchemaId": "sms-001",
-    "seatingPlanVersionId": "spv-001"
-  },
-  {
-    "id": "evt-002",
-    "code": "MAGIC-DINNER-2025-06-21",
-    "name": "Magic Dinner by Florian Zimmer",
-    "timestampStart": 1750521600000,
-    "timestampEnd": 1750532400000,
-    "location": "Florian Zimmer Theater, Neu-Ulm",
-    "coverImageId": null,
-    "ticketSaleState": "AVAILABLE",
-    "kind": "SEATED",
-    "seatmapEventId": "sme-002",
-    "seatmapSchemaId": "sms-001",
-    "seatingPlanVersionId": "spv-002"
-  },
-  {
-    "id": "evt-003",
-    "code": "ULMFASSBAR-2025-06-28",
-    "name": "ULMFASSBAR by Florian Zimmer",
-    "timestampStart": 1751126400000,
-    "timestampEnd": 1751137200000,
-    "location": "Florian Zimmer Theater, Neu-Ulm",
-    "coverImageId": null,
-    "ticketSaleState": "SOLD_OUT",
-    "kind": "SEATED",
-    "seatmapEventId": "sme-003",
-    "seatmapSchemaId": "sms-001",
-    "seatingPlanVersionId": "spv-003"
-  }
-]
-```
-
----
-
-### `/api/ditix/ticket-types` → `POST { eventId }` → `TicketType[]`
-
+### Ticket-Type (Eintrittskarte oder Upsell)
 ```ts
 interface TicketType {
   id: string;
@@ -112,199 +70,61 @@ interface TicketType {
   isActive: boolean;
   isHiddenInShop: boolean;
   orderInShop: number;
-  description: string | null;          // HTML-String mit Menübeschreibung
+  description: string | null;          // HTML-String
   showDescriptionInShop: boolean;
   isLimitedPerPerson: boolean;
   minLimitPerPerson: number | null;
   maxLimitPerPerson: number | null;
-  dependsOnType: { id: string } | null; // null = Hauptprodukt, gesetzt = Zusatz
-  seatingPrice: { seatmapPriceId: string } | null; // null = GA/Upsell
+  dependsOnType: { id: string } | null; // null = eigenständig, gesetzt = Zusatz zu Eltern-Item
+  seatingPrice: { seatmapPriceId: string } | null; // null = kein Sitzplatz (= Upsell/GA)
 }
 ```
 
-**Beispiel Mock (für evt-001, ULMFASSBAR):**
-```json
-[
-  {
-    "id": "tt-001",
-    "name": "Ticket",
-    "isActive": true,
-    "isHiddenInShop": false,
-    "orderInShop": 1,
-    "description": null,
-    "showDescriptionInShop": false,
-    "isLimitedPerPerson": false,
-    "minLimitPerPerson": null,
-    "maxLimitPerPerson": null,
-    "dependsOnType": null,
-    "seatingPrice": { "seatmapPriceId": "sp-001" }
-  },
-  {
-    "id": "tt-002",
-    "name": "Classic Menü",
-    "isActive": true,
-    "isHiddenInShop": false,
-    "orderInShop": 2,
-    "description": "<p>4-Gang-Menü inkl. Welcome Cocktail. <strong>Vorspeise:</strong> Burrata mit Tomate. <strong>Hauptgang:</strong> Rinderfilet mit Sauce Béarnaise. <strong>Dessert:</strong> Schokoladen-Fondant.</p><p><em>by Schuhmacher's</em></p>",
-    "showDescriptionInShop": true,
-    "isLimitedPerPerson": false,
-    "minLimitPerPerson": null,
-    "maxLimitPerPerson": null,
-    "dependsOnType": null,
-    "seatingPrice": null
-  },
-  {
-    "id": "tt-003",
-    "name": "Sea Menü",
-    "isActive": true,
-    "isHiddenInShop": false,
-    "orderInShop": 3,
-    "description": "<p>4-Gang-Menü inkl. Welcome Cocktail. <strong>Vorspeise:</strong> Lachs-Tatar. <strong>Hauptgang:</strong> Steinbutt auf Safranrisotto. <strong>Dessert:</strong> Zitronentarte.</p><p><em>by Schuhmacher's</em></p>",
-    "showDescriptionInShop": true,
-    "isLimitedPerPerson": false,
-    "minLimitPerPerson": null,
-    "maxLimitPerPerson": null,
-    "dependsOnType": null,
-    "seatingPrice": null
-  },
-  {
-    "id": "tt-004",
-    "name": "Vegan Menü",
-    "isActive": true,
-    "isHiddenInShop": false,
-    "orderInShop": 4,
-    "description": "<p>4-Gang Vegan-Menü inkl. Welcome Cocktail. Vollständig pflanzlich.</p><p><em>by Schuhmacher's</em></p>",
-    "showDescriptionInShop": true,
-    "isLimitedPerPerson": false,
-    "minLimitPerPerson": null,
-    "maxLimitPerPerson": null,
-    "dependsOnType": null,
-    "seatingPrice": null
-  },
-  {
-    "id": "tt-005",
-    "name": "Getränkearrangement Premium",
-    "isActive": true,
-    "isHiddenInShop": false,
-    "orderInShop": 5,
-    "description": "<p>Weinbegleitung (2 Gläser) passend zum gewählten Menü.</p>",
-    "showDescriptionInShop": true,
-    "isLimitedPerPerson": false,
-    "minLimitPerPerson": null,
-    "maxLimitPerPerson": null,
-    "dependsOnType": { "id": "tt-002" },
-    "seatingPrice": null
-  },
-  {
-    "id": "tt-006",
-    "name": "VIP Empore",
-    "isActive": true,
-    "isHiddenInShop": false,
-    "orderInShop": 10,
-    "description": "<p>Exklusiver Logenplatz auf der Empore mit bestem Blick auf die Bühne.</p>",
-    "showDescriptionInShop": true,
-    "isLimitedPerPerson": false,
-    "minLimitPerPerson": null,
-    "maxLimitPerPerson": null,
-    "dependsOnType": null,
-    "seatingPrice": { "seatmapPriceId": "sp-002" }
-  }
-]
-```
-
----
-
-### `/api/ditix/seating-prices` → `POST { seatmapSchemaId }` → Preise pro Kategorie
-
+### Preis
 ```ts
-interface SeatingPrices {
-  cheapestPriceForSeatingPlan: { amount: number; scale: number; currency: { code: string } };
-  seatingPriceTicketPrices: Array<{
-    seatmapPriceId: string;
-    cheapest: { amount: number; scale: number; currency: { code: string } };
-    mostExpensive: { amount: number; scale: number; currency: { code: string } };
-  }>;
+interface Price {
+  amount: number;   // z.B. 5900
+  scale: number;    // z.B. 2  →  5900 / 10^2 = 59.00 €
+  currency: { code: string }; // "EUR"
 }
 ```
+**Preisformatierung immer:** `(amount / Math.pow(10, scale)).toFixed(2) + " €"`
 
-**Preis-Interpretation:** `amount / 10^scale` → `5900 / 10^2 = 59.00 €`
-
-**Beispiel Mock:**
-```json
-{
-  "cheapestPriceForSeatingPlan": { "amount": 5900, "scale": 2, "currency": { "code": "EUR" } },
-  "seatingPriceTicketPrices": [
-    {
-      "seatmapPriceId": "sp-001",
-      "cheapest": { "amount": 5900, "scale": 2, "currency": { "code": "EUR" } },
-      "mostExpensive": { "amount": 5900, "scale": 2, "currency": { "code": "EUR" } }
-    },
-    {
-      "seatmapPriceId": "sp-002",
-      "cheapest": { "amount": 8900, "scale": 2, "currency": { "code": "EUR" } },
-      "mostExpensive": { "amount": 8900, "scale": 2, "currency": { "code": "EUR" } }
-    }
-  ]
+### Google Rating
+```ts
+interface GoogleRating {
+  rating: number;   // z.B. 4.8
+  count: number;    // z.B. 412
+  url: string;      // Google Maps Link
 }
 ```
 
 ---
 
-### `/api/google-rating` → `GET`
+## Show-Zuordnung
 
-```json
-{
-  "rating": 4.8,
-  "count": 412,
-  "url": "https://www.google.com/maps/search/Florian+Zimmer+Theater+Neu-Ulm"
-}
-```
-
----
-
-### `/api/ditix/shop-config` → `GET`
-
-```json
-{
-  "stripe": {
-    "publicKey": "pk_test_PLACEHOLDER",
-    "accountId": "acct_PLACEHOLDER",
-    "paymentMethods": ["card"]
-  },
-  "paypal": null
-}
-```
-
----
-
-## Show-Zuordnung (SHOW_META)
-
-Die Komponenten verwenden einen lokalen `SHOW_META`-Record um Shows anhand ihres Namens
-einer visuellen Darstellung zuzuordnen. Behalte diese Struktur:
+Events werden lokal einem `ShowKey` zugeordnet anhand des `name`-Felds:
 
 ```ts
 type ShowKey = "ulmfassbar" | "magic-dinner" | "zirkus" | "family";
-
-const SHOW_META: Record<ShowKey, {
-  name: string;
-  desc: string;
-  image: string;       // Pfad in /public/images/
-  badge: string;
-  badgeColor: string;
-  duration: string;
-  price: string;
-}> = { ... }
 ```
 
-Shows werden einem `ShowKey` zugeordnet wenn der Event-Name den jeweiligen Begriff enthält
-(case-insensitive): `"ulmfassbar"`, `"dinner"`, `"zirkus"`, `"family"`.
+| Event-Name enthält | ShowKey |
+|---|---|
+| `"ulmfassbar"` | `"ulmfassbar"` |
+| `"dinner"` | `"magic-dinner"` |
+| `"zirkus"` | `"zirkus"` |
+| `"family"` | `"family"` |
+
+Jeder ShowKey hat ein `SHOW_META`-Objekt mit `name`, `desc`, `image`, `badge`, `badgeColor`,
+`duration`, `price`. Bilder liegen unter `/public/images/`.
 
 ---
 
-## Upsell-Schritt-Zuordnung
+## Upsell-Schritte
 
 Ticket-Types ohne `seatingPrice` und ohne `dependsOnType` sind Upsells.
-Sie werden Schritten zugeordnet anhand des `name`-Felds:
+Sie erscheinen in Schritten basierend auf dem `name`:
 
 | Name enthält | Schritt |
 |---|---|
@@ -313,19 +133,18 @@ Sie werden Schritten zugeordnet anhand des `name`-Felds:
 | alles andere | 5 — Extras |
 
 Ticket-Types mit `dependsOnType` sind Abhängigkeits-Items (z.B. Getränkearrangement)
-und werden unter ihrem Eltern-Item angezeigt.
+und werden unter ihrem Eltern-Item eingerückt dargestellt.
 
 ---
 
-## Wichtige Konventionen
+## Konventionen die du immer einhältst
 
-- **Kein direkter Ditix-API-Aufruf** in Komponenten — immer über `/api/ditix/...`
-- **Kein `window.location`-Redirect** nach Checkout — Bestätigung via State in der Komponente
-- **Preisformatierung:** `amount / Math.pow(10, scale)` → Immer mit `toFixed(2)` und `€`
-- **Datum:** `new Date(timestampStart)` → `toLocaleDateString("de-DE", { ... })`
-- **CSS:** Nur Klassen aus `globals.css` — kein Inline-Style außer für dynamische Werte
-  (Hintergrundbilder, berechnete Breiten)
-- **TypeScript:** Strikte Typen — keine `any`
+- Kein direkter externer API-Aufruf in Komponenten — nur über `/api/ditix/...`
+- Datum: `new Date(timestampStart).toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" })`
+- Uhrzeit: `new Date(timestampStart).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })`
+- CSS: Klassen aus `globals.css` — Inline-Style nur für dynamische Werte (Hintergrundbilder, berechnete Breiten)
+- TypeScript: Keine `any`
+- Sprache: Alle UI-Texte auf Deutsch
 
 ---
 
@@ -333,7 +152,7 @@ und werden unter ihrem Eltern-Item angezeigt.
 
 ```bash
 npm install
-npm run dev        # → http://localhost:3000
+npm run dev   # → http://localhost:3000
 ```
 
-Keine `.env`-Datei nötig. Die Mock-API-Routes antworten automatisch.
+Keine `.env`-Datei nötig.
