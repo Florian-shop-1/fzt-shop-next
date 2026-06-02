@@ -2219,3 +2219,12 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .sd-facts li::before { content: '✔'; color: var(--gold); flex-shrink: 0; font-size: 13px; margin-top: 1px; }
 .sd-cta-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--border); padding-top: 24px; flex-wrap: wrap; }
 .sd-price { font-size: 22px; font-family: var(--font-playfair), serif; color: var(--gold); }
+
+/* Bundle Abhol-Hinweis (Magie für Zuhause) */
+.bundle-pickup {
+  display: flex; align-items: center; gap: 8px; margin-top: 12px;
+  background: rgba(201,168,76,0.08); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 9px 12px;
+  font-size: 12px; color: var(--gold-light); line-height: 1.4;
+}
+.bundle-pickup-icon { flex-shrink: 0; }

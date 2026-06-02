@@ -272,13 +272,15 @@ const VIP_BUNDLES = [
     price: 29,
     badge: "Für Kinder",
     badgeColor: "#6d28d9",
-    desc: "Das perfekte Mitbringsel für kleine Zauberlehrlinge. Enthält Profi-Requisiten im Miniformat und kindgerechte Anleitungen zum Nachmachen zuhause.",
+    desc: "Echte Profi-Tricks zum Selbermachen — inkl. Online-Pass, in dem Florian jeden Trick Schritt für Schritt im Video erklärt (mit Vorführtipps für den Wow-Effekt).",
     items: [
-      "Profi-Zauberstab inkl. Anleitung",
-      "Münzentrick-Set",
-      "Seidentücher (3 Farben)",
-      "Persönliche Zauberkarte von Florian Zimmer",
+      "Gelddruckmaschine 2.0",
+      "Schwebender Zauberstab",
+      "Verschwindendes Tuch",
+      "Schwebendes Streichholz & 1-zu-8-Würfel",
+      "10 Extra-Tricks auf Magieakademie.de",
     ],
+    pickup: "Einfach nach der Show im Magic Shop im Foyer abholen.",
   },
   {
     id: "premium",
@@ -286,13 +288,14 @@ const VIP_BUNDLES = [
     price: 49,
     badge: "Limitiert",
     badgeColor: "#C9A84C",
-    desc: "Exklusives Erinnerungspaket für Magie-Liebhaber. Nur in limitierter Stückzahl erhältlich – direkt nach der Show abholbar.",
+    desc: "Florians Lieblingstricks für zuhause — inkl. Online-Pass mit Video-Erklärung und Vorführtipps zu jedem Trick.",
     items: [
-      "Nummeriertes Profi-Kartendeck (signiert)",
-      "Magicuvée Pralinés (handgemacht)",
-      "Exklusive Postkarte mit Widmung",
-      "Backstage-Zertifikat",
+      "FZ-Kartenspiel für Gedankenlese-Effekte",
+      "Stift durch Geldschein (Florians Handling)",
+      "Selbstlösender Zauberwürfel",
+      "10 Extra-Tricks auf Magieakademie.de",
     ],
+    pickup: "Einfach nach der Show im Magic Shop im Foyer abholen.",
   },
 ];
 
@@ -1316,6 +1319,10 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                         <ul className="stehtisch-items" style={{ marginTop: 4 }}>
                           {bundle.items.map((item, i) => <li key={i}>{item}</li>)}
                         </ul>
+                        <div className="bundle-pickup">
+                          <span className="bundle-pickup-icon">🎁</span>
+                          {bundle.pickup}
+                        </div>
                       </div>
                       <div className="extras4-qty-col" style={{ alignSelf: "center" }}>
                         <QtyControl
