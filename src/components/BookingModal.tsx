@@ -585,7 +585,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   <h3>Ohne Magic Menü weitermachen?</h3>
                   <p>Viele Gäste machen ihren Theaterbesuch mit dem Magic Menü zu einem kompletten Abend.</p>
                   <div className="nudge-actions">
-                    <button className="nudge-btn-primary" onClick={() => setActivePrompt(null)}>Magic Menü hinzufügen</button>
+                    <button className="nudge-btn-primary" onClick={() => { setActivePrompt(null); setShowMenuCards(true); }}>Magic Menü hinzufügen</button>
                     <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Nur Show buchen</button>
                   </div>
                 </>
