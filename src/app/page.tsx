@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
-import Trailers from "@/components/Trailers";
 import BookingModal from "@/components/BookingModal";
 import HeroParticles from "@/components/HeroParticles";
 import CinematicVideo from "@/components/CinematicVideo";
@@ -188,8 +187,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TRAILERS */}
-      <Trailers />
 
       {/* FLORIAN ZIMMER — DER MAGIER */}
       <section id="magician">
