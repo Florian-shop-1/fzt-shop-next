@@ -135,7 +135,7 @@ export default function Home() {
             <div className="show-card-content">
               <span className="show-badge" style={{ background: "#2a6aad" }}>Kindershow</span>
               <h3>Flo-Zirkus</h3>
-              <p>Zirkus, Akrobatik und Magie — ein spektakuläres Erlebnis für alle Sinne.</p>
+              <p>Eine interaktive Show, bei der die kleinen Gäste selbst Teil der Magie werden.</p>
               <div className="show-meta">
                 <span className="show-price">ab 45 €</span>
                 <span className="show-rating">★★★★★ 203 Bewertungen</span>
