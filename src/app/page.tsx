@@ -214,7 +214,7 @@ export default function Home() {
               </p>
 
               <div className="magician-quote">
-                <p className="magician-quote-text">»Kreativsten Magier der Welt«</p>
+                <p className="magician-quote-text">»Kreativster Magier der Welt«</p>
                 <p className="magician-quote-source">International Magic Society (I.M.S.)</p>
               </div>
 
@@ -223,7 +223,7 @@ export default function Home() {
                   { icon: "✦", title: "Siegfried & Roy Golden Lion Award", sub: "Las Vegas — der prestigeträchtigste Preis der Zauberkunst. Einziger Deutscher Preisträger." },
                   { icon: "✦", title: "World Magic Award", sub: "USA — Ausgezeichnet als »Bester zeitgenössischer Magier« im Rahmen einer Fernsehshow." },
                   { icon: "✦", title: "Europameister & Deutscher Meister", sub: "Magie-Weltmeisterschaft — Höchste offizielle Auszeichnung Europas und Deutschlands." },
-                  { icon: "✦", title: "IMS Merlin Award", sub: "Internationale Magievereinigung — »Kreativsten Magier der Welt«." },
+                  { icon: "✦", title: "IMS Merlin Award", sub: "Internationale Magievereinigung — »Kreativster Magier der Welt«." },
                 ].map(a => (
                   <div key={a.title} className="magician-award-card">
                     <span className="award-card-icon">{a.icon}</span>
