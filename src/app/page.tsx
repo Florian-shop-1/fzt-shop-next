@@ -14,7 +14,7 @@ import GiftCardModal from "@/components/GiftCardModal";
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [initialShow, setInitialShow] = useState("");
-  const [voucherValue, setVoucherValue] = useState(100);
+  const [voucherValue, setVoucherValue] = useState(200);
   const [voucherCustom, setVoucherCustom] = useState(false);
   const [giftCardOpen, setGiftCardOpen] = useState(false);
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
@@ -350,7 +350,7 @@ export default function Home() {
               <p>Gib dem Menschen, den du liebst, eine Nacht voller Wunder — ein Erlebnis, das alle anderen Geschenke übertrifft.</p>
 
               <div className="voucher-values">
-                {[50, 75, 100, 150, 200].map(v => (
+                {[50, 75, 100, 150, 200, 300].map(v => (
                   <button key={v} className={`voucher-val-btn${!voucherCustom && voucherValue === v ? " active" : ""}`} onClick={() => { setVoucherCustom(false); setVoucherValue(v); }}>{v} €</button>
                 ))}
                 <button className={`voucher-val-custom${voucherCustom ? " active" : ""}`} onClick={() => setVoucherCustom(true)}>Wunschbetrag</button>
@@ -360,12 +360,13 @@ export default function Home() {
                 <div className="voucher-custom-input">
                   <input
                     type="number"
-                    min={10}
+                    min={25}
                     max={1000}
                     step={5}
                     autoFocus
-                    placeholder="Betrag eingeben"
-                    onChange={e => setVoucherValue(Math.max(0, Number(e.target.value) || 0))}
+                    placeholder="min. 25 €"
+                    onChange={e => setVoucherValue(Number(e.target.value) || 0)}
+                    onBlur={e => { const v = Number(e.target.value) || 0; if (v > 0 && v < 25) setVoucherValue(25); }}
                   />
                   <span className="voucher-custom-currency">€</span>
                 </div>
