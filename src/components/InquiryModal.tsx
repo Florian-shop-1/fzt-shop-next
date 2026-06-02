@@ -53,7 +53,7 @@ export default function InquiryModal({ type, onClose }: InquiryModalProps) {
         {sent ? (
           <div className="inquiry-success">
             <span className="inquiry-success-icon">✦</span>
-            <h4>Ihre Anfrage ist angekommen.</h4>
+            <h4>Deine Anfrage ist angekommen.</h4>
             <p>Wir melden uns persönlich innerhalb von 2 Stunden — oder sofort unter<br />
               <a href="tel:+497317906110" style={{ color: "var(--gold)" }}>0731 7906 110</a>
             </p>

@@ -585,10 +585,10 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
           {confirmed && (
             <div className="modal-success">
               <div className="modal-success-icon">✦</div>
-              <h2>Ihr Abend ist gesichert.</h2>
-              <p>Sie erhalten in Kürze eine Buchungsbestätigung per E-Mail.<br />Wir freuen uns auf Sie.</p>
+              <h2>Dein Abend ist gesichert.</h2>
+              <p>Du erhältst in Kürze eine Buchungsbestätigung per E-Mail.<br />Wir freuen uns auf dich.</p>
               <div className="modal-success-details">
-                <span>{resolvedShow?.name ?? "Ihre Show"}</span>
+                <span>{resolvedShow?.name ?? "Deine Show"}</span>
                 <span>{resolvedDate?.displayDate ?? ""}{resolvedTime ? ` · ${resolvedTime.time} Uhr` : ""}</span>
               </div>
               <button className="btn-primary" onClick={onClose} style={{ margin: "0 auto", display: "flex" }}>
@@ -771,7 +771,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   <button className="loge-box-close" onClick={() => setLogeInfoOpen(false)}>schließen ✕</button>
                   <h5>VIP-Loge anfragen</h5>
                   <p>Privater Bereich für bis zu 8 Personen — ab 599 €.<br />
-                    Rufen Sie uns an: <a href="tel:+497317906110">0731 7906 110</a><br />
+                    Ruf uns an: <a href="tel:+497317906110">0731 7906 110</a><br />
                     oder: <a href="mailto:loge@florianzimmertheater.de">loge@florianzimmertheater.de</a>
                   </p>
                   {onLogeInquiry && (

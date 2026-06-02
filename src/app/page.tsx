@@ -107,7 +107,7 @@ export default function Home() {
               <h3>ULMFASSBAR</h3>
               <p>Florian Zimmers Signature-Show. Zweieinhalb Stunden Weltklasse-Magie — persönlich, atemberaubend, unvergesslich.</p>
               <div className="show-meta">
-                <span className="show-price">ab 59 €</span>
+                <span className="show-price">ab 49 €</span>
                 <span className="show-rating">★★★★★ 847 Bewertungen</span>
               </div>
               <div className="show-card-btn">Tickets sichern &nbsp;→</div>
@@ -122,7 +122,7 @@ export default function Home() {
               <h3>Magic Memories</h3>
               <p>Florian Zimmers brandneue Show. Zweieinhalb Stunden voller Staunen, Emotionen und magischer Momente.</p>
               <div className="show-meta">
-                <span className="show-price">ab 129 €</span>
+                <span className="show-price">ab 49 €</span>
                 <span className="show-rating">★★★★★ 512 Bewertungen</span>
               </div>
               <div className="show-card-btn">Tickets sichern &nbsp;→</div>
@@ -137,7 +137,7 @@ export default function Home() {
               <h3>Flo-Zirkus</h3>
               <p>Eine interaktive Show, bei der die kleinen Gäste selbst Teil der Magie werden.</p>
               <div className="show-meta">
-                <span className="show-price">ab 45 €</span>
+                <span className="show-price">ab 29 €</span>
                 <span className="show-rating">★★★★★ 203 Bewertungen</span>
               </div>
               <div className="show-card-btn">Tickets sichern &nbsp;→</div>
@@ -292,7 +292,7 @@ export default function Home() {
               <span className="section-label">Das besondere Erlebnis</span>
               <h2>Magic Memories —<br /><em>Magie trifft Emotion</em></h2>
               <div className="divider" />
-              <p>Ein Abend, der vollständig für Sie gestaltet ist. Vier Gänge, ein Welcome-Cocktail, die beste Sicht — und Magie, die Sie sprachlos zurücklässt.</p>
+              <p>Ein Abend, der vollständig für dich gestaltet ist. Vier Gänge, ein Welcome-Cocktail, die beste Sicht — und Magie, die dich sprachlos zurücklässt.</p>
               <div className="price-tag">
                 <span className="price-from">ab</span>
                 <span className="price-amount">129€</span>
@@ -318,9 +318,9 @@ export default function Home() {
         <div className="loge-glow" />
         <div className="loge-content reveal">
           <span className="section-label">Exklusiv &amp; Privat</span>
-          <h2>Die VIP-Loge —<br /><em>Ihr privater Zauberraum</em></h2>
+          <h2>Die VIP-Loge —<br /><em>Dein privater Zauberraum</em></h2>
           <div className="divider" />
-          <p>Für besondere Anlässe, romantische Abende oder exklusive Firmenfeiern. Genießen Sie die Show in Ihrer eigenen privaten Loge mit persönlichem Service.</p>
+          <p>Für besondere Anlässe, romantische Abende oder exklusive Firmenfeiern. Genieße die Show in deiner eigenen privaten Loge mit persönlichem Service.</p>
           <div className="loge-perks">
             {["Privater Bereich für bis zu 8 Personen", "Champagner-Empfang und Servicepersonal", "Exklusive Sicht auf die Bühne", "Persönliche Begrüßung durch Florian Zimmer", "Ab 599 € für bis zu 8 Personen"].map(p => (
               <div key={p} className="loge-perk"><span className="perk-dot" />{p}</div>
@@ -404,7 +404,7 @@ export default function Home() {
           <div className="firmen-inner">
             <div className="firmen-text reveal">
               <span className="section-label">Firmenevents</span>
-              <h2>Wenn Ihr Team einen<br />Abend <em>nie vergisst</em></h2>
+              <h2>Wenn dein Team einen<br />Abend <em>nie vergisst</em></h2>
               <div className="divider" />
               <p>Weihnachtsfeiern, Teambuilding, Incentives, Jubiläen — Florian Zimmer Theater ist die ausgefallenste Eventlocation in der Region.</p>
               <div className="firmen-bullets">
