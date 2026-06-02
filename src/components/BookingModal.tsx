@@ -42,6 +42,7 @@ interface MenuEntry {
   badgeColor?: string;
   includes: string;
   courses: string[];
+  image?: string;        // Platzhalter — später echtes Menüfoto
 }
 
 interface StehtischEntry {
@@ -55,6 +56,7 @@ interface StehtischEntry {
   highlight?: boolean;
   luxury?: boolean;
   items: string[];
+  image?: string;        // Platzhalter — später echtes Foto
 }
 
 interface BookingModalProps {
@@ -153,6 +155,7 @@ const MENUS: MenuEntry[] = [
     badge: "Beliebteste Wahl",
     badgeColor: "#C9A84C",
     includes: "inkl. Welcome-Cocktail",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700&q=80",
     courses: [
       "Amuse-Bouche",
       "Waldpilz-Cremesuppe mit Trüffelöl",
@@ -166,6 +169,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Meeresfrüchte & Fisch — handverlesen & frisch",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
+    image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=80",
     courses: [
       "Amuse-Bouche",
       "Hummercremesuppe",
@@ -179,6 +183,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Pflanzliche Gourmetküche auf höchstem Niveau",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80",
     courses: [
       "Amuse-Bouche",
       "Kürbiscremesuppe mit geröstetem Kürbiskern",
@@ -192,6 +197,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Für unsere kleinen Zauberlehrlinge",
     price: 29,
     includes: "inkl. Kids-Cocktail",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=700&q=80",
     courses: [
       "Hausgemachte Gemüsesuppe",
       "Schnitzel mit Pommes & Ketchup",
@@ -208,6 +214,7 @@ const STEHTISCHE: StehtischEntry[] = [
     price: 17.5,
     priceLabel: "17,50 €",
     personsPerUnit: 1,
+    image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80",
     items: [
       "Reservierter Stehtisch im Foyer",
       "1 Glas Magicuvée prickelnd",
@@ -224,6 +231,7 @@ const STEHTISCHE: StehtischEntry[] = [
     personsPerUnit: 2,
     badge: "Beliebt bei Paaren",
     highlight: true,
+    image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80",
     items: [
       "Reservierter Stehtisch im Foyer",
       "1 kl. Flasche Magicuvée prickelnd",
@@ -240,6 +248,7 @@ const STEHTISCHE: StehtischEntry[] = [
     personsPerUnit: 2,
     badge: "Luxus",
     luxury: true,
+    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80",
     items: [
       "Reservierter Premium-Stehtisch",
       "Laurent Perrier Rosé",
@@ -961,7 +970,11 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       const isExpanded = expandedMenu === menu.id;
                       const canAdd     = totalMenuQty < qty;
                       return (
-                        <div key={menu.id} className={`menu-card${isActive ? " selected" : ""}`}>
+                        <div
+                          key={menu.id}
+                          className={`menu-card${isActive ? " selected" : ""}${menu.image ? " has-image" : ""}`}
+                          style={menu.image ? { backgroundImage: `url('${menu.image}')` } : {}}
+                        >
                           <div className="menu-card-inner">
                             {menu.badge && (
                               <span className="menu-badge" style={{ background: menu.badgeColor ?? "var(--gold)" }}>
@@ -1184,7 +1197,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                         return (
                           <div
                             key={st.id}
-                            className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}`}
+                            className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}${st.image ? " has-image" : ""}`}
+                            style={st.image ? { backgroundImage: `url('${st.image}')` } : {}}
                           >
                             {st.badge && (
                               <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>

@@ -2220,6 +2220,24 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .sd-cta-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--border); padding-top: 24px; flex-wrap: wrap; }
 .sd-price { font-size: 22px; font-family: var(--font-playfair), serif; color: var(--gold); }
 
+/* ===================== MENÜ / STEHTISCH HINTERGRUNDBILDER ===================== */
+.menu-card.has-image, .stehtisch-card.has-image {
+  position: relative; background-size: cover; background-position: center; overflow: hidden;
+}
+.menu-card.has-image::before, .stehtisch-card.has-image::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, rgba(8,8,8,0.72) 0%, rgba(8,8,8,0.86) 55%, rgba(8,8,8,0.94) 100%);
+  transition: background var(--transition);
+}
+.menu-card.has-image:hover::before, .stehtisch-card.has-image:hover::before {
+  background: linear-gradient(180deg, rgba(8,8,8,0.6) 0%, rgba(8,8,8,0.8) 55%, rgba(8,8,8,0.92) 100%);
+}
+.menu-card.has-image.selected::before, .stehtisch-card.has-image.selected::before {
+  background: linear-gradient(180deg, rgba(28,22,8,0.68) 0%, rgba(8,8,8,0.86) 55%, rgba(8,8,8,0.94) 100%);
+}
+/* Inhalt über das Overlay heben */
+.menu-card.has-image > *, .stehtisch-card.has-image > * { position: relative; z-index: 1; }
+
 /* Bundle Abhol-Hinweis (Magie für Zuhause) */
 .bundle-pickup {
   display: flex; align-items: center; gap: 8px; margin-top: 12px;
