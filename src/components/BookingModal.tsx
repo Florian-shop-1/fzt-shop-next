@@ -990,8 +990,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       return (
                         <div
                           key={menu.id}
-                          className={`menu-card${isActive ? " selected" : ""}${menu.image ? " has-image" : ""}`}
+                          className={`menu-card clickable${isActive ? " selected" : ""}${menu.image ? " has-image" : ""}`}
                           style={menu.image ? { backgroundImage: `url('${menu.image}')` } : {}}
+                          onClick={() => canAdd && incMenu(menu.id)}
                         >
                           <div className="menu-card-inner">
                             {menu.badge && (
@@ -1215,8 +1216,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                         return (
                           <div
                             key={st.id}
-                            className={`stehtisch-card${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}${st.image ? " has-image" : ""}`}
+                            className={`stehtisch-card clickable${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}${st.image ? " has-image" : ""}`}
                             style={st.image ? { backgroundImage: `url('${st.image}')` } : {}}
+                            onClick={() => canAdd && incStehtisch(st.id, st.personsPerUnit)}
                           >
                             {st.badge && (
                               <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>

@@ -2243,6 +2243,10 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 
+/* Menü-/Stehtisch-Karten: ganze Kachel klickbar (+1) */
+.menu-card.clickable, .stehtisch-card.clickable { cursor: pointer; }
+.menu-card.clickable:hover, .stehtisch-card.clickable:hover { border-color: rgba(201,168,76,0.45); }
+
 /* ===================== FLEX-OPTION (Ja/Nein) ===================== */
 .flex-toggle-card { cursor: pointer; align-items: flex-start; }
 .flex-checkbox {
