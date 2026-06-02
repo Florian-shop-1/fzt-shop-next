@@ -1504,7 +1504,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
               </div>
               <div className="modal-trust">
                 <span>🔒</span>
-                <span>256-bit SSL · Sichere Buchung via Stripe · Bis 48h vor Show kostenlos stornierbar</span>
+                <span>256-bit SSL · Sichere Buchung via Stripe · Mit Flex-Option bis 48h vor Show kostenlos umbuchbar</span>
               </div>
             </div>
           )}
