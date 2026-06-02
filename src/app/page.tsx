@@ -10,6 +10,7 @@ import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
 import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHints";
 import ShowDetail from "@/components/ShowDetail";
 import GiftCardModal from "@/components/GiftCardModal";
+import SocialLinks from "@/components/SocialLinks";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -303,6 +304,12 @@ export default function Home() {
               </span>
             ))}
           </div>
+
+          {/* FOLGE DER MAGIE */}
+          <div className="follow-magic reveal">
+            <span className="follow-magic-label">Folge der Magie</span>
+            <SocialLinks variant="follow" />
+          </div>
         </div>
       </section>
 
@@ -477,11 +484,7 @@ export default function Home() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/logo.png" alt="Florian Zimmer Theater" style={{ height: 40, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.9, marginBottom: 12 }} />
               <p>HOME OF MAGIC in Neu-Ulm. Live-Magie auf Weltklasse-Niveau — für unvergessliche Abende zu zweit, mit Familie oder als Firmen-Event.</p>
-              <div className="footer-social">
-                <a href="https://www.youtube.com/c/FlorianZimmerMagic" className="social-btn" target="_blank" rel="noopener noreferrer">▶</a>
-                <a href="#" className="social-btn">f</a>
-                <a href="#" className="social-btn">✦</a>
-              </div>
+              <SocialLinks variant="footer" />
             </div>
             <div className="footer-col">
               <h4>Shows</h4>
