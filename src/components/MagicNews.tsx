@@ -70,9 +70,12 @@ export function MagicNewsOverlays() {
 
     let shownThisSession = false;
 
+    // Nicht stören, während ein anderes Modal offen ist (Buchung/Anfrage)
+    const modalOpen = () => !!document.querySelector(".modal-overlay, .inquiry-overlay");
+
     // 1) Nach 45 Sekunden Verweildauer
     const timer = setTimeout(() => {
-      if (!shownThisSession) {
+      if (!shownThisSession && !modalOpen()) {
         shownThisSession = true;
         setMode("timed");
         setOpen(true);
@@ -81,7 +84,7 @@ export function MagicNewsOverlays() {
 
     // 2) Exit-Intent (Maus verlässt oben)
     const onMouseOut = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !shownThisSession) {
+      if (e.clientY <= 0 && !shownThisSession && !modalOpen()) {
         shownThisSession = true;
         setMode("exit");
         setOpen(true);

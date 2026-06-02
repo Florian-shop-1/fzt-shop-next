@@ -396,6 +396,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const [showAllShows,       setShowAllShows]       = useState(false);
   const [confirmed,          setConfirmed]          = useState(false);
   const [logeInfoOpen,       setLogeInfoOpen]       = useState(false);
+  const [activePrompt,       setActivePrompt]       = useState<null | "menu" | "secure">(null);
+  const [menuPromptShown,    setMenuPromptShown]    = useState(false);
+  const [securePromptShown,  setSecurePromptShown]  = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -415,6 +418,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setShowAllShows(false);
       setConfirmed(false);
       setLogeInfoOpen(false);
+      setActivePrompt(null);
+      setMenuPromptShown(false);
+      setSecurePromptShown(false);
       if (initialShow) {
         setSelectedShowId(initialShow);
         setSelectedDateId(null);
@@ -531,9 +537,25 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
     return true;
   })();
 
-  const nextStep = () => {
+  const advance = () => {
     if (step < 6) setStep(s => s + 1);
     else setConfirmed(true);
+  };
+
+  const nextStep = () => {
+    // Schritt 3: dezenter Magic-Menü-Hinweis (gleichwertige Buttons, kein Dark Pattern)
+    if (step === 3 && totalMenuQty === 0 && !menuPromptShown) {
+      setMenuPromptShown(true);
+      setActivePrompt("menu");
+      return;
+    }
+    // Schritt 4: dezente Ticket-Schutz-Nachfrage (nur einmal)
+    if (step === 4 && flexQty === 0 && !securePromptShown) {
+      setSecurePromptShown(true);
+      setActivePrompt("secure");
+      return;
+    }
+    advance();
   };
 
   const dotClass  = (n: number) => `step-dot${step === n ? " active" : step > n ? " done" : ""}`;
@@ -543,6 +565,35 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   return (
     <div className="modal-overlay active" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal">
+        {/* ── Conversion-Nudge: Menü / Ticket-Schutz ── */}
+        {activePrompt && (
+          <div className="nudge-overlay">
+            <div className="nudge-card">
+              {activePrompt === "menu" ? (
+                <>
+                  <span className="nudge-eyebrow">✦ Magic Menü</span>
+                  <h3>Ohne Magic Menü weitermachen?</h3>
+                  <p>Viele Gäste machen ihren Theaterbesuch mit dem Magic Menü zu einem kompletten Abend.</p>
+                  <div className="nudge-actions">
+                    <button className="nudge-btn-primary" onClick={() => setActivePrompt(null)}>Magic Menü hinzufügen</button>
+                    <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Nur Show buchen</button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="nudge-eyebrow">✦ Flex-Option</span>
+                  <h3>Wirklich ohne Ticket-Schutz?</h3>
+                  <p>Mit der Flex-Option bleibst du flexibel, falls kurzfristig etwas dazwischenkommt — du kannst dein Ticket bis zu 48 h vor der Veranstaltung kostenfrei auf einen Gutschein umbuchen. Pro Flex-Option ist ein Gast inkl. aller Zusatzleistungen wie Magic-Menü abgesichert.</p>
+                  <div className="nudge-actions">
+                    <button className="nudge-btn-primary" onClick={() => setActivePrompt(null)}>Ticket-Schutz hinzufügen</button>
+                    <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Ohne Ticket-Schutz fortfahren</button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* ── Show Image Banner ── */}
         {resolvedShow && (
           <div className="modal-show-banner" style={{ backgroundImage: `url('${resolvedShow.image}')` }}>
@@ -865,6 +916,10 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
               ) : (
                 /* ── Menüauswahl ── */
                 <div>
+                  <div className="menu-select-intro">
+                    <h3>Die beliebteste Art, Magie zu erleben</h3>
+                    <p>Die meisten Gäste beginnen ihren Abend mit dem Magic Menü und genießen anschließend die Show.</p>
+                  </div>
                   {/* Bestätigung + Rückgabe-Link */}
                   <div className="mc-confirmed-bar">
                     <div className="mc-confirmed-left">

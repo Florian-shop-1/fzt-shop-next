@@ -2077,3 +2077,40 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .magic-news-modal p { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.7; margin-bottom: 24px; }
 .magic-news-modal .magic-news-form { flex-direction: column; }
 .magic-news-modal .magic-news-submit { width: 100%; }
+
+/* ===================== CONVERSION NUDGES (Booking Modal) ===================== */
+.menu-select-intro { text-align: center; margin-bottom: 22px; }
+.menu-select-intro h3 { font-size: 21px; margin-bottom: 8px; }
+.menu-select-intro p { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.65; max-width: 440px; margin: 0 auto; }
+
+.nudge-overlay {
+  position: absolute; inset: 0; z-index: 50;
+  background: rgba(8,8,8,0.82); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  border-radius: 8px; animation: fadeUp 0.3s ease;
+}
+.nudge-card {
+  background: var(--dark); border: 1px solid var(--border);
+  border-radius: 10px; max-width: 440px; width: 100%;
+  padding: 36px 34px; text-align: center; position: relative;
+}
+.nudge-card::before {
+  content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 3px;
+  border-radius: 10px 10px 0 0; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.nudge-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+.nudge-card h3 { font-size: 23px; margin-bottom: 12px; }
+.nudge-card p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 26px; }
+.nudge-actions { display: flex; flex-direction: column; gap: 10px; }
+.nudge-btn-primary {
+  background: var(--gold); color: var(--black); border: none;
+  padding: 14px; font-size: 14px; font-weight: 700; border-radius: var(--radius);
+  cursor: pointer; font-family: inherit; transition: all var(--transition);
+}
+.nudge-btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.nudge-btn-secondary {
+  background: transparent; color: rgba(255,255,255,0.85); border: 1px solid var(--border);
+  padding: 14px; font-size: 14px; font-weight: 500; border-radius: var(--radius);
+  cursor: pointer; font-family: inherit; transition: all var(--transition);
+}
+.nudge-btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
