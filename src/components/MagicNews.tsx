@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 //  (Julian: Route + Brevo-Listen-ID anbinden).
 // ─────────────────────────────────────────────
 
-export function MagicNewsForm({ compact = false }: { compact?: boolean }) {
+export function MagicNewsForm({ compact = false, onSent }: { compact?: boolean; onSent?: () => void }) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,7 @@ export function MagicNewsForm({ compact = false }: { compact?: boolean }) {
     } finally {
       setLoading(false);
       setSent(true);
+      onSent?.();
     }
   };
 
@@ -62,6 +63,7 @@ export function MagicNewsForm({ compact = false }: { compact?: boolean }) {
 export function MagicNewsOverlays() {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"timed" | "exit">("timed");
+  const [sent, setSent] = useState(false);
 
   useEffect(() => {
     // Bereits abonniert/geschlossen? → in den letzten 14 Tagen nicht erneut
@@ -107,7 +109,7 @@ export function MagicNewsOverlays() {
       <div className="magic-news-modal">
         <button className="magic-news-close" onClick={close} aria-label="Schließen">✕</button>
         <span className="magic-news-eyebrow">✦ Magic News</span>
-        {mode === "exit" ? (
+        {!sent && (mode === "exit" ? (
           <>
             <h3>Bevor du gehst …</h3>
             <p>Möchtest du von neuen Shows, Zusatzterminen und besonderen Aktionen erfahren?</p>
@@ -117,8 +119,8 @@ export function MagicNewsOverlays() {
             <h3>Like Magic?</h3>
             <p>Dann solltest du die Magic News kennen. Neue Shows, besondere Termine und exklusive Aktionen — direkt vom Home of Magic.</p>
           </>
-        )}
-        <MagicNewsForm />
+        ))}
+        <MagicNewsForm onSent={() => setSent(true)} />
       </div>
     </div>
   );
