@@ -2421,3 +2421,16 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   border-color: var(--gold); color: var(--gold); transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(201,168,76,0.18);
 }
+
+/* ===================== MOBILE: Extras/Bundle-Karten stapeln ===================== */
+@media (max-width: 600px) {
+  .extras4-card { flex-direction: column; align-items: stretch; gap: 14px; }
+  .extras4-qty-col {
+    flex-direction: row; align-items: center; justify-content: space-between;
+    width: 100%; min-width: 0; padding-left: 0;
+  }
+  .extras4-icon { font-size: 26px; }
+  .bundle-pickup { margin-top: 4px; }
+  /* Mengen-Steuerung kompakter, volle Breite nutzen */
+  .extras4-qty-col .qty-ctrl { width: auto; }
+}
