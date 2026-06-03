@@ -2084,10 +2084,10 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .menu-select-intro p { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.65; max-width: 440px; margin: 0 auto; }
 
 .nudge-overlay {
-  position: absolute; inset: 0; z-index: 50;
-  background: rgba(8,8,8,0.82); backdrop-filter: blur(8px);
+  position: fixed; inset: 0; z-index: 2500;
+  background: rgba(8,8,8,0.88); backdrop-filter: blur(8px);
   display: flex; align-items: center; justify-content: center; padding: 24px;
-  border-radius: 8px; animation: fadeUp 0.3s ease;
+  animation: fadeUp 0.3s ease;
 }
 .nudge-card {
   background: var(--dark); border: 1px solid var(--border);
