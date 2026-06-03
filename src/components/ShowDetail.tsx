@@ -32,10 +32,12 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
     image: "/images/show-atmosphere.jpg",
     imagePos: "center top",
     trailerId: "RvWYpFJmvkM",
-    tagline: "Zweieinhalb Stunden, in denen du vergisst, dass es Erklärungen gibt.",
+    tagline: "Deutschlands spektakulärste Magic Show.",
     paragraphs: [
-      "Florian Zimmer — vom »kreativsten Magier der Welt« (Markus Lanz) — zeigt brandneue Illusionen, die so nah passieren, dass dein Verstand kapituliert. Mal spektakulär groß auf der Bühne, mal direkt in deinen Händen.",
-      "Eine Show, die alle Erwartungen sprengt — und ein Abend für die ganze Familie, über den du noch lange sprichst.",
+      "Florian Zimmer — vom »kreativsten Magier der Welt« (Markus Lanz) — präsentiert ein magisches Erlebnis der Superlative: spektakuläre Großillusionen, faszinierende Close-up-Magie direkt vor deinen Augen, atemberaubende Spezialeffekte, Humor, Emotionen und Momente, die für immer bleiben.",
+      "Erlebe die legendäre Todeskralle, eine geheimnisvolle Zeitmaschine und den Augenblick, in dem Florian Zimmer scheinbar schwerelos über die Köpfe des Publikums hinwegschwebt.",
+      "ULMFASSBAR vereint alles, was große Unterhaltung ausmacht: Staunen, Nervenkitzel, Lachen, Überraschungen und echte Gänsehautmomente — eine Show voller Wunder, die Generationen begeistert.",
+      "Wenn du nur eine Magieshow in deinem Leben besuchst — dann diese.",
     ],
     quote: { text: "Wahnsinn! Beifallsstürme! Standing Ovations!", source: "Südwest Presse" },
     facts: [
