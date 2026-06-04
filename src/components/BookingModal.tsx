@@ -409,6 +409,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const [confirmed,          setConfirmed]          = useState(false);
   const [logeInfoOpen,       setLogeInfoOpen]       = useState(false);
   const [souvenir,           setSouvenir]           = useState(false);
+  const [ticketPost,         setTicketPost]         = useState(false);
+  const [postAddr,           setPostAddr]           = useState({ name: "", street: "", zip: "", city: "" });
   const [activePrompt,         setActivePrompt]         = useState<null | "menu" | "menu-partial" | "secure">(null);
   const [menuPromptShown,      setMenuPromptShown]      = useState(false);
   const [menuPartialShown,     setMenuPartialShown]     = useState(false);
@@ -436,6 +438,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setMenuPromptShown(false);
       setMenuPartialShown(false);
       setSecurePromptShown(false);
+      setTicketPost(false);
+      setPostAddr({ name: "", street: "", zip: "", city: "" });
       if (initialShow) {
         setSelectedShowId(initialShow);
         setSelectedDateId(null);
@@ -553,6 +557,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const canProceed = (() => {
     if (step === 1) return selectedShowId !== "" && selectedDateId !== null && selectedTimeId !== null;
     if (step === 2) return selectedSeat !== "";
+    if (step === 6) return !ticketPost || Boolean(postAddr.name && postAddr.street && postAddr.zip && postAddr.city);
     return true;
   })();
 
@@ -1502,7 +1507,51 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 <label>Telefon (optional)</label>
                 <input type="tel" autoComplete="tel" placeholder="+49 ···" />
               </div>
-              <div className="modal-trust">
+
+              {/* Tickets zusätzlich per Post */}
+              <div
+                className={`extras4-card clickable${ticketPost ? " selected" : ""}`}
+                style={{ marginTop: 4 }}
+                onClick={() => setTicketPost(!ticketPost)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => (e.key === "Enter" || e.key === " ") && setTicketPost(!ticketPost)}
+              >
+                <div className={`flex-checkbox${ticketPost ? " checked" : ""}`}>{ticketPost ? "✓" : ""}</div>
+                <div className="extras4-info">
+                  <div className="extras4-top">
+                    <strong className="extras4-name">Tickets zusätzlich per Post</strong>
+                    <span className="extras4-price-block"><span className="extras4-unit-price-inline">4,90 €</span></span>
+                  </div>
+                  <p className="extras4-desc">Du erhältst deine Tickets zusätzlich als hochwertig gedruckte Karte per Post. (Digitale Tickets bekommst du ohnehin sofort per E-Mail.)</p>
+                </div>
+              </div>
+
+              {ticketPost && (
+                <div className="gc-address" style={{ marginTop: 14 }}>
+                  <span className="section-label" style={{ marginBottom: 4 }}>Lieferadresse</span>
+                  <div className="form-group">
+                    <label>Name *</label>
+                    <input type="text" value={postAddr.name} onChange={e => setPostAddr({ ...postAddr, name: e.target.value })} placeholder="Vor- und Nachname" autoComplete="name" />
+                  </div>
+                  <div className="form-group" style={{ marginTop: 12 }}>
+                    <label>Straße &amp; Hausnummer *</label>
+                    <input type="text" value={postAddr.street} onChange={e => setPostAddr({ ...postAddr, street: e.target.value })} placeholder="Musterstraße 1" autoComplete="street-address" />
+                  </div>
+                  <div className="form-row" style={{ marginTop: 12 }}>
+                    <div className="form-group">
+                      <label>PLZ *</label>
+                      <input type="text" value={postAddr.zip} onChange={e => setPostAddr({ ...postAddr, zip: e.target.value })} placeholder="89231" autoComplete="postal-code" inputMode="numeric" />
+                    </div>
+                    <div className="form-group">
+                      <label>Ort *</label>
+                      <input type="text" value={postAddr.city} onChange={e => setPostAddr({ ...postAddr, city: e.target.value })} placeholder="Neu-Ulm" autoComplete="address-level2" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="modal-trust" style={{ marginTop: 16 }}>
                 <span>🔒</span>
                 <span>256-bit SSL · Sichere Buchung via Stripe · Mit Flex-Option bis 48h vor Show kostenlos umbuchbar</span>
               </div>

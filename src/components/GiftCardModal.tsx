@@ -29,7 +29,11 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
   const [delivery, setDelivery] = useState<"digital" | "post">("digital");
   const [sendDate, setSendDate] = useState("");
   const [giftBox, setGiftBox] = useState(false);
+  const [addr, setAddr] = useState({ name: "", street: "", zip: "", city: "" });
   const [done, setDone] = useState(false);
+
+  const needsAddress = delivery === "post" || giftBox;
+  const addrComplete = !needsAddress || (addr.name && addr.street && addr.zip && addr.city);
 
   useEffect(() => {
     if (open) { setDone(false); document.body.style.overflow = "hidden"; }
@@ -156,7 +160,7 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                 </div>
               </div>
 
-              {delivery === "digital" && (
+              {delivery === "digital" && !giftBox && (
                 <div className="gc-field">
                   <label>Versanddatum (optional)</label>
                   <input type="date" value={sendDate} onChange={e => setSendDate(e.target.value)} />
@@ -164,9 +168,39 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                 </div>
               )}
 
+              {/* Lieferadresse — nur bei Postversand / Geschenkbox */}
+              {needsAddress && (
+                <div className="gc-address">
+                  <span className="gc-eyebrow" style={{ marginBottom: 4 }}>Lieferadresse</span>
+                  <div className="gc-field">
+                    <label>Name *</label>
+                    <input type="text" value={addr.name} onChange={e => setAddr({ ...addr, name: e.target.value })} placeholder="Vor- und Nachname" autoComplete="name" />
+                  </div>
+                  <div className="gc-field">
+                    <label>Straße &amp; Hausnummer *</label>
+                    <input type="text" value={addr.street} onChange={e => setAddr({ ...addr, street: e.target.value })} placeholder="Musterstraße 1" autoComplete="street-address" />
+                  </div>
+                  <div className="gc-address-row">
+                    <div className="gc-field">
+                      <label>PLZ *</label>
+                      <input type="text" value={addr.zip} onChange={e => setAddr({ ...addr, zip: e.target.value })} placeholder="89231" autoComplete="postal-code" inputMode="numeric" />
+                    </div>
+                    <div className="gc-field">
+                      <label>Ort *</label>
+                      <input type="text" value={addr.city} onChange={e => setAddr({ ...addr, city: e.target.value })} placeholder="Neu-Ulm" autoComplete="address-level2" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="gc-cta-row">
                 <span className="gc-total">{fmt(total)} €</span>
-                <button className="btn-primary" onClick={() => setDone(true)}>✦ &nbsp;In den Warenkorb</button>
+                <button
+                  className="btn-primary"
+                  onClick={() => addrComplete && setDone(true)}
+                  disabled={!addrComplete}
+                  style={!addrComplete ? { opacity: 0.4, cursor: "not-allowed", boxShadow: "none" } : {}}
+                >✦ &nbsp;In den Warenkorb</button>
               </div>
             </div>
           </div>

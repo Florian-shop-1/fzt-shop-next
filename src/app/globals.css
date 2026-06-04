@@ -2417,3 +2417,10 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   /* Mengen-Steuerung kompakter, volle Breite nutzen */
   .extras4-qty-col .qty-ctrl { width: auto; }
 }
+
+/* ===================== LIEFERADRESSE (Gutschein-Designer) ===================== */
+.gc-address {
+  border-top: 1px solid var(--border); padding-top: 18px; margin-bottom: 4px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.gc-address-row { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
