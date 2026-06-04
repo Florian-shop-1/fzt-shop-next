@@ -1628,74 +1628,56 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 }
 
 /* ===================== CINEMATIC VIDEO SECTION ===================== */
-.cinematic-video { position: relative; background: #000; overflow: hidden; }
+.cinematic-video {
+  position: relative; background: #000; overflow: hidden;
+  height: 80vh; max-height: 760px; min-height: 420px;
+}
 
-.cv-thumb {
-  position: relative; width: 100%; aspect-ratio: 16/9; max-height: 85vh;
-  cursor: pointer; overflow: hidden; display: block;
+/* Hintergrundvideo (autoplay, stumm, Loop) — füllt die Sektion */
+.cv-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cv-bg iframe {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100vw; height: 56.25vw;          /* 16:9 bezogen auf Breite */
+  min-height: 100%; min-width: 177.78vh;  /* deckt auch hohe Viewports ab */
+  border: none;
 }
-.cv-img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: brightness(0.55);
-  transition: transform 0.8s cubic-bezier(0.4,0,0.2,1), filter 0.6s ease;
-}
-.cv-thumb:hover .cv-img { transform: scale(1.03); filter: brightness(0.7); }
+.cv-bg-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 .cv-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(8,8,8,0.45) 0%, rgba(8,8,8,0.05) 35%, rgba(8,8,8,0.05) 65%, rgba(8,8,8,0.55) 100%);
-}
-.cv-gold-frame {
-  position: absolute; inset: 0;
-  box-shadow: inset 0 0 0 1px rgba(201,168,76,0);
-  transition: box-shadow 0.5s ease;
-}
-.cv-thumb:hover .cv-gold-frame { box-shadow: inset 0 0 0 1px rgba(201,168,76,0.22); }
-
-.cv-center {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex; flex-direction: column; align-items: center; gap: 18px;
-  transition: transform 0.4s ease;
-}
-.cv-thumb:hover .cv-center { transform: translate(-50%, -53%); }
-
-.cv-play-btn {
-  width: 88px; height: 88px; border-radius: 50%;
-  border: 1.5px solid rgba(201,168,76,0.65);
-  background: rgba(8,8,8,0.45);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--white);
-  transition: all 0.4s ease;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 0 0 rgba(201,168,76,0.2);
-}
-.cv-thumb:hover .cv-play-btn {
-  background: rgba(201,168,76,0.14);
-  border-color: var(--gold);
-  box-shadow: 0 0 50px rgba(201,168,76,0.22), 0 0 0 14px rgba(201,168,76,0.05);
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.2) 35%, rgba(8,8,8,0.25) 65%, rgba(8,8,8,0.7) 100%);
 }
 
-.cv-play-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 4px;
-  text-transform: uppercase; color: rgba(255,255,255,0.65);
+.cv-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
 }
-.cv-caption {
-  position: absolute; bottom: 28px; left: 0; right: 0;
-  text-align: center; pointer-events: none;
+.cv-sound-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(8,8,8,0.5); backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(201,168,76,0.65); color: var(--white);
+  padding: 13px 24px; border-radius: 100px; cursor: pointer; font-family: inherit;
+  font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  transition: all var(--transition);
 }
-.cv-caption em {
-  font-size: clamp(15px, 2vw, 22px);
-  color: rgba(255,255,255,0.75);
-  font-family: var(--font-playfair), serif;
+.cv-sound-btn:hover {
+  background: rgba(201,168,76,0.16); border-color: var(--gold);
+  box-shadow: 0 0 40px rgba(201,168,76,0.25);
 }
+.cv-caption { text-align: center; pointer-events: none; position: absolute; bottom: 28px; left: 0; right: 0; }
+.cv-caption em { font-size: clamp(15px, 2vw, 22px); color: rgba(255,255,255,0.8); font-family: var(--font-playfair), serif; }
 
-.cv-iframe-wrap {
-  position: relative; width: 100%; aspect-ratio: 16/9; max-height: 85vh; background: #000;
+/* Vollbild-Player mit Ton */
+.cv-sound-overlay {
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(8,8,8,0.92); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
 }
+.cv-sound-frame { width: 100%; max-width: 1000px; aspect-ratio: 16/9; background: #000; border-radius: 8px; overflow: hidden; }
+.cv-sound-frame iframe { width: 100%; height: 100%; border: none; display: block; }
 .cv-close {
-  position: absolute; top: 14px; right: 14px; z-index: 10;
-  width: 40px; height: 40px; border-radius: 50%;
+  position: absolute; top: 18px; right: 18px; z-index: 10;
+  width: 42px; height: 42px; border-radius: 50%;
   background: rgba(8,8,8,0.7); border: 1px solid var(--border);
   color: var(--white); font-size: 16px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;

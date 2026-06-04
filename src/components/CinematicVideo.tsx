@@ -1,43 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const VIDEO_ID = "RvWYpFJmvkM";
 
 export default function CinematicVideo() {
-  const [playing, setPlaying] = useState(false);
+  const [withSound, setWithSound] = useState(false);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => { if (e.key === "Escape") setWithSound(false); };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, []);
 
   return (
     <section className="cinematic-video">
-      {!playing ? (
-        <div className="cv-thumb" onClick={() => setPlaying(true)} role="button" tabIndex={0} onKeyDown={e => e.key === "Enter" && setPlaying(true)} aria-label="Showreel abspielen">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="cv-img"
-            src="https://img.youtube.com/vi/RvWYpFJmvkM/maxresdefault.jpg"
-            alt="ULMFASSBAR — Florian Zimmer Theater"
-            onError={e => { (e.target as HTMLImageElement).src = "/images/show-ulmfassbar.jpg"; }}
+      {/* Hintergrund: läuft automatisch, stumm, in Schleife */}
+      {!reduced ? (
+        <div className="cv-bg yt-no-logo" aria-hidden="true">
+          <iframe
+            src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`}
+            title="Florian Zimmer Theater — Hintergrundvideo"
+            allow="autoplay; fullscreen"
           />
-          <div className="cv-overlay" />
-          <div className="cv-gold-frame" />
-          <div className="cv-center">
-            <div className="cv-play-btn" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" style={{ marginLeft: 4 }}>
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-            <span className="cv-play-label">Erlebe die Magie</span>
-          </div>
-          <p className="cv-caption"><em>»Live ist es noch unglaublicher.«</em></p>
         </div>
       ) : (
-        <div className="cv-iframe-wrap">
-          <button className="cv-close" onClick={() => setPlaying(false)} aria-label="Video schließen">✕</button>
-          <div className="yt-no-logo" style={{ width: "100%", height: "100%" }}>
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          className="cv-bg-fallback"
+          src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+          alt="ULMFASSBAR — Florian Zimmer Theater"
+        />
+      )}
+
+      <div className="cv-overlay" />
+
+      {/* Inhalt über dem Video */}
+      <div className="cv-content">
+        <button className="cv-sound-btn" onClick={() => setWithSound(true)}>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          Mit Ton ansehen
+        </button>
+        <p className="cv-caption"><em>»Live ist es noch unglaublicher.«</em></p>
+      </div>
+
+      {/* Vollbild-Player mit Ton */}
+      {withSound && (
+        <div className="cv-sound-overlay" onClick={e => e.target === e.currentTarget && setWithSound(false)}>
+          <button className="cv-close" onClick={() => setWithSound(false)} aria-label="Video schließen">✕</button>
+          <div className="cv-sound-frame yt-no-logo">
             <iframe
-              src="https://www.youtube.com/embed/RvWYpFJmvkM?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3"
+              src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`}
               title="ULMFASSBAR — Florian Zimmer Theater"
-              allowFullScreen
               allow="autoplay; fullscreen"
-              style={{ width: "100%", height: "100%", border: "none" }}
+              allowFullScreen
             />
           </div>
         </div>
