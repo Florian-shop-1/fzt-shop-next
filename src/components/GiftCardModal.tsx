@@ -27,7 +27,7 @@ const MOTIFS = [
 //  (idealerweise mit Betrags-Parameter, falls Ditix das unterstützt).
 //  Solange leer → Bestätigungs-/Hinweisbildschirm statt Weiterleitung.
 // ─────────────────────────────────────────────
-const DITIX_VOUCHER_URL = "";
+const DITIX_VOUCHER_URL: string = "";
 
 export default function GiftCardModal({ open, value, onClose }: GiftCardModalProps) {
   const [recipient, setRecipient] = useState("");
