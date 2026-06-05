@@ -21,6 +21,14 @@ const MOTIFS = [
   { id: "romantik", label: "Romantik" },
 ];
 
+// ─────────────────────────────────────────────
+//  Ditix-Wertgutschein-Kasse.
+//  Julian: echte Ditix-Gutschein-URL hier eintragen
+//  (idealerweise mit Betrags-Parameter, falls Ditix das unterstützt).
+//  Solange leer → Bestätigungs-/Hinweisbildschirm statt Weiterleitung.
+// ─────────────────────────────────────────────
+const DITIX_VOUCHER_URL = "";
+
 export default function GiftCardModal({ open, value, onClose }: GiftCardModalProps) {
   const [recipient, setRecipient] = useState("");
   const [sender, setSender] = useState("");
@@ -31,9 +39,36 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
   const [giftBox, setGiftBox] = useState(false);
   const [addr, setAddr] = useState({ name: "", street: "", zip: "", city: "" });
   const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const needsAddress = delivery === "post" || giftBox;
   const addrComplete = !needsAddress || (addr.name && addr.street && addr.zip && addr.city);
+
+  // Personalisierung sichern → dann zur Ditix-Kasse weiterleiten
+  const checkout = async () => {
+    if (!addrComplete || loading) return;
+    setLoading(true);
+    const payload = {
+      value, recipient, sender, message, motif, delivery, sendDate, giftBox,
+      shipping: needsAddress ? addr : null, total,
+    };
+    try {
+      // Julian: speichert Personalisierung/Versand → Ditix-Custom-Feld bzw. Versand-Liste
+      await fetch("/api/voucher/personalize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    } finally {
+      if (DITIX_VOUCHER_URL) {
+        const sep = DITIX_VOUCHER_URL.includes("?") ? "&" : "?";
+        window.location.href = `${DITIX_VOUCHER_URL}${sep}amount=${value}`;
+      } else {
+        setLoading(false);
+        setDone(true);
+      }
+    }
+  };
 
   useEffect(() => {
     if (open) { setDone(false); document.body.style.overflow = "hidden"; }
@@ -63,8 +98,8 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
           <div className="gc-success">
             <span className="gc-success-icon">✦</span>
             <h3>Dein Gutschein ist gestaltet.</h3>
-            <p>Wir haben ihn in deinen Warenkorb gelegt. Im nächsten Schritt schließt du die Bestellung ab.</p>
-            <button className="btn-primary" style={{ margin: "8px auto 0", display: "flex" }} onClick={onClose}>Weiter</button>
+            <p>Deine Gestaltung ist gespeichert. Die sichere Bezahlung folgt im nächsten Schritt — sobald die Kasse angebunden ist, geht es von hier direkt weiter.</p>
+            <button className="btn-primary" style={{ margin: "8px auto 0", display: "flex" }} onClick={onClose}>Schließen</button>
           </div>
         ) : (
           <div className="gc-grid">
@@ -197,10 +232,10 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                 <span className="gc-total">{fmt(total)} €</span>
                 <button
                   className="btn-primary"
-                  onClick={() => addrComplete && setDone(true)}
-                  disabled={!addrComplete}
-                  style={!addrComplete ? { opacity: 0.4, cursor: "not-allowed", boxShadow: "none" } : {}}
-                >✦ &nbsp;In den Warenkorb</button>
+                  onClick={checkout}
+                  disabled={!addrComplete || loading}
+                  style={!addrComplete || loading ? { opacity: 0.4, cursor: "not-allowed", boxShadow: "none" } : {}}
+                >{loading ? "…" : "✦  Weiter zur Kasse"}</button>
               </div>
             </div>
           </div>
