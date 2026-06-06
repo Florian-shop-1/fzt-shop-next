@@ -35,7 +35,6 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
   const [message, setMessage] = useState("");
   const [motif, setMotif] = useState("classic");
   const [delivery, setDelivery] = useState<"digital" | "post">("digital");
-  const [sendDate, setSendDate] = useState("");
   const [giftBox, setGiftBox] = useState(false);
   const [addr, setAddr] = useState({ name: "", street: "", zip: "", city: "" });
   const [done, setDone] = useState(false);
@@ -49,7 +48,7 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
     if (!addrComplete || loading) return;
     setLoading(true);
     const payload = {
-      value, recipient, sender, message, motif, delivery, sendDate, giftBox,
+      value, recipient, sender, message, motif, delivery, giftBox,
       shipping: needsAddress ? addr : null, total,
     };
     try {
@@ -195,13 +194,6 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                 </div>
               </div>
 
-              {delivery === "digital" && !giftBox && (
-                <div className="gc-field">
-                  <label>Versanddatum (optional)</label>
-                  <input type="date" value={sendDate} onChange={e => setSendDate(e.target.value)} />
-                  <span className="gc-hint">Leer lassen = sofort senden. Ideal: pünktlich zum Geburtstag.</span>
-                </div>
-              )}
 
               {/* Lieferadresse — nur bei Postversand / Geschenkbox */}
               {needsAddress && (
