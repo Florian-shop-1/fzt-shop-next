@@ -402,8 +402,8 @@ export default function Home() {
               <div className="gutschein-opts">
                 {[
                   { icon: "📧", name: "Digital sofort", sub: "Per E-Mail · kostenlos · sofort verfügbar" },
-                  { icon: "💌", name: "Premium-Karte", sub: "Hochwertige Karte per Post · 3–5 Tage · 4,90 €" },
-                  { icon: "🎁", name: "Geschenkbox", sub: voucherValue >= 100 ? "Karte + Zauberset · kostenlos ab 100 €" : "Karte + FZT-Zauberset · 29 €" },
+                  { icon: "🪄", name: "Inkl. Zauberstab", sub: "Erscheinender Zauberstab dazu · ab 100 € versandkostenfrei" },
+                  { icon: "🎁", name: "Exklusive Geschenkbox", sub: "Mit Florian Zimmer Kartenspiel · +14,90 € inkl. Versand" },
                 ].map(opt => (
                   <div key={opt.name} className="gutschein-opt">
                     <span className="opt-icon">{opt.icon}</span>
