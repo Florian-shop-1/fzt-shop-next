@@ -191,7 +191,7 @@ export default function GiftCardModal({ open, value, onClose }: GiftCardModalPro
                     <strong>🎁 Geschenkbox-Upgrade</strong>
                     <span className="gc-box-price">+14,90 €</span>
                   </div>
-                  <p>Edle Box mit Profi-Kartenspiel, deinem Gutschein und einem erscheinenden Zauberstab. Versand kostenlos.</p>
+                  <p>Edle Box mit Florian Zimmer Kartenspiel, deinem Gutschein und einem erscheinenden Zauberstab. Versand kostenlos.</p>
                 </div>
               </div>
 
