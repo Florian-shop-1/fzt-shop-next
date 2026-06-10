@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 // ─────────────────────────────────────────────
 //  DATA TYPES
@@ -595,8 +596,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   return (
     <div className="modal-overlay active" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal">
-        {/* ── Conversion-Nudge: Menü / Ticket-Schutz ── */}
-        {activePrompt && (
+        {/* ── Conversion-Nudge: Menü / Ticket-Schutz (per Portal an body, damit es im Viewport zentriert) ── */}
+        {activePrompt && typeof document !== "undefined" && createPortal(
           <div className="nudge-overlay">
             <div className="nudge-card">
               {activePrompt === "menu" && (
@@ -633,7 +634,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 </>
               )}
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         {/* ── Show Image Banner ── */}
