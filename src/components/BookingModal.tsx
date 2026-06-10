@@ -212,8 +212,8 @@ const STEHTISCHE: StehtischEntry[] = [
     id: "silver",
     name: "Silver Stehtisch",
     subtitle: "Reservierter Stehtisch · für deinen Abend zu zweit",
-    price: 17.5,
-    priceLabel: "17,50 €",
+    price: 35,
+    priceLabel: "35 €",
     personsPerUnit: 2,
     image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80",
     items: [

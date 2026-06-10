@@ -921,8 +921,8 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 
 .stehtisch-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 @media (max-width: 560px) { .stehtisch-cards { grid-template-columns: 1fr; } }
 
