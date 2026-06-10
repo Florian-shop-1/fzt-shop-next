@@ -41,7 +41,7 @@ interface MenuEntry {
   badge?: string;
   badgeColor?: string;
   includes: string;
-  courses: string[];
+  courses: { name: string; desc?: string }[];
   image?: string;        // Platzhalter — später echtes Menüfoto
 }
 
@@ -150,45 +150,45 @@ const MENUS: MenuEntry[] = [
   {
     id: "classic",
     name: "Magicuisine Classic",
-    tagline: "Das Original — ein kulinarisches Meisterwerk",
+    tagline: "Die Signature-Küche von Osman Kavak",
     price: 69,
     badge: "Beliebteste Wahl",
     badgeColor: "#C9A84C",
     includes: "inkl. Welcome-Cocktail",
     image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700&q=80",
     courses: [
-      "Amuse-Bouche",
-      "Waldpilz-Cremesuppe mit Trüffelöl",
-      "Rinderfilet an Trüffeljus & Rotweinreduktion",
-      "Chocolat Fondant mit Vanilleeis",
+      { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
+      { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
+      { name: "Zart geschmortes Ochsenbäckchen", desc: "in Portweinsauce auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
+      { name: "Moelleux au Chocolat", desc: "mit Himbeerschaum und knusprigem Crumble" },
     ],
   },
   {
     id: "sea",
     name: "Magicuisine Sea",
-    tagline: "Meeresfrüchte & Fisch — handverlesen & frisch",
+    tagline: "Fisch & Meer — von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
     image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=80",
     courses: [
-      "Amuse-Bouche",
-      "Hummercremesuppe",
-      "Steinbutt mit Meeresfrüchten & Buttersauce",
-      "Panna Cotta mit Beerencompote",
+      { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
+      { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
+      { name: "Zart gebratener Loup de Mer", desc: "an Estragonsauce auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
+      { name: "Moelleux au Chocolat", desc: "mit Himbeerschaum und knusprigem Crumble" },
     ],
   },
   {
-    id: "vegan",
-    name: "Magicuisine Vegan",
-    tagline: "Pflanzliche Gourmetküche auf höchstem Niveau",
+    id: "veggy",
+    name: "Magicuisine Veggy",
+    tagline: "Vegetarische Gourmetküche von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
     image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80",
     courses: [
-      "Amuse-Bouche",
-      "Kürbiscremesuppe mit geröstetem Kürbiskern",
-      "Trüffel-Risotto mit frischen Kräutern",
-      "Mango-Sorbet",
+      { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
+      { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
+      { name: "Gefüllte Aubergine", desc: "mit Tomatenjus auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
+      { name: "Moelleux au Chocolat", desc: "mit Himbeerschaum und knusprigem Crumble" },
     ],
   },
   {
@@ -199,9 +199,9 @@ const MENUS: MenuEntry[] = [
     includes: "inkl. Kids-Cocktail",
     image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=700&q=80",
     courses: [
-      "Hausgemachte Gemüsesuppe",
-      "Schnitzel mit Pommes & Ketchup",
-      "Vanilleeis mit bunten Streuseln",
+      { name: "Mediterraner Brotsalat", desc: "mit Rucola, Tomaten, Mozzarella und Basilikum-Espuma" },
+      { name: "Zarte Maispoulardenbrust", desc: "mit Tomatenjus auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
+      { name: "Moelleux au Chocolat", desc: "mit Himbeerschaum" },
     ],
   },
 ];
@@ -1028,9 +1028,14 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
 
                             {isExpanded && (
                               <div className="menu-courses">
-                                <div className="menu-courses-label">Menüfolge</div>
+                                <div className="menu-courses-label">Menüfolge · Küche von Osman Kavak</div>
                                 <ul className="menu-courses-list">
-                                  {menu.courses.map((c, i) => <li key={i}>{c}</li>)}
+                                  {menu.courses.map((c, i) => (
+                                    <li key={i}>
+                                      <span className="menu-course-name">{c.name}</span>
+                                      {c.desc && <span className="menu-course-desc">{c.desc}</span>}
+                                    </li>
+                                  ))}
                                 </ul>
                               </div>
                             )}
