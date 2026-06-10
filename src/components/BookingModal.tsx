@@ -156,7 +156,7 @@ const MENUS: MenuEntry[] = [
     badge: "Beliebteste Wahl",
     badgeColor: "#C9A84C",
     includes: "inkl. Welcome-Cocktail",
-    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=700&q=80",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -170,7 +170,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Fisch & Meer — von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
-    image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=700&q=80",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -184,7 +184,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Vegetarische Gourmetküche von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=700&q=80",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -198,7 +198,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Für unsere kleinen Zauberlehrlinge",
     price: 29,
     includes: "inkl. Kids-Cocktail",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=700&q=80",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Zarte Maispoulardenbrust", desc: "mit Tomatenjus auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
@@ -211,10 +211,10 @@ const STEHTISCHE: StehtischEntry[] = [
   {
     id: "silver",
     name: "Silver Stehtisch",
-    subtitle: "Reservierter Stehtisch · für einzelne Gäste & kleine Gruppen",
+    subtitle: "Reservierter Stehtisch · für deinen Abend zu zweit",
     price: 17.5,
     priceLabel: "17,50 €",
-    personsPerUnit: 1,
+    personsPerUnit: 2,
     image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80",
     items: [
       "Reservierter Stehtisch im Foyer",
@@ -236,23 +236,6 @@ const STEHTISCHE: StehtischEntry[] = [
     items: [
       "Reservierter Stehtisch im Foyer",
       "1 kl. Flasche Magicuvée prickelnd",
-      "Zauberschnitten",
-      "Popcorn",
-    ],
-  },
-  {
-    id: "diamond",
-    name: "Diamond Stehtisch",
-    subtitle: "Reservierter Premium-Stehtisch · das luxuriöseste Pause-Erlebnis",
-    price: 109,
-    priceLabel: "109 €",
-    personsPerUnit: 2,
-    badge: "Luxus",
-    luxury: true,
-    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80",
-    items: [
-      "Reservierter Premium-Stehtisch",
-      "Laurent Perrier Rosé",
       "Zauberschnitten",
       "Popcorn",
     ],
@@ -486,10 +469,6 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   // ── Computed upsell totals ────────────────
   const totalMenuQty = MENUS.reduce((s, m) => s + (menuQtys[m.id] ?? 0), 0);
 
-  const stehtischPersonsUsed =
-    (stehtischQtys["silver"]  ?? 0) * 1 +
-    (stehtischQtys["gold"]    ?? 0) * 2 +
-    (stehtischQtys["diamond"] ?? 0) * 2;
 
   // ── Helpers ───────────────────────────────
   const handleSelectShow = (id: string) => {
@@ -511,12 +490,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const decMenu = (id: string) =>
     setMenuQtys(p => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
-  // Stehtisch qty — constraint: total persons covered ≤ seat qty
-  const canIncStehtisch = (ppu: number) => stehtischPersonsUsed + ppu <= qty;
-  const incStehtisch = (id: string, ppu: number) => {
-    if (canIncStehtisch(ppu))
-      setStehtischQtys(p => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
-  };
+  // Stehtisch frei reservierbar (auch mit nur einem Ticket), Obergrenze 10
+  const incStehtisch = (id: string) =>
+    setStehtischQtys(p => ({ ...p, [id]: Math.min(10, (p[id] ?? 0) + 1) }));
   const decStehtisch = (id: string) =>
     setStehtischQtys(p => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
@@ -1212,25 +1188,17 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       </button>
                     </div>
 
-                    {stehtischPersonsUsed > 0 && (
-                      <div className="upsell-capacity-bar" style={{ marginBottom: 14 }}>
-                        <span className="capacity-dot" />
-                        <span>{stehtischPersonsUsed} von {qty} Personen versorgt</span>
-                        {stehtischPersonsUsed === qty && <span className="capacity-full">Alle versorgt</span>}
-                      </div>
-                    )}
-
                     <div className="stehtisch-cards">
                       {STEHTISCHE.map(st => {
                         const sq       = stehtischQtys[st.id] ?? 0;
                         const isActive = sq > 0;
-                        const canAdd   = canIncStehtisch(st.personsPerUnit);
+                        const canAdd   = sq < 10;
                         return (
                           <div
                             key={st.id}
                             className={`stehtisch-card clickable${st.highlight ? " gold-highlight" : ""}${st.luxury ? " diamond-highlight" : ""}${isActive ? " selected" : ""}${st.image ? " has-image" : ""}`}
                             style={st.image ? { backgroundImage: `url('${st.image}')` } : {}}
-                            onClick={() => canAdd && incStehtisch(st.id, st.personsPerUnit)}
+                            onClick={() => canAdd && incStehtisch(st.id)}
                           >
                             {st.badge && (
                               <span className={`stehtisch-badge${st.highlight ? " gold-badge" : ""}${st.luxury ? " diamond-badge" : ""}`}>
@@ -1255,7 +1223,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                               <QtyControl
                                 value={sq}
                                 onDec={() => decStehtisch(st.id)}
-                                onInc={() => incStehtisch(st.id, st.personsPerUnit)}
+                                onInc={() => incStehtisch(st.id)}
                                 canInc={canAdd}
                               />
                             </div>
