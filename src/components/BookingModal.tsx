@@ -297,6 +297,21 @@ const VIP_BUNDLES = [
     ],
     pickup: "Einfach nach der Show im Magic Shop im Foyer abholen.",
   },
+  {
+    id: "souvenircup",
+    name: "Magic To Go Cup — Souvenirglas",
+    price: 14.9,
+    badge: "Nur im Theater",
+    badgeColor: "#9A7A2A",
+    icon: "🥤",
+    desc: "Nimm die Magic mit: Das hochwertige Florian Zimmer Theater Souvenirglas. Spülmaschinenfest, langlebig und das perfekte Erinnerungsstück für alle, die ein Stück Home of Magic mit nach Hause nehmen möchten. ✨",
+    items: [
+      "Inkl. 1 × Refill",
+      "Aus echtem Glas — spülmaschinenfest & langlebig",
+      "Darf mit in die Show",
+    ],
+    pickup: "Einfach an der Magic Bar im Foyer abholen!",
+  },
 ];
 
 const STEP_LABELS = ["Show & Termin", "Plätze", "Magicuisine", "Pause & VIP", "Magie für Zuhause", "Checkout"];
@@ -1373,7 +1388,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   const bq = bundleQtys[bundle.id] ?? 0;
                   return (
                     <div key={bundle.id} className={`extras4-card${bq > 0 ? " selected" : ""}`}>
-                      <div className="extras4-icon">🎁</div>
+                      <div className="extras4-icon">{(bundle as { icon?: string }).icon ?? "🎁"}</div>
                       <div className="extras4-info">
                         <div className="extras4-top">
                           <div>
@@ -1388,7 +1403,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                             <strong className="extras4-name" style={{ display: "block" }}>{bundle.name}</strong>
                           </div>
                           <span className="extras4-price-block">
-                            <span className="extras4-unit-price-inline">{bundle.price} €</span>
+                            <span className="extras4-unit-price-inline">{fmt(bundle.price)} €</span>
                           </span>
                         </div>
                         <p className="extras4-desc">{bundle.desc}</p>
@@ -1500,7 +1515,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   return bq > 0 ? (
                     <div key={b.id} className="order-row">
                       <span>{bq} × {b.name}</span>
-                      <span>{bq * b.price} €</span>
+                      <span>{fmt(bq * b.price)} €</span>
                     </div>
                   ) : null;
                 })}
