@@ -251,8 +251,8 @@ const SEAT_ZONES = [
 // Shows ohne Saalplan (freie Platzwahl) — nur Ticket-Typen
 const GA_SHOWS = ["flo-zirkus"];
 const GA_TICKETS = [
-  { id: "regular", name: "Reguläres Ticket", sub: "Erwachsene & Kinder ab 11 Jahren", price: 29 },
-  { id: "kind",    name: "Kinder-Ticket",    sub: "Kinder bis 10 Jahre",            price: 19 },
+  { id: "regular", name: "Reguläres Ticket", sub: "Erwachsene & Kinder ab 11 Jahren", price: 39 },
+  { id: "kind",    name: "Kinder-Ticket",    sub: "Kinder bis 10 Jahre",            price: 29 },
 ];
 
 const GOLD_TAKEN = [1,1,1,1,1,1,0,1, 1,1,1,1,1,0,1,1, 1,1,1,1,0,1,0,1];
