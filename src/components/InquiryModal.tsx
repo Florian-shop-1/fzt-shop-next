@@ -11,7 +11,7 @@ const COPY = {
   loge: {
     eyebrow: "Exklusiv & Privat",
     headline: "VIP-Loge anfragen",
-    sub: "Privater Bereich für bis zu 8 Personen. Champagner-Empfang, persönlicher Service und persönliche Begrüßung durch Florian Zimmer — ab 599 €.",
+    sub: "Logen für kleine Runden bis zu 50 Gäste, auf Wunsch sogar die Exklusivbuchung des ganzen Theaters ab 100 Gästen. Wir planen deinen Abend individuell und haben attraktive Angebote — für Firmen als betriebliche Ausgabe absetzbar. Schreib uns kurz, wir melden uns innerhalb von 2 Stunden.",
     msgLabel: "Wunschtermin & Anmerkungen",
     msgPlaceholder: "z. B. Samstag, 7. Juni · Jahrestag für 4 Personen",
     cta: "Anfrage senden",

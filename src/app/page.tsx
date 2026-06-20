@@ -323,13 +323,13 @@ export default function Home() {
           <span className="section-label">Exklusiv &amp; Privat</span>
           <h2>Die VIP-Loge —<br /><em>Dein privater Zauberraum</em></h2>
           <div className="divider" />
-          <p>Für besondere Anlässe, romantische Abende oder exklusive Firmenfeiern. Genieße die Show in deiner eigenen privaten Loge mit persönlichem Service.</p>
+          <p>Der schönste Platz für besondere Anlässe. In deiner eigenen Loge erlebst du die Show ganz privat, mit persönlichem Service — und einen Abend, den wir individuell für dich planen. Melde dich einfach bei uns: Wir haben attraktive Angebote, für Firmen als betriebliche Ausgabe steuerlich absetzbar.</p>
           <div className="loge-perks">
-            {["Privater Bereich für bis zu 8 Personen", "Champagner-Empfang und Servicepersonal", "Exklusive Sicht auf die Bühne", "Persönliche Begrüßung durch Florian Zimmer", "Ab 599 € für bis zu 8 Personen"].map(p => (
+            {["Ob zu sechst oder mit bis zu 50 Gästen — wir finden die passende Loge", "Exklusivbuchung des gesamten Theaters bereits ab 100 Gästen", "Wahlweise in den Golden Seats oder auf der VIP-Empore — nur 7 Meter zur Bühne", "Champagner-Empfang & persönlicher Service", "Persönliche Begrüßung durch Florian Zimmer", "Dein Abend — individuell geplant", "Für Firmen steuerlich absetzbar"].map(p => (
               <div key={p} className="loge-perk"><span className="perk-dot" />{p}</div>
             ))}
           </div>
-          <button className="btn-primary" onClick={() => setInquiryType("loge")}>✦ &nbsp;Loge anfragen</button>
+          <button className="btn-primary" onClick={() => setInquiryType("loge")}>✦ &nbsp;Loge unverbindlich anfragen</button>
         </div>
       </section>
 
