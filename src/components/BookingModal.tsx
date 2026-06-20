@@ -248,6 +248,13 @@ const SEAT_ZONES = [
   { id: "parterre",  name: "Parterre — Mittendrin erleben",  price: 59, avail: "42 Plätze verfügbar",  availColor: "var(--muted)" },
 ];
 
+// Shows ohne Saalplan (freie Platzwahl) — nur Ticket-Typen
+const GA_SHOWS = ["flo-zirkus"];
+const GA_TICKETS = [
+  { id: "regular", name: "Reguläres Ticket", sub: "Erwachsene & Kinder ab 11 Jahren", price: 29 },
+  { id: "kind",    name: "Kinder-Ticket",    sub: "Kinder bis 10 Jahre",            price: 19 },
+];
+
 const GOLD_TAKEN = [1,1,1,1,1,1,0,1, 1,1,1,1,1,0,1,1, 1,1,1,1,0,1,0,1];
 const PREM_TAKEN = [1,1,0,1,1,0,1,0,1,1, 1,0,1,1,0,1,1,0,1,1, 0,1,0,1,1,0,1,1,0,1, 1,0,1,0,1,1,0,0,1,1];
 const STD_TAKEN  = [1,0,1,0,1,0,0,1,0,1,0,1, 0,1,0,1,0,1,0,0,1,0,1,0, 1,0,0,1,0,1,0,1,0,0,1,0, 0,1,0,0,1,0,1,0,0,1,0,1, 1,0,0,1,0,0,1,0,1,0,0,1, 0,1,0,0,0,1,0,1,0,0,1,0];
@@ -375,6 +382,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const [selectedSeat,  setSelectedSeat]  = useState("");
   const [seatPrice,     setSeatPrice]     = useState(59);
   const [qty,           setQty]           = useState(2);
+  const [gaQtys,        setGaQtys]        = useState<Record<string, number>>({}); // freie Platzwahl (z. B. Flo-Zirkus)
 
   // ── Upsell quantities ─────────────────────
   const [menuQtys,      setMenuQtys]      = useState<Record<string, number>>({});
@@ -405,6 +413,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setStep(1);
       setSelectedSeat("");
       setSeatPrice(59);
+      setQty(2);
+      setGaQtys({});
       setMenuQtys({});
       setStehtischQtys({});
       setParkingQty(0);
@@ -453,6 +463,22 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const resolvedDates = SHOW_DATES[selectedShowId] ?? [];
   const resolvedDate  = resolvedDates.find(d => d.id === selectedDateId) ?? null;
   const resolvedTime  = resolvedDate?.times.find(t => t.id === selectedTimeId) ?? null;
+
+  // ── Freie Platzwahl (GA) statt Saalplan ─────
+  const isGA       = GA_SHOWS.includes(selectedShowId);
+  const gaQtySum   = GA_TICKETS.reduce((s, t) => s + (gaQtys[t.id] ?? 0), 0);
+  const gaSeatCost = GA_TICKETS.reduce((s, t) => s + (gaQtys[t.id] ?? 0) * t.price, 0);
+  const effectiveQty = isGA ? gaQtySum : qty;
+
+  // GA-Ticket +/- : Menge ändern und qty (für Upsells) mitführen
+  const changeGa = (id: string, delta: number) => {
+    setGaQtys(prev => {
+      const next = { ...prev, [id]: Math.max(0, Math.min(20, (prev[id] ?? 0) + delta)) };
+      const sum = GA_TICKETS.reduce((s, t) => s + (next[t.id] ?? 0), 0);
+      setQty(sum);
+      return next;
+    });
+  };
 
   // ── Dynamic Menübeginn ──────────────────────
   const getMenubeginn = (): string | null => {
@@ -525,7 +551,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const parkingTotal   = parkingQty * 15;
   const flexTotal      = flexQty * 10;
   const bundleTotal    = VIP_BUNDLES.reduce((s, b) => s + (bundleQtys[b.id] ?? 0) * b.price, 0);
-  const total          = seatPrice * qty + menuTotal + stehtischTotal + vipTotal + parkingTotal + flexTotal + bundleTotal;
+  const seatCost       = isGA ? gaSeatCost : seatPrice * qty;
+  const total          = seatCost + menuTotal + stehtischTotal + vipTotal + parkingTotal + flexTotal + bundleTotal;
 
   // German-style price formatter
   const fmt = (n: number) => n % 1 === 0 ? `${n}` : n.toFixed(2).replace(".", ",");
@@ -533,7 +560,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   // ── Flow control ──────────────────────────
   const canProceed = (() => {
     if (step === 1) return selectedShowId !== "" && selectedDateId !== null && selectedTimeId !== null;
-    if (step === 2) return selectedSeat !== "";
+    if (step === 2) return isGA ? gaQtySum > 0 : selectedSeat !== "";
     if (step === 6) return !ticketPost || Boolean(postAddr.name && postAddr.street && postAddr.zip && postAddr.city);
     return true;
   })();
@@ -776,7 +803,36 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
           {/* ══════════════════════════════════════
               STEP 2 — Plätze
           ══════════════════════════════════════ */}
-          {step === 2 && (
+          {step === 2 && isGA && (
+            <div>
+              <p className="step-hint-premium">
+                Freie Platzwahl — wähle einfach deine Tickets.
+              </p>
+              <div className="ga-tickets">
+                {GA_TICKETS.map(t => {
+                  const tq = gaQtys[t.id] ?? 0;
+                  return (
+                    <div key={t.id} className={`ga-ticket-card${tq > 0 ? " selected" : ""}`}>
+                      <div className="ga-ticket-info">
+                        <strong className="ga-ticket-name">{t.name}</strong>
+                        <span className="ga-ticket-sub">{t.sub}</span>
+                      </div>
+                      <span className="ga-ticket-price">{t.price} €</span>
+                      <QtyControl
+                        value={tq}
+                        onDec={() => changeGa(t.id, -1)}
+                        onInc={() => changeGa(t.id, 1)}
+                        canInc={tq < 20}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="ga-note">Sitzplätze werden im Saal frei gewählt — alle Plätze mit bester Sicht auf die Bühne.</p>
+            </div>
+          )}
+
+          {step === 2 && !isGA && (
             <div>
               <p className="step-hint-premium">
                 Wähle deinen Lieblingsplatz und erlebe Magie hautnah.
@@ -1372,13 +1428,25 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     {resolvedDate?.displayDate ?? ""}{resolvedTime ? ` · ${resolvedTime.time} Uhr` : ""}
                   </span>
                 </div>
-                {/* Seats */}
-                <div className="order-row">
-                  <span>
-                    {qty} × {selectedSeat === "front-row" ? "Front Row VIP" : selectedSeat === "premium" ? "Premium" : "Parterre"}
-                  </span>
-                  <span>{seatPrice * qty} €</span>
-                </div>
+                {/* Tickets / Plätze */}
+                {isGA ? (
+                  GA_TICKETS.map(t => {
+                    const tq = gaQtys[t.id] ?? 0;
+                    return tq > 0 ? (
+                      <div key={t.id} className="order-row">
+                        <span>{tq} × {t.name}</span>
+                        <span>{tq * t.price} €</span>
+                      </div>
+                    ) : null;
+                  })
+                ) : (
+                  <div className="order-row">
+                    <span>
+                      {qty} × {selectedSeat === "front-row" ? "Front Row VIP" : selectedSeat === "premium" ? "Premium" : "Parterre"}
+                    </span>
+                    <span>{seatPrice * qty} €</span>
+                  </div>
+                )}
                 {/* Menus */}
                 {MENUS.map(m => {
                   const mq = menuQtys[m.id] ?? 0;

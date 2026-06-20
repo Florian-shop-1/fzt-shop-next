@@ -2424,3 +2424,18 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   display: flex; flex-direction: column; gap: 14px;
 }
 .gc-address-row { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
+
+/* ===================== FREIE PLATZWAHL (GA Tickets, z. B. Flo-Zirkus) ===================== */
+.ga-tickets { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.ga-ticket-card {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px; border-radius: 12px;
+  border: 1.5px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.03);
+  transition: border-color var(--transition), background var(--transition);
+}
+.ga-ticket-card.selected { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+.ga-ticket-info { flex: 1; min-width: 0; }
+.ga-ticket-name { display: block; font-size: 15px; color: var(--white); }
+.ga-ticket-sub { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ga-ticket-price { font-size: 18px; font-family: var(--font-playfair), serif; color: var(--gold); white-space: nowrap; }
+.ga-note { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
