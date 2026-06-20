@@ -2439,3 +2439,11 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .ga-ticket-sub { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
 .ga-ticket-price { font-size: 18px; font-family: var(--font-playfair), serif; color: var(--gold); white-space: nowrap; }
 .ga-note { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+
+/* Produktbild auf Bundle-Karte (z. B. Souvenirglas, freigestellt) */
+.bundle-img {
+  width: 72px; height: 96px; object-fit: contain; flex-shrink: 0;
+  align-self: flex-start;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+}
+@media (max-width: 600px) { .bundle-img { width: 60px; height: 80px; } }

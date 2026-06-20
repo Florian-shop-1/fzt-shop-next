@@ -303,7 +303,7 @@ const VIP_BUNDLES = [
     price: 14.9,
     badge: "Nur im Theater",
     badgeColor: "#9A7A2A",
-    icon: "🥤",
+    img: "/images/magic-cup.png",
     desc: "Nimm die Magic mit: Das hochwertige Florian Zimmer Theater Souvenirglas. Spülmaschinenfest, langlebig und das perfekte Erinnerungsstück für alle, die ein Stück Home of Magic mit nach Hause nehmen möchten. ✨",
     items: [
       "Inkl. 1 × Refill",
@@ -1388,7 +1388,12 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   const bq = bundleQtys[bundle.id] ?? 0;
                   return (
                     <div key={bundle.id} className={`extras4-card${bq > 0 ? " selected" : ""}`}>
-                      <div className="extras4-icon">{(bundle as { icon?: string }).icon ?? "🎁"}</div>
+                      {(bundle as { img?: string }).img ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img className="bundle-img" src={(bundle as { img?: string }).img} alt={bundle.name} />
+                      ) : (
+                        <div className="extras4-icon">{(bundle as { icon?: string }).icon ?? "🎁"}</div>
+                      )}
                       <div className="extras4-info">
                         <div className="extras4-top">
                           <div>
