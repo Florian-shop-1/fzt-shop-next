@@ -56,10 +56,14 @@ export const SHOW_DETAILS: Record<string, ShowDetailData> = {
     trailerId: "",
     tagline: "Florian Zimmers brandneue Show — und vielleicht seine persönlichste.",
     paragraphs: [
-      "Magic Memories ist eine Reise durch Momente, die bleiben: Illusionen, die berühren, überraschen und ein Lächeln hinterlassen, das du mit nach Hause nimmst.",
-      "Zweieinhalb Stunden voller Staunen, Emotion und Magie, die direkt vor deinen Augen — und manchmal in deinen Händen — geschieht. Ein Abend, den du nicht erklären, nur erleben kannst.",
+      "Florian Zimmer erschafft Bilder, die sich in den Köpfen der Menschen festsetzen. Momente, die man nicht erklären kann. Augenblicke, die etwas in einem auslösen.",
+      "Mit Magic Memories nimmt Florian sein Publikum mit auf eine Reise durch Staunen, Erinnerung und Träume — eine Show darüber, was passiert, wenn man wieder anfängt, an das Unmögliche zu glauben.",
+      "Brandneue Illusionen, große Bühnenmomente und persönliche Geschichten verschmelzen zu einem Abend, der berührt, inspiriert und Erinnerungen schafft, die ein Leben lang bleiben.",
+      "Du gehst aus dieser Show anders heraus, als du hineingegangen bist. Mit mehr Staunen. Mehr Mut. Mehr Lust auf das eigene Leben.",
+      "Denn manchmal braucht es nur einen einzigen Moment, um einen Traum wieder wachzurufen.",
+      "Magic Memories ist eine Show für alle, die sich nach einem Abend sehnen, der nicht nur begeistert — sondern etwas in ihnen entfesselt.",
     ],
-    quote: { text: "Same magic. New memories.", source: "Florian Zimmer Theater" },
+    quote: { text: "New magic. New memories.", source: "Florian Zimmer Theater" },
     facts: [
       "Dauer ca. 2,5 Stunden",
       "Altersempfehlung ab 6 Jahren",
