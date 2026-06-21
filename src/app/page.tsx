@@ -47,6 +47,30 @@ export default function Home() {
     return () => io.disconnect();
   }, []);
 
+  // Native Browser-Validierungsmeldungen durchgehend auf "du" umstellen
+  useEffect(() => {
+    const onInvalid = (e: Event) => {
+      const t = e.target as HTMLInputElement | HTMLTextAreaElement;
+      if (!t || typeof (t as HTMLInputElement).setCustomValidity !== "function") return;
+      const v = (t as HTMLInputElement).validity;
+      let msg = "";
+      if (v.valueMissing) msg = "Bitte fülle dieses Feld aus.";
+      else if (v.typeMismatch) msg = (t as HTMLInputElement).type === "email" ? "Bitte gib eine gültige E-Mail-Adresse ein." : "Bitte prüfe deine Eingabe.";
+      else if (!v.valid) msg = "Bitte prüfe deine Eingabe.";
+      if (msg) (t as HTMLInputElement).setCustomValidity(msg);
+    };
+    const onInput = (e: Event) => {
+      const t = e.target as HTMLInputElement;
+      if (t && typeof t.setCustomValidity === "function") t.setCustomValidity("");
+    };
+    document.addEventListener("invalid", onInvalid, true);
+    document.addEventListener("input", onInput, true);
+    return () => {
+      document.removeEventListener("invalid", onInvalid, true);
+      document.removeEventListener("input", onInput, true);
+    };
+  }, []);
+
   return (
     <>
       <Nav onBooking={() => openBooking()} />

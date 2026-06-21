@@ -48,7 +48,11 @@ export function MagicNewsForm({ compact = false, onSent }: { compact?: boolean; 
         required
         placeholder="Deine E-Mail-Adresse"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={e => { e.target.setCustomValidity(""); setEmail(e.target.value); }}
+        onInvalid={e => {
+          const t = e.target as HTMLInputElement;
+          t.setCustomValidity(t.value ? "Bitte gib eine gültige E-Mail-Adresse ein." : "Bitte trag deine E-Mail-Adresse ein.");
+        }}
         autoComplete="email"
         aria-label="E-Mail-Adresse"
       />
