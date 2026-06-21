@@ -71,3 +71,18 @@ Reine Brevo-Automation, kein Frontend nötig:
 ## Grundregel (Spec Pkt. 14)
 Keine Rabatt-Optik, keine Alarmfarben, keine Countdown-Hölle. Alles als Service für den Gast.
 Bei neuen Conversion-Elementen diese Linie beibehalten.
+
+---
+
+## Nächster Show-Termin auf den Kacheln
+
+**Frontend fertig:** `src/app/page.tsx` (Effekt lädt Termine, `.show-next`-Zeile auf jeder Kachel)
+- Ruft beim Laden auf: `GET /api/ditix/events`
+- Erwartet ein Array von Events mit mind. `{ name: string, timestampStart: number (ms), ticketSaleState: string | null }`
+- Mapping Event-Name → Kachel: enthält „ulmfassbar" / „memories" / „zirkus" / „dinner"
+- Logik: nimmt je Format den **frühesten zukünftigen** Termin, überspringt `ticketSaleState === "SOLD_OUT"`
+- **Sicherer Fallback:** liefert die Route nichts/Fehler, bleibt die Kachel ohne Terminzeile (kein Bruch)
+
+**TODO Backend:** sicherstellen, dass `/api/ditix/events` die kommenden Events live aus Ditix liefert.
+Sobald Magic Memories in Ditix angelegt ist, muss der Event-Name „memories" enthalten, damit die
+Premiere automatisch auf der Kachel erscheint.
