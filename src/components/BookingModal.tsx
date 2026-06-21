@@ -218,7 +218,7 @@ const STEHTISCHE: StehtischEntry[] = [
     image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80",
     items: [
       "Reservierter Stehtisch im Foyer",
-      "1 Glas Magicuvée prickelnd",
+      "2 Gläser Magicuvée prickelnd",
       "Zauberschnitte",
       "Süßigkeit",
     ],
@@ -235,7 +235,7 @@ const STEHTISCHE: StehtischEntry[] = [
     image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80",
     items: [
       "Reservierter Stehtisch im Foyer",
-      "1 kl. Flasche Magicuvée prickelnd",
+      "1 Flasche Magicuvée prickelnd (0,7 l)",
       "Zauberschnitten",
       "Popcorn",
     ],
