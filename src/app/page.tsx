@@ -179,7 +179,7 @@ export default function Home() {
           <div className="trust-sep" />
           <div className="trust-item"><strong>★ 4,8</strong><span>Google</span></div>
           <div className="trust-sep" />
-          <div className="trust-item"><strong>Top 19%</strong><span>weltweit</span></div>
+          <div className="trust-item"><strong>Top 10%</strong><span>weltweit</span></div>
           <div className="trust-sep" />
           <div className="trust-item" style={{ flexDirection: "column", alignItems: "center", gap: 2 }}>
             <span style={{ fontSize: 10, letterSpacing: 1, color: "var(--gold)", textTransform: "uppercase", opacity: 0.8 }}># 1 Attraktion in Neu-Ulm</span>
@@ -544,7 +544,7 @@ export default function Home() {
             ))}
           </div>
           <div className="stats-bar">
-            {[{ num: "100.000+", label: "begeisterte Gäste seit 2022" }, { num: "4.9 ★", label: "Durchschnittsbewertung" }, { num: "Top 19%", label: "weltweit auf TripAdvisor" }, { num: "98%", label: "würden uns weiterempfehlen" }].map((s, i) => (
+            {[{ num: "100.000+", label: "begeisterte Gäste seit 2022" }, { num: "4.9 ★", label: "Durchschnittsbewertung" }, { num: "Top 10%", label: "weltweit auf TripAdvisor" }, { num: "98%", label: "würden uns weiterempfehlen" }].map((s, i) => (
               <div key={s.label} className={`stat-item reveal${i > 0 ? ` reveal-d${i}` : ""}`}>
                 <div className="stat-number">{s.num}</div>
                 <div className="stat-label">{s.label}</div>
