@@ -1223,8 +1223,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
 
                       <div className="mc-hero-price-row">
                         <span className="mc-hero-price-label">ab</span>
-                        <span className="mc-hero-price">17,50 €</span>
-                        <span className="mc-hero-price-per">pro Person</span>
+                        <span className="mc-hero-price">35 €</span>
+                        <span className="mc-hero-price-per">pro Tisch (für 2)</span>
                       </div>
 
                       <button
