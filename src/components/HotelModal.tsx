@@ -11,10 +11,10 @@ import { useEffect } from "react";
 const HOTELS = [
   {
     name: "Maritim Hotel Neu-Ulm",
-    distance: "5 Gehminuten zum Theater",
+    distance: "5 Fahrminuten zum Theater",
     perk: "Vorzugspreis für Theatergäste",
-    code: "FZT-MAGIC",
-    url: "https://www.maritim.de",
+    code: "TRUE52",
+    url: "https://www.maritim.de/de/hotels/deutschland/hotel-ulm/unser-hotel",
   },
 ];
 

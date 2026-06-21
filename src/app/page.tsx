@@ -12,6 +12,7 @@ import ShowDetail from "@/components/ShowDetail";
 import GiftCardModal from "@/components/GiftCardModal";
 import SocialLinks from "@/components/SocialLinks";
 import HotelModal from "@/components/HotelModal";
+import DirectionsModal from "@/components/DirectionsModal";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -21,6 +22,7 @@ export default function Home() {
   const [giftCardOpen, setGiftCardOpen] = useState(false);
   const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | "gruppe" | null>(null);
   const [hotelOpen, setHotelOpen] = useState(false);
+  const [directionsOpen, setDirectionsOpen] = useState(false);
   const [docuPlaying, setDocuPlaying] = useState(false);
   const [detailShow, setDetailShow] = useState<string | null>(null);
 
@@ -54,6 +56,7 @@ export default function Home() {
       <ReturningVisitorHint />
       <GiftCardModal open={giftCardOpen} value={voucherValue} onClose={() => setGiftCardOpen(false)} />
       <HotelModal open={hotelOpen} onClose={() => setHotelOpen(false)} />
+      <DirectionsModal open={directionsOpen} onClose={() => setDirectionsOpen(false)} />
       <ShowDetail
         showKey={detailShow}
         onClose={() => setDetailShow(null)}
@@ -506,7 +509,7 @@ export default function Home() {
             </div>
             <div className="footer-col">
               <h4>Theater</h4>
-              <a href="tel:+497317906110">0731 7906 110</a><a href="#">Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="#">Datenschutz</a><a href="#">Impressum</a>
+              <a href="tel:+497317906110">0731 7906 110</a><a href="mailto:tickets@florianzimmer.com">tickets@florianzimmer.com</a><a href="#" onClick={e => { e.preventDefault(); setDirectionsOpen(true); }}>Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="#">Datenschutz</a><a href="#">Impressum</a>
             </div>
           </div>
           <div className="footer-bottom">
