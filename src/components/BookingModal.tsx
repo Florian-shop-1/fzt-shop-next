@@ -959,7 +959,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 <div className="mc-hero">
                   <div className="mc-hero-img-wrap">
                     <img
-                      src="https://tourismus.ulm.de/_thumbnails/9420_16_00_magiccuisine.jpg"
+                      src="/images/magicuisine-hero.jpg"
                       alt="Magicuisine Restaurant Ambiente"
                       className="mc-hero-img"
                     />
@@ -978,7 +978,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
 
                     <ul className="mc-hero-benefits">
                       <li><span className="mc-benefit-icon">🍷</span>Welcome-Cocktail inklusive</li>
-                      <li><span className="mc-benefit-icon">🍽️</span>Classic, Sea oder Vegan zur Auswahl</li>
+                      <li><span className="mc-benefit-icon">🍽️</span>Classic, Sea oder Veggy zur Auswahl</li>
                       <li><span className="mc-benefit-icon">✨</span>Direkt vor der Show genießen</li>
                       <li><span className="mc-benefit-icon">❤️</span>Besonders beliebt bei Paaren</li>
                     </ul>
