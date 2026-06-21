@@ -24,6 +24,7 @@ export default function Home() {
   const [hotelOpen, setHotelOpen] = useState(false);
   const [directionsOpen, setDirectionsOpen] = useState(false);
   const [docuPlaying, setDocuPlaying] = useState(false);
+  const [nextDates, setNextDates] = useState<Record<string, string>>({});
   const [detailShow, setDetailShow] = useState<string | null>(null);
 
   const openDetail = (show: string) => {
@@ -45,6 +46,51 @@ export default function Home() {
     );
     els.forEach(el => io.observe(el));
     return () => io.disconnect();
+  }, []);
+
+  // Nächsten Termin je Show-Format aus Ditix laden (sicherer Fallback: ohne Daten bleibt die Kachel wie sie ist)
+  useEffect(() => {
+    interface MiniEvent { name: string; timestampStart: number; ticketSaleState: string | null }
+    // Event-Name → Kachel-ID
+    const mapShow = (name: string): string | null => {
+      const n = name.toLowerCase();
+      if (n.includes("ulmfassbar")) return "ulmfassbar";
+      if (n.includes("memories")) return "magic-memories";
+      if (n.includes("zirkus")) return "flo-zirkus";
+      if (n.includes("dinner")) return "magic-dinner";
+      return null;
+    };
+    const fmt = (ts: number) =>
+      new Date(ts).toLocaleDateString("de-DE", { weekday: "short", day: "numeric", month: "short" }) +
+      " · " +
+      new Date(ts).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) +
+      " Uhr";
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/ditix/events");
+        if (!res.ok) return;
+        const events: MiniEvent[] = await res.json();
+        if (!Array.isArray(events)) return;
+        const now = Date.now();
+        const soonest: Record<string, number> = {};
+        for (const ev of events) {
+          if (!ev?.timestampStart || ev.timestampStart < now) continue;
+          if (ev.ticketSaleState === "SOLD_OUT") continue;
+          const key = mapShow(ev.name || "");
+          if (!key) continue;
+          if (!soonest[key] || ev.timestampStart < soonest[key]) soonest[key] = ev.timestampStart;
+        }
+        if (cancelled) return;
+        const out: Record<string, string> = {};
+        for (const k in soonest) out[k] = fmt(soonest[k]);
+        setNextDates(out);
+      } catch {
+        /* still — Kachel bleibt ohne Termin */
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
   // Native Browser-Validierungsmeldungen durchgehend auf "du" umstellen
@@ -167,6 +213,7 @@ export default function Home() {
               <span className="show-badge">★ Bestseller</span>
               <h3>ULMFASSBAR</h3>
               <p>Florian Zimmers Signature-Show. Zweieinhalb Stunden Weltklasse-Magie — persönlich, atemberaubend, unvergesslich.</p>
+              {nextDates["ulmfassbar"] && <span className="show-next">Nächste Show · {nextDates["ulmfassbar"]}</span>}
               <div className="show-meta">
                 <span className="show-price">ab 49 €</span>
                 <span className="show-rating">★★★★★ 847 Bewertungen</span>
@@ -182,6 +229,7 @@ export default function Home() {
               <span className="show-badge show-badge--premium">✦ Neue Show</span>
               <h3>Magic Memories</h3>
               <p>Florian Zimmers brandneue Show. Zweieinhalb Stunden voller Staunen, Emotionen und magischer Momente.</p>
+              {nextDates["magic-memories"] && <span className="show-next">Premiere · {nextDates["magic-memories"]}</span>}
               <div className="show-meta">
                 <span className="show-price">ab 49 €</span>
                 <span className="show-rating">Brandneu · Premiere</span>
@@ -197,6 +245,7 @@ export default function Home() {
               <span className="show-badge" style={{ background: "#3a7fd0", color: "#fff" }}>Kindershow</span>
               <h3>Flo-Zirkus</h3>
               <p>Eine interaktive Show, bei der die kleinen Gäste selbst Teil der Magie werden.</p>
+              {nextDates["flo-zirkus"] && <span className="show-next">Nächste Show · {nextDates["flo-zirkus"]}</span>}
               <div className="show-meta">
                 <span className="show-price">ab 29 €</span>
                 <span className="show-rating">★★★★★ 203 Bewertungen</span>
@@ -212,6 +261,7 @@ export default function Home() {
               <span className="show-badge" style={{ background: "linear-gradient(135deg,#C9A84C,#8B6914)" }}>♥ Dinner & Magie</span>
               <h3>Magic Dinner</h3>
               <p>Exklusives Dinner-Erlebnis. Vier Gänge, außergewöhnliche Küche und Magie direkt am Tisch.</p>
+              {nextDates["magic-dinner"] && <span className="show-next">Nächster Termin · {nextDates["magic-dinner"]}</span>}
               <div className="show-meta">
                 <span className="show-price">ab 129 €</span>
                 <span className="show-rating">★★★★★ 512 Bewertungen</span>
