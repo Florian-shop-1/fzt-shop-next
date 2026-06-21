@@ -66,7 +66,27 @@ export default function Home() {
       new Date(ts).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) +
       " Uhr";
 
+    // ───── TEMPORÄRE BEISPIEL-TERMINE (PLATZHALTER!) ─────
+    // Nur damit die Optik sichtbar ist, solange /api/ditix/events noch keine Live-Daten
+    // liefert (Backend in Julians Repo). KEINE echten Termine — vor echtem Publikum durch
+    // Live-Daten ersetzen oder DEMO_TERMINE auf false setzen.
+    const DEMO_TERMINE = true;
+    const inTagen = (tage: number, std: number) => {
+      const d = new Date();
+      d.setDate(d.getDate() + tage);
+      d.setHours(std, 0, 0, 0);
+      return d.getTime();
+    };
+    const demo: Record<string, string> = {
+      "ulmfassbar": fmt(inTagen(5, 20)),
+      "magic-memories": fmt(inTagen(12, 20)),
+      "flo-zirkus": fmt(inTagen(9, 15)),
+      "magic-dinner": fmt(inTagen(7, 19)),
+    };
+    // ─────────────────────────────────────────────────────
+
     let cancelled = false;
+    if (DEMO_TERMINE) setNextDates(demo);
     (async () => {
       try {
         const res = await fetch("/api/ditix/events");
@@ -85,9 +105,10 @@ export default function Home() {
         if (cancelled) return;
         const out: Record<string, string> = {};
         for (const k in soonest) out[k] = fmt(soonest[k]);
-        setNextDates(out);
+        // Live-Daten gewinnen, sobald vorhanden
+        if (Object.keys(out).length > 0) setNextDates(out);
       } catch {
-        /* still — Kachel bleibt ohne Termin */
+        /* still — Demo-Termine bleiben sichtbar */
       }
     })();
     return () => { cancelled = true; };
