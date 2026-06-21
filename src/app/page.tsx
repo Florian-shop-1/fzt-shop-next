@@ -184,7 +184,7 @@ export default function Home() {
               <p>Florian Zimmers brandneue Show. Zweieinhalb Stunden voller Staunen, Emotionen und magischer Momente.</p>
               <div className="show-meta">
                 <span className="show-price">ab 49 €</span>
-                <span className="show-rating">★★★★★ 512 Bewertungen</span>
+                <span className="show-rating">Brandneu · Premiere</span>
               </div>
               <div className="show-card-btn">Tickets sichern &nbsp;→</div>
             </div>
@@ -494,7 +494,7 @@ export default function Home() {
             ))}
           </div>
           <div className="stats-bar">
-            {[{ num: "100.000+", label: "begeisterte Gäste seit 2022" }, { num: "4.9 ★", label: "Durchschnittsbewertung" }, { num: "Top 10%", label: "weltweit auf TripAdvisor" }, { num: "98%", label: "würden uns weiterempfehlen" }].map((s, i) => (
+            {[{ num: "100.000+", label: "begeisterte Gäste seit 2022" }, { num: "4.9 ★", label: "Durchschnittsbewertung" }, { num: "Top 19%", label: "weltweit auf TripAdvisor" }, { num: "98%", label: "würden uns weiterempfehlen" }].map((s, i) => (
               <div key={s.label} className={`stat-item reveal${i > 0 ? ` reveal-d${i}` : ""}`}>
                 <div className="stat-number">{s.num}</div>
                 <div className="stat-label">{s.label}</div>
@@ -533,7 +533,7 @@ export default function Home() {
             </div>
             <div className="footer-col">
               <h4>Theater</h4>
-              <a href="tel:+497317906110">0731 7906 110</a><a href="mailto:tickets@florianzimmer.com">tickets@florianzimmer.com</a><a href="#" onClick={e => { e.preventDefault(); setDirectionsOpen(true); }}>Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="#">Datenschutz</a><a href="#">Impressum</a>
+              <a href="tel:+497317906110">0731 7906 110</a><a href="mailto:tickets@florianzimmer.com">tickets@florianzimmer.com</a><a href="#" onClick={e => { e.preventDefault(); setDirectionsOpen(true); }}>Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="/datenschutz">Datenschutz</a><a href="/impressum">Impressum</a>
             </div>
           </div>
           <div className="footer-bottom">

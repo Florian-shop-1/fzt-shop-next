@@ -2494,3 +2494,15 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .dir-park-list li::before { content: '✦'; position: absolute; left: 0; top: 3px; font-size: 9px; color: var(--gold); }
 .dir-park-list strong { display: block; font-size: 14px; color: var(--white); margin-bottom: 2px; }
 .dir-park-list span { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+/* ===================== RECHTLICHES (Impressum / Datenschutz) ===================== */
+.legal-page { max-width: 760px; margin: 0 auto; padding: 80px 24px 120px; }
+.legal-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); margin-bottom: 40px; transition: color var(--transition); }
+.legal-back:hover { color: var(--gold); }
+.legal-page h1 { font-family: var(--serif, "Playfair Display", serif); font-size: 32px; color: var(--white); margin-bottom: 8px; }
+.legal-intro { font-size: 14px; color: var(--muted); margin-bottom: 40px; line-height: 1.7; }
+.legal-page h2 { font-size: 16px; color: var(--gold); margin: 34px 0 10px; letter-spacing: 0.3px; }
+.legal-page p, .legal-page li { font-size: 13.5px; line-height: 1.75; color: rgba(255,255,255,0.66); margin-bottom: 10px; }
+.legal-page strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+.legal-page a { color: var(--gold); word-break: break-word; }
+.legal-page address { font-style: normal; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 10px; }
