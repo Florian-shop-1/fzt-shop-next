@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface InquiryModalProps {
-  type: "loge" | "firmen" | null;
+  type: "loge" | "firmen" | "gruppe" | null;
   onClose: () => void;
 }
 
@@ -22,6 +22,14 @@ const COPY = {
     sub: "Weihnachtsfeiern, Teambuilding, Incentives — komplett buchbar für 10 bis 300 Personen. Wir melden uns innerhalb von 2 Stunden.",
     msgLabel: "Anlass, Personenzahl & Wunschtermin",
     msgPlaceholder: "z. B. Weihnachtsfeier · 40 Personen · Dezember 2026",
+    cta: "Anfrage senden",
+  },
+  gruppe: {
+    eyebrow: "Gruppen",
+    headline: "Gruppenreservierung anfragen",
+    sub: "Ab 10 Personen erstellen wir dir gern ein passendes Angebot — mit reservierten Plätzen, optional Magic Menü und Stehtisch. Schreib uns kurz, wir melden uns innerhalb von 2 Stunden.",
+    msgLabel: "Show, Personenzahl & Wunschtermin",
+    msgPlaceholder: "z. B. ULMFASSBAR · 18 Personen · Sa. 7. Juni",
     cta: "Anfrage senden",
   },
 };

@@ -11,6 +11,7 @@ import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHin
 import ShowDetail from "@/components/ShowDetail";
 import GiftCardModal from "@/components/GiftCardModal";
 import SocialLinks from "@/components/SocialLinks";
+import HotelModal from "@/components/HotelModal";
 
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -18,7 +19,8 @@ export default function Home() {
   const [voucherValue, setVoucherValue] = useState(200);
   const [voucherCustom, setVoucherCustom] = useState(false);
   const [giftCardOpen, setGiftCardOpen] = useState(false);
-  const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | null>(null);
+  const [inquiryType, setInquiryType] = useState<"loge" | "firmen" | "gruppe" | null>(null);
+  const [hotelOpen, setHotelOpen] = useState(false);
   const [docuPlaying, setDocuPlaying] = useState(false);
   const [detailShow, setDetailShow] = useState<string | null>(null);
 
@@ -51,6 +53,7 @@ export default function Home() {
       <SouvenirCountdown />
       <ReturningVisitorHint />
       <GiftCardModal open={giftCardOpen} value={voucherValue} onClose={() => setGiftCardOpen(false)} />
+      <HotelModal open={hotelOpen} onClose={() => setHotelOpen(false)} />
       <ShowDetail
         showKey={detailShow}
         onClose={() => setDetailShow(null)}
@@ -488,11 +491,18 @@ export default function Home() {
             </div>
             <div className="footer-col">
               <h4>Shows</h4>
-              <a href="#">ULMFASSBAR</a><a href="#">Magic Memories</a><a href="#">Flo-Zirkus</a><a href="#">Magic Dinner</a><a href="#">VIP-Loge</a>
+              <a href="#" onClick={e => { e.preventDefault(); openDetail("ulmfassbar"); }}>ULMFASSBAR</a>
+              <a href="#" onClick={e => { e.preventDefault(); openDetail("magic-memories"); }}>Magic Memories</a>
+              <a href="#" onClick={e => { e.preventDefault(); openDetail("flo-zirkus"); }}>Flo-Zirkus</a>
+              <a href="#" onClick={e => { e.preventDefault(); openDetail("magic-dinner"); }}>Magic Dinner</a>
+              <a href="#loge">VIP-Loge</a>
             </div>
             <div className="footer-col">
               <h4>Services</h4>
-              <a href="#">Gutschein kaufen</a><a href="#">Firmenevents</a><a href="#">Gruppenreservierung</a><a href="#">Hotel-Kooperationen</a>
+              <a href="#" onClick={e => { e.preventDefault(); setGiftCardOpen(true); }}>Gutschein kaufen</a>
+              <a href="#" onClick={e => { e.preventDefault(); setInquiryType("firmen"); }}>Firmenevents</a>
+              <a href="#" onClick={e => { e.preventDefault(); setInquiryType("gruppe"); }}>Gruppenreservierung</a>
+              <a href="#" onClick={e => { e.preventDefault(); setHotelOpen(true); }}>Hotel-Kooperationen</a>
             </div>
             <div className="footer-col">
               <h4>Theater</h4>
