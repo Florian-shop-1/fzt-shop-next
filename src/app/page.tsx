@@ -234,7 +234,11 @@ export default function Home() {
               <span className="show-badge">★ Bestseller</span>
               <h3>ULMFASSBAR</h3>
               <p>Florian Zimmers Signature-Show. Zweieinhalb Stunden Weltklasse-Magie — persönlich, atemberaubend, unvergesslich.</p>
-              {nextDates["ulmfassbar"] && <span className="show-next">Nächste Show · {nextDates["ulmfassbar"]}</span>}
+              {nextDates["ulmfassbar"] && (
+                <button type="button" className="show-next" onClick={e => { e.stopPropagation(); openBooking("ulmfassbar"); }}>
+                  Nächste Show · {nextDates["ulmfassbar"]} <span className="show-next-arrow">→</span>
+                </button>
+              )}
               <div className="show-meta">
                 <span className="show-price">ab 49 €</span>
                 <span className="show-rating">★★★★★ 847 Bewertungen</span>
@@ -250,7 +254,11 @@ export default function Home() {
               <span className="show-badge show-badge--premium">✦ Neue Show</span>
               <h3>Magic Memories</h3>
               <p>Florian Zimmers brandneue Show. Zweieinhalb Stunden voller Staunen, Emotionen und magischer Momente.</p>
-              {nextDates["magic-memories"] && <span className="show-next">Premiere · {nextDates["magic-memories"]}</span>}
+              {nextDates["magic-memories"] && (
+                <button type="button" className="show-next" onClick={e => { e.stopPropagation(); openBooking("magic-memories"); }}>
+                  Premiere · {nextDates["magic-memories"]} <span className="show-next-arrow">→</span>
+                </button>
+              )}
               <div className="show-meta">
                 <span className="show-price">ab 49 €</span>
                 <span className="show-rating">Brandneu · Premiere</span>
@@ -266,7 +274,11 @@ export default function Home() {
               <span className="show-badge" style={{ background: "#3a7fd0", color: "#fff" }}>Kindershow</span>
               <h3>Flo-Zirkus</h3>
               <p>Eine interaktive Show, bei der die kleinen Gäste selbst Teil der Magie werden.</p>
-              {nextDates["flo-zirkus"] && <span className="show-next">Nächste Show · {nextDates["flo-zirkus"]}</span>}
+              {nextDates["flo-zirkus"] && (
+                <button type="button" className="show-next" onClick={e => { e.stopPropagation(); openBooking("flo-zirkus"); }}>
+                  Nächste Show · {nextDates["flo-zirkus"]} <span className="show-next-arrow">→</span>
+                </button>
+              )}
               <div className="show-meta">
                 <span className="show-price">ab 29 €</span>
                 <span className="show-rating">★★★★★ 203 Bewertungen</span>
@@ -282,7 +294,11 @@ export default function Home() {
               <span className="show-badge" style={{ background: "linear-gradient(135deg,#C9A84C,#8B6914)" }}>♥ Dinner & Magie</span>
               <h3>Magic Dinner</h3>
               <p>Exklusives Dinner-Erlebnis. Vier Gänge, außergewöhnliche Küche und Magie direkt am Tisch.</p>
-              {nextDates["magic-dinner"] && <span className="show-next">Nächster Termin · {nextDates["magic-dinner"]}</span>}
+              {nextDates["magic-dinner"] && (
+                <button type="button" className="show-next" onClick={e => { e.stopPropagation(); openBooking("magic-dinner"); }}>
+                  Nächster Termin · {nextDates["magic-dinner"]} <span className="show-next-arrow">→</span>
+                </button>
+              )}
               <div className="show-meta">
                 <span className="show-price">ab 129 €</span>
                 <span className="show-rating">★★★★★ 512 Bewertungen</span>
