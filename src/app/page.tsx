@@ -471,7 +471,7 @@ export default function Home() {
               <span className="section-label">Das perfekte Geschenk</span>
               <h2>Verschenke <em>Magie</em></h2>
               <div className="divider" />
-              <p>Gib dem Menschen, den du liebst, eine Nacht voller Wunder — ein Erlebnis, das alle anderen Geschenke übertrifft.</p>
+              <p>Die meisten Geschenke werden ausgepackt und vergessen. Schenk stattdessen einen Abend, über den noch lange gesprochen wird: Staunen, Gänsehaut und einen Moment, der bleibt. Mit einem Gutschein wählt der Beschenkte seine Show ganz nach Lust und Laune selbst.</p>
 
               <div className="voucher-values">
                 {[50, 75, 100, 150, 200, 300].map(v => (
