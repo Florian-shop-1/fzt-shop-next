@@ -149,7 +149,7 @@ const FAQ: Cat[] = [
       {
         q: "Gibt es Snacks in der Pause?",
         a: [
-          "Ja. An unserer Magic Bar kannst du Snacks vorbestellen – zum Beispiel unsere Zauberschnitte, eine leckere Pinsa für die Pause.",
+          "Ja. An unserer Magic Bar kannst du Snacks vorbestellen – zum Beispiel unsere leckere Zauberschnitte (Pinsa) für die Pause.",
           "So ist dein Snack vorbereitet und du kannst die Pause ganz entspannt genießen.",
         ],
       },

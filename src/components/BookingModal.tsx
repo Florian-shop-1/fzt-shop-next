@@ -219,7 +219,7 @@ const STEHTISCHE: StehtischEntry[] = [
     items: [
       "Reservierter Stehtisch im Foyer",
       "2 Gläser Magicuvée prickelnd",
-      "Zauberschnitte",
+      "Zauberschnitte (Pinsa)",
       "Süßigkeit",
     ],
   },
@@ -236,7 +236,7 @@ const STEHTISCHE: StehtischEntry[] = [
     items: [
       "Reservierter Stehtisch im Foyer",
       "1 Flasche Magicuvée prickelnd (0,7 l)",
-      "Zauberschnitten",
+      "Zauberschnitte (Pinsa)",
       "Popcorn",
     ],
   },
