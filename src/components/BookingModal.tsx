@@ -1121,7 +1121,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                         id="allergyNote"
                         type="text"
                         className="menu-allergy-input"
-                        placeholder="z. B. Nüsse, Laktose, vegetarisch …"
+                        placeholder="z. B. Nüsse, Laktose, Gluten …"
                         value={allergyNote}
                         onChange={e => setAllergyNote(e.target.value)}
                         maxLength={200}
