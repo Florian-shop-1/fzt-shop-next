@@ -314,7 +314,7 @@ export default function Home() {
       <section id="magician">
         <div className="container">
           <div className="section-header text-center reveal">
-            <span className="section-label">Der Magier</span>
+            <span className="section-label">Starmagier</span>
             <h2>Florian Zimmer</h2>
             <div className="divider divider-center" />
           </div>
