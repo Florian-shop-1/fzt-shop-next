@@ -57,8 +57,8 @@ export default function DirectionsModal({ open, onClose }: { open: boolean; onCl
         <h4 className="dir-park-title">Parken</h4>
         <ul className="dir-park-list">
           <li>
-            <strong>VIP-Parkplatz direkt am Theater</strong>
-            <span>Der nächstgelegene Parkplatz — einfach im Buchungsprozess dazubuchen.</span>
+            <strong>VIP-Parkplatz direkt am Theater — 15 €</strong>
+            <span>Der nächstgelegene Parkplatz, reserviert für dich inkl. Namensbranding. Einfach im Buchungsprozess dazubuchen.</span>
           </li>
           <li>
             <strong>Kostenlose Parkplätze rund ums Theater</strong>

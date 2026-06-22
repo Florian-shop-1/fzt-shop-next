@@ -844,6 +844,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 })}
               </div>
               <p className="ga-note">Sitzplätze werden im Saal frei gewählt — alle Plätze mit bester Sicht auf die Bühne.</p>
+              {selectedShowId === "flo-zirkus" && (
+                <p className="ga-note ga-note--kids">✦ Kinder von 0–3 Jahren sind kostenlos, wenn sie auf dem Schoß einer Begleitperson sitzen — kein eigenes Ticket nötig.</p>
+              )}
             </div>
           )}
 
