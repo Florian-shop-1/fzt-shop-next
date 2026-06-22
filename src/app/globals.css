@@ -2569,7 +2569,7 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 /* Dezenter Theater-Hintergrund auf FAQ & Rechtsseiten (einheitlich) */
 .faq-page, .legal-page { position: relative; }
 .faq-page::before, .legal-page::before { content: ''; position: fixed; inset: 0; z-index: -2;
-  background: url('/images/hero-theater.jpg') center top / cover no-repeat; opacity: 0.12; }
+  background: url('/images/hero-theater_2.jpeg') center center / cover no-repeat; opacity: 0.16; }
 .faq-page::after, .legal-page::after { content: ''; position: fixed; inset: 0; z-index: -1;
   background:
     radial-gradient(900px 500px at 50% -10%, rgba(201,168,76,0.10), transparent 70%),
