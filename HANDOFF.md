@@ -86,3 +86,14 @@ Bei neuen Conversion-Elementen diese Linie beibehalten.
 **TODO Backend:** sicherstellen, dass `/api/ditix/events` die kommenden Events live aus Ditix liefert.
 Sobald Magic Memories in Ditix angelegt ist, muss der Event-Name „memories" enthalten, damit die
 Premiere automatisch auf der Kachel erscheint.
+
+---
+
+## Unverträglichkeiten beim Menü
+
+**Frontend fertig:** `src/components/BookingModal.tsx`, State `allergyNote`
+- Optionales Textfeld im Menüschritt (erscheint, sobald ein Menü gewählt ist)
+- Wird in der Bestellübersicht als Hinweis angezeigt
+
+**TODO Backend:** `allergyNote` beim Checkout/Reserve mit an die Bestellung/Order anhängen
+(z. B. als Kommentar/Notiz zur Buchung), damit die Küche es erhält.

@@ -411,6 +411,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   // ── Menu expand state ─────────────────────
   const [expandedMenu,       setExpandedMenu]       = useState<string | null>(null);
   const [showMenuCards,      setShowMenuCards]      = useState(false);
+  const [allergyNote,        setAllergyNote]        = useState("");
   const [showStehtischCards, setShowStehtischCards] = useState(false);
   const [showAllShows,       setShowAllShows]       = useState(false);
   const [confirmed,          setConfirmed]          = useState(false);
@@ -1109,6 +1110,25 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       );
                     })}
                   </div>
+
+                  {/* Unverträglichkeiten — simpel, optional */}
+                  {totalMenuQty > 0 && (
+                    <div className="menu-allergy">
+                      <label htmlFor="allergyNote" className="menu-allergy-label">
+                        Allergien oder Unverträglichkeiten? <span>(optional)</span>
+                      </label>
+                      <input
+                        id="allergyNote"
+                        type="text"
+                        className="menu-allergy-input"
+                        placeholder="z. B. Nüsse, Laktose, vegetarisch …"
+                        value={allergyNote}
+                        onChange={e => setAllergyNote(e.target.value)}
+                        maxLength={200}
+                      />
+                      <p className="menu-allergy-hint">Unsere Küche bereitet dein Menü entsprechend vor.</p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -1480,6 +1500,13 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     </div>
                   ) : null;
                 })}
+                {/* Unverträglichkeiten-Hinweis */}
+                {allergyNote.trim() && (
+                  <div className="order-note">
+                    <span className="order-note-label">Unverträglichkeiten</span>
+                    <span className="order-note-text">{allergyNote.trim()}</span>
+                  </div>
+                )}
                 {/* Stehtische */}
                 {STEHTISCHE.map(st => {
                   const sq = stehtischQtys[st.id] ?? 0;
