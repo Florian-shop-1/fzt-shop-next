@@ -620,7 +620,7 @@ export default function Home() {
             </div>
             <div className="footer-col">
               <h4>Theater</h4>
-              <a href="tel:+497317906110">0731 7906 110</a><a href="mailto:tickets@florianzimmer.com">tickets@florianzimmer.com</a><a href="#" onClick={e => { e.preventDefault(); setDirectionsOpen(true); }}>Anfahrt &amp; Parken</a><a href="#">FAQ</a><a href="/datenschutz">Datenschutz</a><a href="/impressum">Impressum</a>
+              <a href="tel:+497317906110">0731 7906 110</a><a href="mailto:tickets@florianzimmer.com">tickets@florianzimmer.com</a><a href="#" onClick={e => { e.preventDefault(); setDirectionsOpen(true); }}>Anfahrt &amp; Parken</a><a href="/faq">FAQ</a><a href="/datenschutz">Datenschutz</a><a href="/impressum">Impressum</a>
             </div>
           </div>
           <div className="footer-bottom">
