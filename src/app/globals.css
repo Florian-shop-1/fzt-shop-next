@@ -2499,6 +2499,7 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .legal-page { max-width: 760px; margin: 0 auto; padding: 80px 24px 120px; }
 .legal-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); margin-bottom: 40px; transition: color var(--transition); }
 .legal-back:hover { color: var(--gold); }
+.legal-back--bottom { margin: 48px 0 0; padding-top: 28px; border-top: 1px solid var(--border); width: 100%; }
 .legal-page h1 { font-family: var(--serif, "Playfair Display", serif); font-size: 32px; color: var(--white); margin-bottom: 8px; }
 .legal-intro { font-size: 14px; color: var(--muted); margin-bottom: 40px; line-height: 1.7; }
 .legal-page h2 { font-size: 16px; color: var(--gold); margin: 34px 0 10px; letter-spacing: 0.3px; }

@@ -183,6 +183,8 @@ export default function DatenschutzPage() {
         informieren. Wir passen sie an, sobald Änderungen der von uns durchgeführten
         Datenverarbeitungen dies erforderlich machen.
       </p>
+
+      <Link href="/" className="legal-back legal-back--bottom">← Zurück zur Startseite</Link>
     </main>
   );
 }

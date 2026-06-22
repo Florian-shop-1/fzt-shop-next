@@ -87,6 +87,8 @@ export default function ImpressumPage() {
         bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen
         werden wir derartige Inhalte umgehend entfernen.
       </p>
+
+      <Link href="/" className="legal-back legal-back--bottom">← Zurück zur Startseite</Link>
     </main>
   );
 }

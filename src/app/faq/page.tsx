@@ -314,6 +314,8 @@ export default function FaqPage() {
           ruf an unter <a href="tel:+497317906110">0731 7906 110</a> – wir helfen dir gerne weiter.
         </p>
       </div>
+
+      <Link href="/" className="legal-back legal-back--bottom">← Zurück zur Startseite</Link>
     </main>
   );
 }
