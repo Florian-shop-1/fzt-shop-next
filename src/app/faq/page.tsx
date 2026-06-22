@@ -14,7 +14,7 @@ const FAQ: Cat[] = [
         q: "Wann öffnet das Theater vor der Show?",
         a: [
           "Unser Foyer öffnet spätestens eine Stunde vor Showbeginn. So kannst du ganz entspannt ankommen, etwas trinken, dich umsehen und den Abend ohne Stress beginnen.",
-          "Wenn du ein Magic-Menü gebucht hast, komm bitte so rechtzeitig, dass genug Zeit für das Essen vor der Show bleibt. Die genaue Uhrzeit findest du immer direkt bei deinem Termin im Ticketshop.",
+          "Unser Restaurant öffnet bereits ab 17:00 Uhr. Wenn du ein Magic-Menü gebucht hast, komm bitte spätestens um 18:00 Uhr, damit genug Zeit für das Essen vor der Show bleibt. Die genaue Uhrzeit findest du immer direkt bei deinem Termin im Ticketshop.",
         ],
       },
       {
