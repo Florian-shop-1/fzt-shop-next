@@ -1563,6 +1563,16 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 }
 .mc-hero-cta:active { transform: translateY(0); }
 
+/* Kurzer Aufmerksamkeits-Impuls beim Erscheinen — zieht den Blick auf den Button */
+.mc-hero-cta { animation: ctaAttention 0.9s ease 0.45s 2; }
+@keyframes ctaAttention {
+  0%, 100%   { background: var(--gold); box-shadow: 0 0 0 rgba(201,168,76,0); transform: translateY(0); }
+  45%        { background: var(--gold-light); box-shadow: 0 4px 26px rgba(201,168,76,0.5); transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-hero-cta { animation: none; }
+}
+
 /* Skip link */
 .mc-hero-skip {
   background: none;
