@@ -456,6 +456,7 @@ export default function Home() {
         <div className="gutschein-pattern" />
         <div className="container">
           <div className="gutschein-inner">
+            <img src="/images/Florian-freigestellt.png" alt="Florian Zimmer" className="gutschein-florian" />
             <div className="gutschein-card reveal">
               <div className="gutschein-logo">✦ FLORIAN ZIMMER THEATER</div>
               <div className="gutschein-tagline">HOME OF MAGIC · Neu-Ulm</div>
