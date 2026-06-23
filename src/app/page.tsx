@@ -332,7 +332,7 @@ export default function Home() {
 
               <div className="magician-quote">
                 <p className="magician-quote-text">»Kreativster Magier der Welt«</p>
-                <p className="magician-quote-source">International Magic Society (I.M.S.)</p>
+                <p className="magician-quote-source">International Magicians Society (I.M.S.)</p>
               </div>
 
               <div className="magician-top-awards">
