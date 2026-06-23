@@ -79,6 +79,7 @@ export default function BeratungPage() {
             { icon: "💍", t: "Hochzeiten & Jubiläen", d: "Ein Abend, über den deine Gäste noch lange sprechen." },
             { icon: "👥", t: "Gruppen ab 10 Personen", d: "Reservierte Plätze, optional Menü & Stehtisch." },
             { icon: "✦", t: "Exklusivbuchung", d: "Das ganze Theater nur für euch — ab 100 Gästen." },
+            { icon: "🎁", t: "Geschenke & Ticketpakete", d: "Tickets in größerer Stückzahl — persönlich, hochwertig, steuerlich interessant." },
             { icon: "❓", t: "Du bist unsicher?", d: "Wir beraten dich ehrlich, welche Show am besten passt." },
           ].map(u => (
             <div key={u.t} className="beratung-usecase">
