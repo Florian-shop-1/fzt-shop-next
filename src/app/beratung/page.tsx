@@ -53,7 +53,7 @@ export default function BeratungPage() {
           </ul>
 
           <div className="beratung-person">
-            <img src="/images/florian-freigestellt.png" alt="Florian Zimmer" />
+            <img src="/images/Florian-freigestellt.png" alt="Florian Zimmer" />
             <div>
               <strong>Florian Zimmer</strong>
               <span>Starmagier &amp; Gastgeber</span>
