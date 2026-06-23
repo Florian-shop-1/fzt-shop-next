@@ -2613,10 +2613,11 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
 .beratung-trust li { font-size: 14px; color: rgba(255,255,255,0.7); padding-left: 24px; position: relative; }
 .beratung-trust li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 3px; }
 .beratung-trust strong { color: var(--white); }
-.beratung-person { display: flex; align-items: center; gap: 16px; padding-top: 22px; border-top: 1px solid var(--border); }
-.beratung-person img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top center; background: rgba(201,168,76,0.08); }
-.beratung-person strong { display: block; font-size: 15px; color: var(--white); }
-.beratung-person span { font-size: 13px; color: var(--muted); }
+.beratung-person { display: flex; align-items: center; gap: 20px; padding-top: 26px; border-top: 1px solid var(--border); }
+.beratung-person img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; object-position: top center;
+  background: rgba(201,168,76,0.08); border: 2px solid rgba(201,168,76,0.35); box-shadow: 0 8px 30px rgba(0,0,0,0.45); flex-shrink: 0; }
+.beratung-person strong { display: block; font-size: 17px; color: var(--white); margin-bottom: 2px; }
+.beratung-person span { font-size: 14px; color: var(--muted); }
 
 .beratung-hero-right { position: sticky; top: 24px; }
 .beratung-calendly { min-width: 320px; height: 680px; width: 100%; border-radius: 16px; overflow: hidden;
