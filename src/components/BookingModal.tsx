@@ -419,8 +419,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   const [souvenir,           setSouvenir]           = useState(false);
   const [ticketPost,         setTicketPost]         = useState(false);
   const [postAddr,           setPostAddr]           = useState({ name: "", street: "", zip: "", city: "" });
-  const [activePrompt,         setActivePrompt]         = useState<null | "menu" | "menu-partial" | "secure">(null);
+  const [activePrompt,         setActivePrompt]         = useState<null | "menu" | "menu-none" | "menu-partial" | "secure">(null);
   const [menuPromptShown,      setMenuPromptShown]      = useState(false);
+  const [menuNoneShown,        setMenuNoneShown]        = useState(false);
   const [menuPartialShown,     setMenuPartialShown]     = useState(false);
   const [securePromptShown,    setSecurePromptShown]    = useState(false);
 
@@ -587,6 +588,12 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
   };
 
   const nextStep = () => {
+    // Schritt 3: in der Kartenansicht ohne Menü → ausdrücklich nachfragen
+    if (step === 3 && showMenuCards && totalMenuQty === 0 && !menuNoneShown) {
+      setMenuNoneShown(true);
+      setActivePrompt("menu-none");
+      return;
+    }
     // Schritt 3: dezenter Magic-Menü-Hinweis (gleichwertige Buttons, kein Dark Pattern)
     if (step === 3 && totalMenuQty === 0 && !menuPromptShown) {
       setMenuPromptShown(true);
@@ -627,6 +634,17 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                   <div className="nudge-actions">
                     <button className="nudge-btn-primary" onClick={() => { setActivePrompt(null); setShowMenuCards(true); }}>Magic Menü hinzufügen</button>
                     <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Nur Show buchen</button>
+                  </div>
+                </>
+              )}
+              {activePrompt === "menu-none" && (
+                <>
+                  <span className="nudge-eyebrow">✦ Magic Menü</span>
+                  <h3>Weiter ohne Menü?</h3>
+                  <p>Du hast noch kein Magic Menü ausgewählt. Möchtest du deinen Abend mit einem 4-Gang-Menü inklusive Welcome-Cocktail abrunden?</p>
+                  <div className="nudge-actions">
+                    <button className="nudge-btn-primary" onClick={() => setActivePrompt(null)}>Menü auswählen</button>
+                    <button className="nudge-btn-secondary" onClick={() => { setActivePrompt(null); advance(); }}>Weiter ohne Menü</button>
                   </div>
                 </>
               )}
