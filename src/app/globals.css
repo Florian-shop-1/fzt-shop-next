@@ -216,7 +216,7 @@ section { padding: 100px 0; }
 .gutschein-pattern { position: absolute; inset: 0; opacity: 0.03; background-image: repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 40px); }
 .gutschein-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; }
 @media (max-width: 900px) { .gutschein-inner { grid-template-columns: 1fr; gap: 48px; } }
-.gutschein-florian { position: absolute; left: -40px; top: -20px; width: 340px; max-width: 38%; z-index: 0; pointer-events: none; filter: drop-shadow(0 24px 48px rgba(0,0,0,0.6)); }
+.gutschein-florian { position: absolute; left: -40px; top: -20px; width: 340px; max-width: 38%; z-index: 0; pointer-events: none; }
 @media (max-width: 1100px) { .gutschein-florian { display: none; } }
 .gutschein-card { z-index: 1; background: linear-gradient(135deg, var(--card) 0%, #1e1a10 100%); border: 1px solid var(--border); border-radius: 12px; padding: 48px; position: relative; overflow: hidden; }
 .gutschein-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%); }
