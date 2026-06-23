@@ -594,8 +594,8 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setActivePrompt("menu-none");
       return;
     }
-    // Schritt 3: dezenter Magic-Menü-Hinweis (gleichwertige Buttons, kein Dark Pattern)
-    if (step === 3 && totalMenuQty === 0 && !menuPromptShown) {
+    // Schritt 3: dezenter Magic-Menü-Hinweis nur in der Hero-Ansicht (nicht über den Karten)
+    if (step === 3 && !showMenuCards && totalMenuQty === 0 && !menuPromptShown) {
       setMenuPromptShown(true);
       setActivePrompt("menu");
       return;
