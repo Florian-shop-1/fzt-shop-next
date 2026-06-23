@@ -322,6 +322,7 @@ export default function Home() {
           <div className="magician-inner">
             {/* BIO + TOP AWARDS */}
             <div className="reveal">
+              <img src="/images/Florian-vorhang.jpeg" alt="Florian Zimmer" className="magician-portrait" />
               <p className="magician-eyebrow-meta">Geboren 3. Mai 1982 in Ulm</p>
               <p className="magician-bio-intro">
                 Einer der weltweit gefeiertsten Magier und kreativsten Visionäre der Zauberkunst.
