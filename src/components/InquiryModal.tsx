@@ -94,6 +94,8 @@ export default function InquiryModal({ type, onClose }: InquiryModalProps) {
             <button className="inquiry-submit" onClick={() => setSent(true)}>
               ✦ &nbsp;{c.cta}
             </button>
+
+            <a href="/beratung" className="inquiry-alt-link">Lieber direkt sprechen? Beratungstermin buchen →</a>
           </>
         )}
       </div>

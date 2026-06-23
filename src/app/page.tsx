@@ -617,6 +617,7 @@ export default function Home() {
               <a href="#" onClick={e => { e.preventDefault(); setInquiryType("firmen"); }}>Firmenevents</a>
               <a href="#" onClick={e => { e.preventDefault(); setInquiryType("gruppe"); }}>Gruppenreservierung</a>
               <a href="#" onClick={e => { e.preventDefault(); setHotelOpen(true); }}>Hotel-Kooperationen</a>
+              <a href="/beratung">Beratungstermin</a>
             </div>
             <div className="footer-col">
               <h4>Theater</h4>

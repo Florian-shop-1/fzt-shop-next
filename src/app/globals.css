@@ -2597,3 +2597,56 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
 .order-note { padding: 10px 0; border-top: 1px dashed var(--border); }
 .order-note-label { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
 .order-note-text { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+/* ===================== BERATUNG — Landingpage ===================== */
+.beratung-page { min-height: 100vh; max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; }
+.beratung-topbar { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+.beratung-logo img { height: 38px; width: auto; display: block; }
+.beratung-back { font-size: 13px; color: var(--muted); transition: color var(--transition); }
+.beratung-back:hover { color: var(--gold); }
+
+.beratung-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; padding: 28px 0 56px; }
+.beratung-eyebrow { display: block; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.beratung-hero-left h1 { font-family: var(--serif, "Playfair Display", serif); font-size: 40px; line-height: 1.12; color: var(--white); margin-bottom: 18px; }
+.beratung-lead { font-size: 16px; line-height: 1.7; color: var(--muted); margin-bottom: 28px; }
+.beratung-trust { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+.beratung-trust li { font-size: 14px; color: rgba(255,255,255,0.7); padding-left: 24px; position: relative; }
+.beratung-trust li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 3px; }
+.beratung-trust strong { color: var(--white); }
+.beratung-person { display: flex; align-items: center; gap: 16px; padding-top: 22px; border-top: 1px solid var(--border); }
+.beratung-person img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top center; background: rgba(201,168,76,0.08); }
+.beratung-person strong { display: block; font-size: 15px; color: var(--white); }
+.beratung-person span { font-size: 13px; color: var(--muted); }
+
+.beratung-hero-right { position: sticky; top: 24px; }
+.beratung-calendly { min-width: 320px; height: 680px; width: 100%; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: #12100d; }
+.beratung-cta-note { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 12px; }
+
+.beratung-section { padding: 48px 0 0; }
+.beratung-section h2 { font-family: var(--serif, "Playfair Display", serif); font-size: 26px; color: var(--white); text-align: center; margin-bottom: 32px; }
+.beratung-usecases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.beratung-usecase { padding: 22px; border: 1px solid var(--border); border-radius: var(--radius); background: rgba(255,255,255,0.03); }
+.beratung-usecase-icon { font-size: 24px; display: block; margin-bottom: 12px; }
+.beratung-usecase strong { display: block; font-size: 15px; color: var(--white); margin-bottom: 6px; }
+.beratung-usecase-desc { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+.beratung-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.beratung-step { text-align: center; padding: 0 12px; }
+.beratung-step-num { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold); font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+.beratung-step strong { display: block; font-size: 16px; color: var(--white); margin-bottom: 6px; }
+.beratung-step span { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+.beratung-footer { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.beratung-footer p { font-size: 13.5px; color: var(--muted); }
+.beratung-footer a { color: var(--gold); }
+
+@media (max-width: 860px) {
+  .beratung-hero { grid-template-columns: 1fr; gap: 36px; }
+  .beratung-hero-right { position: static; }
+  .beratung-hero-left h1 { font-size: 32px; }
+  .beratung-usecases, .beratung-steps { grid-template-columns: 1fr; }
+}
+
+/* Link "lieber direkt sprechen" im Anfrage-Modal */
+.inquiry-alt-link { display: block; text-align: center; margin-top: 16px; font-size: 13.5px; color: var(--gold); transition: opacity var(--transition); }
+.inquiry-alt-link:hover { opacity: 0.75; }
