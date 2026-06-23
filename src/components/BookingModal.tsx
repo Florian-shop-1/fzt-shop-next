@@ -1135,16 +1135,16 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       <label htmlFor="allergyNote" className="menu-allergy-label">
                         Allergien oder Unverträglichkeiten? <span>(optional)</span>
                       </label>
-                      <input
+                      <textarea
                         id="allergyNote"
-                        type="text"
                         className="menu-allergy-input"
-                        placeholder="z. B. Nüsse, Laktose, Gluten …"
+                        rows={2}
+                        placeholder="z. B. 1× Classic ohne Pilze · 1× Sea ohne Nüsse"
                         value={allergyNote}
                         onChange={e => setAllergyNote(e.target.value)}
-                        maxLength={200}
+                        maxLength={300}
                       />
-                      <p className="menu-allergy-hint">Unsere Küche bereitet dein Menü entsprechend vor.</p>
+                      <p className="menu-allergy-hint">Schreib bitte dazu, für welches Menü es gilt (z. B. „Classic"), damit unsere Küche es richtig zuordnen kann.</p>
                     </div>
                   )}
                 </div>
