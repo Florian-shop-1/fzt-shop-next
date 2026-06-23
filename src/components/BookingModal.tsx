@@ -1012,7 +1012,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     </div>
 
                     <button
-                      className="mc-hero-cta"
+                      className="mc-hero-cta cta-pulse"
                       onClick={() => setShowMenuCards(true)}
                     >
                       Menü auswählen
@@ -1269,7 +1269,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       </div>
 
                       <button
-                        className="mc-hero-cta"
+                        className={`mc-hero-cta${totalMenuQty === 0 ? " cta-pulse" : ""}`}
                         onClick={() => setShowStehtischCards(true)}
                       >
                         Stehtisch auswählen
@@ -1377,7 +1377,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 </div>
 
                 <div
-                  className={`extras4-card flex-toggle-card${flexQty > 0 ? " selected" : ""}`}
+                  className={`extras4-card flex-toggle-card${flexQty > 0 ? " selected" : ""}${totalMenuQty > 0 && flexQty === 0 ? " frame-pulse" : ""}`}
                   onClick={() => setFlexQty(flexQty > 0 ? 0 : qty)}
                   role="button"
                   tabIndex={0}
