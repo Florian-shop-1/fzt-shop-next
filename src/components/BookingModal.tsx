@@ -1170,77 +1170,6 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 <p className="step4-sub">Mach die Pause und das Rahmenprogramm zu deinem Highlight.</p>
               </div>
 
-              {/* ── VIP Getränkeflat ── */}
-              <div style={{ marginBottom: 28 }}>
-                <div className="pause-section-header" style={{ marginBottom: 14 }}>
-                  <h4 className="pause-section-title">VIP Getränkeflat</h4>
-                  <p className="pause-section-sub">Unbegrenzte Getränke an der Magic-Bar – ab 1h vor der Show und in der Pause.</p>
-                </div>
-
-                <div className="extras4-list" style={{ marginBottom: 0 }}>
-                  {/* Silver */}
-                  <div className={`extras4-card${vipSilverQty > 0 ? " selected" : ""}`}>
-                    <div className="extras4-icon">🍹</div>
-                    <div className="extras4-info">
-                      <div className="extras4-top">
-                        <strong className="extras4-name">VIP Getränkeflat Silver</strong>
-                        <span className="extras4-price-block">
-                          <span className="extras4-unit-price-inline">19 €</span>
-                          <span className="extras4-price-meta">/ Pers.</span>
-                        </span>
-                      </div>
-                      <p className="extras4-desc">
-                        Genieße ab 1 Stunde vor Showbeginn und in der Pause alle alkoholfreien Getränke
-                        an der Magic-Bar im Foyer. Ein Kind bis 12 Jahre trinkt kostenlos mit.
-                        Gültig ausschließlich an der Foyer-Bar, nicht im Restaurant Magicuisine.
-                      </p>
-                      {vipSilverQty === 0 && (
-                        <span className="vip-alk-hint">🍷 Lieber mit Alkohol? Einfach hinzufügen und direkt danach auf <strong>Gold</strong> upgraden (Bier, Wein, Sekt &amp; Magicuvée, +10 €).</span>
-                      )}
-                    </div>
-                    <div className="extras4-qty-col">
-                      <span className="extras4-unit-price" style={{ fontSize: 14 }}>{vipSilverQty > 0 ? `${vipSilverQty * 19} €` : ""}</span>
-                      <QtyControl
-                        value={vipSilverQty}
-                        onDec={decVipSilver}
-                        onInc={incVipSilver}
-                        canInc={vipSilverQty < qty}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Gold Upgrade — nur wenn Silver > 0 */}
-                  {vipSilverQty > 0 && (
-                    <div className={`extras4-card vip-gold-upgrade${vipGoldQty > 0 ? " selected" : ""}`}>
-                      <div className="extras4-icon">✨</div>
-                      <div className="extras4-info">
-                        <div className="extras4-top">
-                          <strong className="extras4-name">Gold Upgrade</strong>
-                          <span className="extras4-price-block">
-                            <span className="extras4-unit-price-inline" style={{ color: "var(--gold-light)" }}>+10 €</span>
-                            <span className="extras4-price-meta">/ Pers.</span>
-                          </span>
-                        </div>
-                        <p className="extras4-desc">
-                          Upgrade auf GOLD: Zusätzlich Bier, Wein, Sekt und Magicuvée inklusive.
-                        </p>
-                        <span className="vip-gold-limit-note">
-                          Max. {vipSilverQty} von {vipSilverQty} Silver-Bändchen upgradebare
-                        </span>
-                      </div>
-                      <div className="extras4-qty-col">
-                        <QtyControl
-                          value={vipGoldQty}
-                          onDec={decVipGold}
-                          onInc={incVipGold}
-                          canInc={vipGoldQty < vipSilverQty}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
               {/* ── Stehtische ── */}
               <div className="pause-section">
                 {!showStehtischCards ? (
@@ -1356,6 +1285,77 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     </div>
                   </>
                 )}
+              </div>
+
+              {/* ── VIP Getränkeflat ── */}
+              <div style={{ marginBottom: 28 }}>
+                <div className="pause-section-header" style={{ marginBottom: 14 }}>
+                  <h4 className="pause-section-title">VIP Getränkeflat</h4>
+                  <p className="pause-section-sub">Unbegrenzte Getränke an der Magic-Bar – ab 1h vor der Show und in der Pause.</p>
+                </div>
+
+                <div className="extras4-list" style={{ marginBottom: 0 }}>
+                  {/* Silver */}
+                  <div className={`extras4-card${vipSilverQty > 0 ? " selected" : ""}`}>
+                    <div className="extras4-icon">🍹</div>
+                    <div className="extras4-info">
+                      <div className="extras4-top">
+                        <strong className="extras4-name">VIP Getränkeflat Silver</strong>
+                        <span className="extras4-price-block">
+                          <span className="extras4-unit-price-inline">19 €</span>
+                          <span className="extras4-price-meta">/ Pers.</span>
+                        </span>
+                      </div>
+                      <p className="extras4-desc">
+                        Genieße ab 1 Stunde vor Showbeginn und in der Pause alle alkoholfreien Getränke
+                        an der Magic-Bar im Foyer. Ein Kind bis 12 Jahre trinkt kostenlos mit.
+                        Gültig ausschließlich an der Foyer-Bar, nicht im Restaurant Magicuisine.
+                      </p>
+                      {vipSilverQty === 0 && (
+                        <span className="vip-alk-hint">🍷 Lieber mit Alkohol? Einfach hinzufügen und direkt danach auf <strong>Gold</strong> upgraden (Bier, Wein, Sekt &amp; Magicuvée, +10 €).</span>
+                      )}
+                    </div>
+                    <div className="extras4-qty-col">
+                      <span className="extras4-unit-price" style={{ fontSize: 14 }}>{vipSilverQty > 0 ? `${vipSilverQty * 19} €` : ""}</span>
+                      <QtyControl
+                        value={vipSilverQty}
+                        onDec={decVipSilver}
+                        onInc={incVipSilver}
+                        canInc={vipSilverQty < qty}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Gold Upgrade — nur wenn Silver > 0 */}
+                  {vipSilverQty > 0 && (
+                    <div className={`extras4-card vip-gold-upgrade${vipGoldQty > 0 ? " selected" : ""}`}>
+                      <div className="extras4-icon">✨</div>
+                      <div className="extras4-info">
+                        <div className="extras4-top">
+                          <strong className="extras4-name">Gold Upgrade</strong>
+                          <span className="extras4-price-block">
+                            <span className="extras4-unit-price-inline" style={{ color: "var(--gold-light)" }}>+10 €</span>
+                            <span className="extras4-price-meta">/ Pers.</span>
+                          </span>
+                        </div>
+                        <p className="extras4-desc">
+                          Upgrade auf GOLD: Zusätzlich Bier, Wein, Sekt und Magicuvée inklusive.
+                        </p>
+                        <span className="vip-gold-limit-note">
+                          Max. {vipSilverQty} von {vipSilverQty} Silver-Bändchen upgradebare
+                        </span>
+                      </div>
+                      <div className="extras4-qty-col">
+                        <QtyControl
+                          value={vipGoldQty}
+                          onDec={decVipGold}
+                          onInc={incVipGold}
+                          canInc={vipGoldQty < vipSilverQty}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* ── VIP Parkplatz & Flex ── */}
