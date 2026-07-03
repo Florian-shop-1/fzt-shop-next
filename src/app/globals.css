@@ -741,11 +741,11 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 }
 .menu-card:hover {
   border-color: rgba(201,168,76,0.3);
-  background: rgba(255,255,255,0.05);
+  background-color: rgba(255,255,255,0.05);
 }
 .menu-card.selected {
   border-color: var(--gold);
-  background: rgba(201,168,76,0.06);
+  background-color: rgba(201,168,76,0.06);
   box-shadow: 0 0 22px rgba(201,168,76,0.1);
 }
 
@@ -942,25 +942,25 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 }
 .stehtisch-card:hover {
   border-color: rgba(201,168,76,0.28);
-  background: rgba(255,255,255,0.05);
+  background-color: rgba(255,255,255,0.05);
 }
 .stehtisch-card.selected {
   border-color: var(--gold);
-  background: rgba(201,168,76,0.07);
+  background-color: rgba(201,168,76,0.07);
 }
 
 /* Gold highlight — always visually prominent */
 .stehtisch-card.gold-highlight {
   border-color: rgba(201,168,76,0.45);
-  background: rgba(201,168,76,0.04);
+  background-color: rgba(201,168,76,0.04);
 }
 .stehtisch-card.gold-highlight:hover {
   border-color: rgba(201,168,76,0.65);
-  background: rgba(201,168,76,0.08);
+  background-color: rgba(201,168,76,0.08);
 }
 .stehtisch-card.gold-highlight.selected {
   border-color: var(--gold);
-  background: rgba(201,168,76,0.1);
+  background-color: rgba(201,168,76,0.1);
   box-shadow: 0 0 20px rgba(201,168,76,0.12);
 }
 
