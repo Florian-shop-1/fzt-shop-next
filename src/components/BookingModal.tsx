@@ -755,7 +755,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                 <>
                   <p className="step-hint">Wähle deine Show</p>
                   <div className="show-list">
-                    {SHOWS.map(show => (
+                    {SHOWS.map(show => {
+                      const nextDate = SHOW_DATES[show.id]?.find(d => !d.soldOut && d.times.length > 0);
+                      return (
                       <div
                         key={show.id}
                         className={`show-list-card${selectedShowId === show.id ? " selected" : ""}`}
@@ -772,10 +774,16 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                           </div>
                           <h4 className="show-list-name">{show.name}</h4>
                           <p className="show-list-desc">{show.desc}</p>
+                          {nextDate && (
+                            <span className="show-list-next">
+                              Nächste Show: {nextDate.displayDate}{nextDate.times[0] ? ` · ${nextDate.times[0].time} Uhr` : ""}
+                            </span>
+                          )}
                         </div>
                         <div className={`show-list-check${selectedShowId === show.id ? " visible" : ""}`}>✓</div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </>
               )}
