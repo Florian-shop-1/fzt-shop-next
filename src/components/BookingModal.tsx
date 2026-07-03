@@ -1194,6 +1194,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                         an der Magic-Bar im Foyer. Ein Kind bis 12 Jahre trinkt kostenlos mit.
                         Gültig ausschließlich an der Foyer-Bar, nicht im Restaurant Magicuisine.
                       </p>
+                      {vipSilverQty === 0 && (
+                        <span className="vip-alk-hint">🍷 Lieber mit Alkohol? Einfach hinzufügen und direkt danach auf <strong>Gold</strong> upgraden (Bier, Wein, Sekt &amp; Magicuvée, +10 €).</span>
+                      )}
                     </div>
                     <div className="extras4-qty-col">
                       <span className="extras4-unit-price" style={{ fontSize: 14 }}>{vipSilverQty > 0 ? `${vipSilverQty * 19} €` : ""}</span>
