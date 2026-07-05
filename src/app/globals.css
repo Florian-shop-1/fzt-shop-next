@@ -2051,7 +2051,7 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 /* Overlay */
 .magic-news-overlay {
   position: fixed; inset: 0; z-index: 4000;
-  background: rgba(8,8,8,0.88); backdrop-filter: blur(12px);
+  background: rgba(8,8,8,0.68); backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center; padding: 24px;
   animation: fadeUp 0.4s ease;
 }
