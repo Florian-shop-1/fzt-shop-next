@@ -166,13 +166,13 @@ export default function Home() {
             <img src="/images/logo.png" alt="Florian Zimmer Theater" />
           </div>
           <p className="hero-eyebrow">✦ HOME OF MAGIC ✦</p>
-          <h1>Eine Nacht,<br />die du <em>nie</em> vergisst.</h1>
+          <h1>Magie,<br />die du <em>nie</em> vergisst.</h1>
           <p className="hero-sub">
             Der Abend beginnt hier. Live-Magie, die dich und deine Begleitung<br />
             für immer verbindet — persönlich, atemberaubend, einzigartig.
           </p>
           <div className="hero-ctas">
-            <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Abend reservieren</button>
+            <button className="btn-primary" onClick={() => openBooking()}>✦ &nbsp;Reservieren</button>
             <a href="#shows" className="btn-secondary">Alle Erlebnisse</a>
           </div>
           <div
