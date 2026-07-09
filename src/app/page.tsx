@@ -14,6 +14,20 @@ import SocialLinks from "@/components/SocialLinks";
 import HotelModal from "@/components/HotelModal";
 import DirectionsModal from "@/components/DirectionsModal";
 
+const AWARDS = [
+  "Siegfried & Roy Golden Lion Award",
+  "World Magic Award",
+  "Europameister der Magier",
+  "Deutscher Meister der Zauberkunst",
+  "IMS Merlin Award",
+  "Goldene Ringe von Lausanne",
+  "Monte Carlo Magic Star",
+  "Marc Klasser Award",
+  "Colombe d'Or",
+  "Artistika",
+  "Kleinkunstpreis Baden-Württemberg",
+];
+
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [initialShow, setInitialShow] = useState("");
@@ -402,24 +416,21 @@ export default function Home() {
 
           {/* ALLE AUSZEICHNUNGEN */}
           <div className="awards-strip reveal">
-            {[
-              "Siegfried & Roy Golden Lion Award",
-              "World Magic Award",
-              "Europameister der Magier",
-              "Deutscher Meister der Zauberkunst",
-              "IMS Merlin Award",
-              "Goldene Ringe von Lausanne",
-              "Monte Carlo Magic Star",
-              "Marc Klasser Award",
-              "Colombe d'Or",
-              "Artistika",
-              "Kleinkunstpreis Baden-Württemberg",
-            ].map(award => (
-              <span key={award} className="award-chip">
-                <span className="award-chip-star">✦</span>
-                {award}
-              </span>
-            ))}
+            <div className="awards-track">
+              {AWARDS.map(award => (
+                <span key={award} className="award-chip">
+                  <span className="award-chip-star">✦</span>
+                  {award}
+                </span>
+              ))}
+              {/* Duplikat für nahtloses Marquee auf dem Handy (auf Desktop ausgeblendet) */}
+              {AWARDS.map(award => (
+                <span key={award + "-dup"} className="award-chip award-dup" aria-hidden="true">
+                  <span className="award-chip-star">✦</span>
+                  {award}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* FOLGE DER MAGIE */}
