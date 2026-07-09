@@ -1026,9 +1026,9 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     </ul>
 
                     <div className="mc-hero-price-row">
-                      <span className="mc-hero-price-label">ab</span>
                       <span className="mc-hero-price">69 €</span>
                       <span className="mc-hero-price-per">pro Person</span>
+                      <span className="mc-hero-price-kids">· 29 € für Kids 🧒</span>
                     </div>
 
                     <button

@@ -2682,3 +2682,6 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
 .date-empty-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
 .date-empty-sub { font-size: 13.5px; line-height: 1.6; color: var(--muted); max-width: 420px; margin: 0 auto; }
 .date-empty-sub a { color: var(--gold); }
+
+/* Kids-Preis-Hinweis im Menü-Schritt */
+.mc-hero-price-kids { font-size: 13px; font-weight: 600; color: var(--gold); margin-left: 8px; white-space: nowrap; }
