@@ -794,6 +794,17 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     <IconCalendar size={15} />
                     Datum &amp; Uhrzeit
                   </div>
+                  {resolvedDates.length === 0 ? (
+                    <div className="date-empty">
+                      <span className="date-empty-icon">✦</span>
+                      <p className="date-empty-title">Zur Zeit sind keine Termine verfügbar.</p>
+                      <p className="date-empty-sub">
+                        Neue Termine folgen in Kürze. Für Wunschtermine, Gruppen oder Firmenevents schreib uns an{" "}
+                        <a href="mailto:tickets@florianzimmer.com">tickets@florianzimmer.com</a> oder ruf an unter{" "}
+                        <a href="tel:+497317906110">0731 7906 110</a>.
+                      </p>
+                    </div>
+                  ) : (
                   <div className="date-cards">
                     {resolvedDates.map(d => {
                       const isActive = selectedDateId === d.id;
@@ -831,6 +842,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       );
                     })}
                   </div>
+                  )}
                   {resolvedDate?.low && (
                     <div className="urgency-note" style={{ marginTop: 10 }}>
                       <span className="scarcity-dot" />
