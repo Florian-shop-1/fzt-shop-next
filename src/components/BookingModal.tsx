@@ -1028,7 +1028,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                     <div className="mc-hero-price-row">
                       <span className="mc-hero-price">69 €</span>
                       <span className="mc-hero-price-per">pro Person</span>
-                      <span className="mc-hero-price-kids">· 29 € für Kids 🧒</span>
+                      <span className="mc-hero-price-kids">· 29 € für Kids</span>
                     </div>
 
                     <button
@@ -1086,12 +1086,20 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
                       return (
                         <div
                           key={menu.id}
-                          className={`menu-card clickable${isActive ? " selected" : ""}${menu.image ? " has-image" : ""}`}
-                          style={menu.image ? { backgroundImage: `url('${menu.image}')` } : {}}
+                          className={`menu-card clickable${isActive ? " selected" : ""}`}
                           onClick={() => canAdd && incMenu(menu.id)}
                         >
+                          {menu.image && (
+                            <div className="menu-card-photo" style={{ backgroundImage: `url('${menu.image}')` }}>
+                              {menu.badge && (
+                                <span className="menu-badge" style={{ background: menu.badgeColor ?? "var(--gold)" }}>
+                                  {menu.badge}
+                                </span>
+                              )}
+                            </div>
+                          )}
                           <div className="menu-card-inner">
-                            {menu.badge && (
+                            {!menu.image && menu.badge && (
                               <span className="menu-badge" style={{ background: menu.badgeColor ?? "var(--gold)" }}>
                                 {menu.badge}
                               </span>

@@ -753,6 +753,19 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
   box-shadow: 0 0 22px rgba(201,168,76,0.1);
 }
 
+/* Foto als sauberes Banner oben statt ganzflächigem Hintergrund */
+.menu-card-photo {
+  position: relative; height: 140px;
+  background-size: cover; background-position: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.menu-card-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,8,0.15) 0%, rgba(8,8,8,0.45) 100%);
+}
+.menu-card-photo .menu-badge { position: absolute; top: 10px; left: 10px; z-index: 1; margin: 0; }
+@media (max-width: 540px) { .menu-card-photo { height: 124px; } }
+
 .menu-card-inner {
   padding: 18px;
   display: flex;
