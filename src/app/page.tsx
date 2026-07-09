@@ -637,7 +637,7 @@ export default function Home() {
 
       {/* STICKY MOBILE BAR */}
       <div className="sticky-bar">
-        <button className="btn-secondary" onClick={() => setGiftCardOpen(true)}>Gutschein</button>
+        <button className="btn-secondary" onClick={() => document.getElementById("gutschein")?.scrollIntoView({ behavior: "smooth" })}>Gutschein</button>
         <button className="btn-primary" onClick={() => openBooking()}>Jetzt buchen</button>
       </div>
     </>
