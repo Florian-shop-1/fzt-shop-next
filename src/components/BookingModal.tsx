@@ -515,10 +515,10 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
 
   // ── Helpers ───────────────────────────────
   const handleSelectShow = (id: string) => {
-    if (selectedShowId === id) return;
     setSelectedShowId(id);
     setSelectedDateId(null);
     setSelectedTimeId(null);
+    setShowAllShows(false); // Liste einklappen → Termine sofort sichtbar
   };
 
   const handleSelectTime = (dateId: string, timeId: string) => {
@@ -737,7 +737,7 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
           {step === 1 && (
             <div>
               {/* Pre-selected show: collapsed header with "ändern" option */}
-              {initialShow && !showAllShows ? (
+              {selectedShowId && !showAllShows ? (
                 <div className="preselected-show">
                   <div className="preselected-show-img" style={{ backgroundImage: `url('${resolvedShow?.image}')` }} />
                   <div className="preselected-show-info">
