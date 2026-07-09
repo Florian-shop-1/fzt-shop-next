@@ -107,6 +107,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(76,175,80,0.4); } 50% { box-shadow: 0 0 0 6px rgba(76,175,80,0); } }
 .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.4); animation: fadeUp 1s 1s ease both; }
 .scroll-line { width: 1px; height: 40px; background: linear-gradient(180deg, var(--gold), transparent); animation: scrollLine 2s ease-in-out infinite; }
+/* Auf Handy überflüssig — spart Platz/Scrollweg */
+@media (max-width: 768px) { .hero-scroll { display: none; } }
 @keyframes scrollLine { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
 /* ===================== BUTTONS ===================== */
@@ -2318,6 +2320,8 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 
 /* Vorschau-Spalte */
 .gc-preview-col { position: sticky; top: 0; }
+/* Auf Handy: nicht kleben, sonst scrollt das Formular über die Vorschau */
+@media (max-width: 720px) { .gc-preview-col { position: static; } }
 .gc-preview { margin: 0; }
 .gc-from { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 10px; font-style: italic; }
 
