@@ -128,8 +128,8 @@ const FAQ: Cat[] = [
       {
         q: "Kann ich vor der Show essen?",
         a: [
-          "Ja. In Verbindung mit einem Showticket kannst du unser Magic-Menü buchen: ein besonderes Menü für deinen magischen Abend – inklusive Welcome Drink.",
-          "Das Magic-Menü ist aktuell für 69 € buchbar und wird passend zu deinem Showbesuch geplant.",
+          "Ja. Exklusiv für Showgäste gibt es unser Magic-Menü: ein 4-Gang-Menü inklusive Welcome-Cocktail für 69 € pro Person (29 € für Kids).",
+          "Das Magic-Menü ist ausschließlich in Verbindung mit einem Showticket buchbar und wird passend zu deinem Showbesuch geplant – du genießt es entspannt direkt vor der Show.",
         ],
       },
       {
