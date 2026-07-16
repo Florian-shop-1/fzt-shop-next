@@ -7,6 +7,7 @@ import HeroParticles from "@/components/HeroParticles";
 import CinematicVideo from "@/components/CinematicVideo";
 import InquiryModal from "@/components/InquiryModal";
 import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
+import SpecialPreview from "@/components/SpecialPreview";
 import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHints";
 import ShowDetail from "@/components/ShowDetail";
 import GiftCardModal from "@/components/GiftCardModal";
@@ -645,6 +646,7 @@ export default function Home() {
 
       {/* MAGIC NEWS OVERLAYS (45s + Exit-Intent) */}
       <MagicNewsOverlays />
+      <SpecialPreview onCta={(id) => openBooking(id)} />
 
       {/* STICKY MOBILE BAR */}
       <div className="sticky-bar">

@@ -77,7 +77,7 @@ export function MagicNewsOverlays() {
     let shownThisSession = false;
 
     // Nicht stören, während ein anderes Modal offen ist (Buchung/Anfrage)
-    const modalOpen = () => !!document.querySelector(".modal-overlay, .inquiry-overlay");
+    const modalOpen = () => !!document.querySelector(".modal-overlay, .inquiry-overlay, .special-slidein");
 
     // 1) Nach 45 Sekunden Verweildauer
     const timer = setTimeout(() => {
