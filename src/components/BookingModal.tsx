@@ -156,7 +156,7 @@ const MENUS: MenuEntry[] = [
     badge: "Beliebteste Wahl",
     badgeColor: "#C9A84C",
     includes: "inkl. Welcome-Cocktail",
-    image: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=700&q=80",
+    image: "/images/classic.PNG",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -170,7 +170,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Fisch & Meer — von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
-    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=700&q=80",
+    image: "/images/fish.PNG",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -184,7 +184,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Vegetarische Gourmetküche von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
-    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=700&q=80",
+    image: "/images/veggy.PNG",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -198,7 +198,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Für unsere kleinen Zauberlehrlinge",
     price: 29,
     includes: "inkl. Kids-Cocktail",
-    image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=700&q=80",
+    image: "/images/kids.PNG",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Zarte Maispoulardenbrust", desc: "mit Tomatenjus auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
