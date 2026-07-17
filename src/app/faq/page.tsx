@@ -46,7 +46,7 @@ const FAQ: Cat[] = [
       {
         q: "Gibt es einen Dresscode?",
         a: [
-          "Wir schreiben dir nichts vor. Für viele Gäste ist der Besuch bei uns ein festlicher Abend – komm also gerne so, wie du dich wohlfühlst und wie es für dich zu einem besonderen Theaterabend passt.",
+          "Wir schreiben dir nichts vor. Für viele Gäste ist der Besuch bei uns etwas Festliches – komm also gerne so, wie du dich wohlfühlst und wie es für dich zu einem besonderen Theaterbesuch passt.",
         ],
       },
     ],

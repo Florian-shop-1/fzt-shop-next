@@ -38,7 +38,7 @@ export default function HotelModal({ open, onClose }: { open: boolean; onClose: 
         <button className="inquiry-close" onClick={onClose} aria-label="Schließen">✕</button>
         <span className="inquiry-eyebrow">Hotel-Kooperationen</span>
         <h3>Bleib über Nacht — günstiger</h3>
-        <p>Mach aus deinem Theaterabend ein kleines Wochenende. Bei unseren Partner-Hotels buchst du mit deinem Vorteilscode zum Sonderpreis.</p>
+        <p>Mach aus deinem Theaterbesuch ein kleines Wochenende. Bei unseren Partner-Hotels buchst du mit deinem Vorteilscode zum Sonderpreis.</p>
 
         <div className="hotel-list">
           {HOTELS.map(h => (

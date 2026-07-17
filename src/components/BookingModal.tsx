@@ -1074,12 +1074,11 @@ export default function BookingModal({ open, initialShow, initialDateId, initial
                   <div className="mc-hero-body">
                     <span className="mc-hero-eyebrow">✦ Exklusiv für Showgäste</span>
                     <h3 className="mc-hero-headline">
-                      Die meisten Gäste ergänzen ihren Theaterabend mit einem Magic-Menü.
+                      Die meisten Gäste ergänzen ihren Showbesuch mit einem Magic-Menü.
                     </h3>
                     <p className="mc-hero-text">
                       Ein 4-Gang-Menü inklusive Welcome-Cocktail für 69 € — dieses Erlebnis
-                      gibt es <strong>nur in Verbindung mit deinem Showticket</strong>. Genieße
-                      es entspannt direkt vor der Show in der Magicuisine.
+                      gibt es <strong>nur in Verbindung mit deinem Showticket</strong>.
                     </p>
 
                     <ul className="mc-hero-benefits">
