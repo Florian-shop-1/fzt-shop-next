@@ -1,21 +1,30 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // ─────────────────────────────────────────────
-//  GOOGLE-REZENSIONEN (Trustindex-Widget)
+//  GOOGLE-REZENSIONEN (Trustindex-Widgets)
 //
-//  Widget-ID aus dem Trustindex-Dashboard.
-//  Hinweis: Das Widget bringt sein eigenes (helles) Design mit —
-//  das lässt sich von außen nicht umfärben (fremder Rahmen).
+//  Widget-IDs aus dem Trustindex-Dashboard (JS-Einbindung).
+//
+//  WICHTIG: Trustindex bindet Widgets an die im Konto registrierten
+//  Domains. Wird eine neue Domain (z. B. Vercel-Adresse) nicht dort
+//  freigegeben, rendert das Widget nichts.
+//  → Dann im Trustindex-Dashboard die Domain ergänzen.
+//
+//  Rendert ein Widget nichts, wird der ganze Block ausgeblendet —
+//  so steht nie eine leere Überschrift auf der Seite.
 //
 //  DATENSCHUTZ: lädt ein externes Skript von cdn.trustindex.io.
 //  Ist in der Datenschutzerklärung aufgeführt.
 // ─────────────────────────────────────────────
 
-const TRUSTINDEX_WIDGET_ID = "f999738484f2431bf00634b59fa";
+const TRUSTINDEX_WIDGET_IDS = [
+  "a7c53e577e2500342e4653c6969",
+  "d5fd3fa48bdd468af906e88c048",
+];
 
-export default function GoogleReviews() {
+function TrustindexWidget({ id, onLoaded }: { id: string; onLoaded: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,16 +33,34 @@ export default function GoogleReviews() {
     el.dataset.loaded = "1";
 
     const s = document.createElement("script");
-    s.src = `https://cdn.trustindex.io/loader.js?${TRUSTINDEX_WIDGET_ID}`;
+    s.src = `https://cdn.trustindex.io/loader.js?${id}`;
     s.defer = true;
     s.async = true;
     el.appendChild(s);
-  }, []);
+
+    // Prüfen, ob das Widget tatsächlich Inhalt rendert
+    let tries = 0;
+    const iv = setInterval(() => {
+      tries++;
+      if (el.getBoundingClientRect().height > 60) { onLoaded(); clearInterval(iv); }
+      else if (tries > 15) clearInterval(iv);
+    }, 1000);
+    return () => clearInterval(iv);
+  }, [id, onLoaded]);
+
+  return <div className="google-reviews-widget" ref={ref} />;
+}
+
+export default function GoogleReviews() {
+  const [hasContent, setHasContent] = useState(false);
+  const onLoaded = useCallback(() => setHasContent(true), []);
 
   return (
-    <div className="google-reviews">
+    <div className={`google-reviews${hasContent ? " has-content" : ""}`}>
       <span className="google-reviews-label">✦ Das sagen unsere Gäste</span>
-      <div className="google-reviews-widget" ref={ref} />
+      {TRUSTINDEX_WIDGET_IDS.map(id => (
+        <TrustindexWidget key={id} id={id} onLoaded={onLoaded} />
+      ))}
     </div>
   );
 }

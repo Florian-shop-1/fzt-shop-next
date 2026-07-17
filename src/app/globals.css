@@ -2875,10 +2875,9 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
 
 /* ===================== GOOGLE-REZENSIONEN (Trustindex) ===================== */
 .google-reviews { display: flex; flex-direction: column; gap: 12px; }
-.google-reviews-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-/* Rahmen fürs Fremd-Widget — es bringt sein eigenes (helles) Design mit */
-.google-reviews-widget {
-  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
-  background: rgba(255,255,255,0.03); padding: 4px;
-}
-.google-reviews-widget:empty { display: none; }
+/* Überschrift erst zeigen, wenn ein Widget wirklich rendert */
+.google-reviews-label { display: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.google-reviews.has-content .google-reviews-label { display: block; }
+/* Kein eigener Rahmen — das Widget bringt sein Design selbst mit.
+   So hinterlässt es auch nichts Sichtbares, falls es nicht rendert. */
+.google-reviews-widget { border-radius: 12px; overflow: hidden; }
