@@ -19,9 +19,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 //  Ist in der Datenschutzerklärung aufgeführt.
 // ─────────────────────────────────────────────
 
+// "Dark Luxury"-Variante — passt zum Design der Seite.
+// Weitere Widgets einfach als zusätzliche ID ergänzen (dann aber ebenfalls
+// im Trustindex-Dashboard auf ein dunkles Theme stellen).
 const TRUSTINDEX_WIDGET_IDS = [
-  "a7c53e577e2500342e4653c6969",
-  "d5fd3fa48bdd468af906e88c048",
+  "f999738484f2431bf00634b59fa",
 ];
 
 function TrustindexWidget({ id, onLoaded }: { id: string; onLoaded: () => void }) {
