@@ -100,7 +100,7 @@ const SHOWS: ShowEntry[] = [
     id: "flo-zirkus",
     name: "Flo-Zirkus",
     desc: "Eine interaktive Show, bei der die kleinen Gäste selbst Teil der Magie werden.",
-    image: "/images/flo-zirkus-neu.png",
+    image: "/images/flo-zirkus-neu.webp",
     duration: "50 Min",
     badge: "Kindershow",
     badgeColor: "#3a7fd0",
@@ -110,7 +110,7 @@ const SHOWS: ShowEntry[] = [
     id: "magic-dinner",
     name: "Magic Dinner",
     desc: "Exklusives Dinner-Erlebnis. Vier Gänge, außergewöhnliche Küche und Magie direkt am Tisch.",
-    image: "/images/magic-dinner-neu2.png",
+    image: "/images/magic-dinner-neu2.webp",
     duration: "3,5h",
     badge: "Exklusiv",
     badgeColor: "#9A7A2A",
@@ -176,7 +176,7 @@ const MENUS: MenuEntry[] = [
     badge: "Beliebteste Wahl",
     badgeColor: "#C9A84C",
     includes: "inkl. Welcome-Cocktail",
-    image: "/images/classic.PNG",
+    image: "/images/classic.webp",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -190,7 +190,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Fisch & Meer — von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
-    image: "/images/fish.PNG",
+    image: "/images/fish.webp",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -204,7 +204,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Vegetarische Gourmetküche von Osman Kavak",
     price: 69,
     includes: "inkl. Welcome-Cocktail",
-    image: "/images/veggy.PNG",
+    image: "/images/veggy.webp",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, sonnengereiften Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Cremige Kartoffel-Lauchsuppe", desc: "mit Schnittlauchöl" },
@@ -218,7 +218,7 @@ const MENUS: MenuEntry[] = [
     tagline: "Für unsere kleinen Zauberlehrlinge",
     price: 29,
     includes: "inkl. Kids-Cocktail",
-    image: "/images/kids.PNG",
+    image: "/images/kids.webp",
     courses: [
       { name: "Mediterraner Brotsalat", desc: "mit Rucola, Tomaten, Mozzarella und Basilikum-Espuma" },
       { name: "Zarte Maispoulardenbrust", desc: "mit Tomatenjus auf feinem Ratatouille, dazu Kartoffel-Sauerrahm-Stampf" },
@@ -323,7 +323,7 @@ const VIP_BUNDLES = [
     price: 14.9,
     badge: "Nur im Theater",
     badgeColor: "#9A7A2A",
-    img: "/images/magic-cup.png",
+    img: "/images/magic-cup.webp",
     desc: "Nimm die Magic mit: Das hochwertige Florian Zimmer Theater Souvenirglas. Spülmaschinenfest, langlebig und das perfekte Erinnerungsstück für alle, die ein Stück Home of Magic mit nach Hause nehmen möchten. ✨",
     items: [
       "Inkl. 1 × Refill",

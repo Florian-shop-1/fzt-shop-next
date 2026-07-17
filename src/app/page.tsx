@@ -284,7 +284,7 @@ export default function Home() {
           </div>
 
           <div className="show-card reveal reveal-d2" onClick={() => openDetail("flo-zirkus")}>
-            <div className="show-card-img" style={{ backgroundImage: "url('/images/flo-zirkus-neu.png')", backgroundPosition: "center 20%" }} />
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/flo-zirkus-neu.webp')", backgroundPosition: "center 20%" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
               <span className="show-badge" style={{ background: "#3a7fd0", color: "#fff" }}>Kindershow</span>
@@ -304,7 +304,7 @@ export default function Home() {
           </div>
 
           <div className="show-card reveal reveal-d3" onClick={() => openDetail("magic-dinner")}>
-            <div className="show-card-img" style={{ backgroundImage: "url('/images/magic-dinner-neu2.png')", backgroundPosition: "center top" }} />
+            <div className="show-card-img" style={{ backgroundImage: "url('/images/magic-dinner-neu2.webp')", backgroundPosition: "center top" }} />
             <div className="show-card-overlay" />
             <div className="show-card-content">
               <span className="show-badge" style={{ background: "linear-gradient(135deg,#C9A84C,#8B6914)" }}>♥ Dinner & Magie</span>
@@ -473,7 +473,7 @@ export default function Home() {
         <div className="gutschein-pattern" />
         <div className="container">
           <div className="gutschein-inner">
-            <img src="/images/Florian-freigestellt.png" alt="Florian Zimmer" className="gutschein-florian" />
+            <img src="/images/Florian-freigestellt.webp" alt="Florian Zimmer" className="gutschein-florian" />
             <div className="gutschein-card reveal">
               <div className="gutschein-logo">✦ FLORIAN ZIMMER THEATER</div>
               <div className="gutschein-tagline">HOME OF MAGIC · Neu-Ulm</div>
