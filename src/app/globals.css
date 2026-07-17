@@ -2830,3 +2830,25 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
   .plan-show-time { font-size: 13px; }
   .plan-month { font-size: 20px; min-width: 160px; }
 }
+
+/* Ausklappbare Showbeschreibung im Buchungsschritt 1 */
+.show-desc-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  margin-top: 10px; padding: 11px 14px; cursor: pointer; font-family: inherit;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--muted); font-size: 13px; font-weight: 600;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.show-desc-btn:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.05); }
+.show-desc-panel {
+  margin-top: 10px; padding: 20px 22px; border: 1px solid var(--border); border-radius: var(--radius);
+  background: rgba(255,255,255,0.02); animation: fadeUp 0.3s ease both;
+}
+.show-desc-tagline {
+  font-family: var(--font-playfair), serif; font-style: italic; font-size: 16px;
+  color: var(--gold-light, #E6CD7E); line-height: 1.5; margin-bottom: 14px;
+}
+.show-desc-para { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.72); margin-bottom: 12px; }
+.show-desc-facts { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.show-desc-facts li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+.show-desc-facts li::before { content: '✔'; color: var(--gold); flex-shrink: 0; font-size: 12px; margin-top: 1px; }

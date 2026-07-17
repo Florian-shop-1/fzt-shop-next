@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { SHOW_DETAILS } from "./ShowDetail";
 
 // ─────────────────────────────────────────────
 //  DATA TYPES
@@ -433,6 +434,7 @@ export default function BookingModal({ open, initialShow, initialDateId, initial
   const [allergyNote,        setAllergyNote]        = useState("");
   const [showStehtischCards, setShowStehtischCards] = useState(false);
   const [showAllShows,       setShowAllShows]       = useState(false);
+  const [showDescOpen,       setShowDescOpen]       = useState(false);
   const [confirmed,          setConfirmed]          = useState(false);
   const [logeInfoOpen,       setLogeInfoOpen]       = useState(false);
   const [souvenir,           setSouvenir]           = useState(false);
@@ -462,6 +464,7 @@ export default function BookingModal({ open, initialShow, initialDateId, initial
       setShowMenuCards(false);
       setShowStehtischCards(false);
       setShowAllShows(false);
+      setShowDescOpen(false);
       setConfirmed(false);
       setLogeInfoOpen(false);
       setActivePrompt(null);
@@ -503,6 +506,7 @@ export default function BookingModal({ open, initialShow, initialDateId, initial
 
   // ── Resolved entities ──────────────────────
   const resolvedShow  = SHOWS.find(s => s.id === selectedShowId);
+  const showDetail    = selectedShowId ? SHOW_DETAILS[selectedShowId] : undefined;
   const resolvedDates = SHOW_DATES[selectedShowId] ?? [];
   const resolvedDate  = resolvedDates.find(d => d.id === selectedDateId) ?? null;
   const resolvedTime  = resolvedDate?.times.find(t => t.id === selectedTimeId) ?? null;
@@ -764,19 +768,51 @@ export default function BookingModal({ open, initialShow, initialDateId, initial
             <div>
               {/* Pre-selected show: collapsed header with "ändern" option */}
               {selectedShowId && !showAllShows ? (
-                <div className="preselected-show">
-                  <div className="preselected-show-img" style={{ backgroundImage: `url('${resolvedShow?.image}')` }} />
-                  <div className="preselected-show-info">
-                    {resolvedShow?.badge && <span className="show-list-badge" style={{ background: resolvedShow.badgeColor, marginBottom: 4, display: "inline-block" }}>{resolvedShow.badge}</span>}
-                    <h4 className="preselected-show-name">{resolvedShow?.name}</h4>
-                    <div className="preselected-show-meta">
-                      <span>{resolvedShow?.duration}</span>
-                      <span>·</span>
-                      <span>{resolvedShow?.price}</span>
+                <>
+                  <div className="preselected-show">
+                    <div className="preselected-show-img" style={{ backgroundImage: `url('${resolvedShow?.image}')` }} />
+                    <div className="preselected-show-info">
+                      {resolvedShow?.badge && <span className="show-list-badge" style={{ background: resolvedShow.badgeColor, marginBottom: 4, display: "inline-block" }}>{resolvedShow.badge}</span>}
+                      <h4 className="preselected-show-name">{resolvedShow?.name}</h4>
+                      <div className="preselected-show-meta">
+                        <span>{resolvedShow?.duration}</span>
+                        <span>·</span>
+                        <span>{resolvedShow?.price}</span>
+                      </div>
                     </div>
+                    <button className="change-show-btn" onClick={() => setShowAllShows(true)}>ändern</button>
                   </div>
-                  <button className="change-show-btn" onClick={() => setShowAllShows(true)}>ändern</button>
-                </div>
+
+                  {/* Ausklappbare Showbeschreibung (Texte aus ShowDetail) */}
+                  {showDetail && (
+                    <>
+                      <button
+                        className="show-desc-btn"
+                        onClick={() => setShowDescOpen(o => !o)}
+                        aria-expanded={showDescOpen}
+                      >
+                        <span>{showDescOpen ? "Beschreibung schließen" : "Showbeschreibung ansehen"}</span>
+                        <span className={`menu-expand-chevron${showDescOpen ? " open" : ""}`}>
+                          <IconChevronDown size={13} />
+                        </span>
+                      </button>
+
+                      {showDescOpen && (
+                        <div className="show-desc-panel">
+                          <p className="show-desc-tagline">{showDetail.tagline}</p>
+                          {showDetail.paragraphs.map((p, i) => (
+                            <p key={i} className="show-desc-para">{p}</p>
+                          ))}
+                          {showDetail.facts.length > 0 && (
+                            <ul className="show-desc-facts">
+                              {showDetail.facts.map((f, i) => <li key={i}>{f}</li>)}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </>
               ) : (
                 <>
                   <p className="step-hint">Wähle deine Show</p>
