@@ -43,7 +43,11 @@ function demoEvents(year: number, month: number): PlanEvent[] {
     const date = new Date(year, month, d);
     if (date < today) continue;
     const wd = date.getDay(); // 0 = So … 6 = Sa
-    if (wd === 6) out.push({ day: d, showId: "ulmfassbar", time: "19:30" });
+    // Samstags meist zwei Vorstellungen
+    if (wd === 6) {
+      out.push({ day: d, showId: "ulmfassbar", time: "16:30" });
+      out.push({ day: d, showId: "ulmfassbar", time: "20:30" });
+    }
     if (wd === 5) out.push({ day: d, showId: "magic-memories", time: "19:30" });
     if (wd === 0) out.push({ day: d, showId: "flo-zirkus", time: "15:00" });
     if (wd === 4) out.push({ day: d, showId: "magic-dinner", time: "19:00" });
