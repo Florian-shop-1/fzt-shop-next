@@ -8,6 +8,7 @@ import CinematicVideo from "@/components/CinematicVideo";
 import InquiryModal from "@/components/InquiryModal";
 import { MagicNewsFooter, MagicNewsOverlays } from "@/components/MagicNews";
 import SpecialPreview from "@/components/SpecialPreview";
+import GoogleReviews from "@/components/GoogleReviews";
 import { ReturningVisitorHint, SouvenirCountdown } from "@/components/VisitorHints";
 import ShowDetail from "@/components/ShowDetail";
 import GiftCardModal from "@/components/GiftCardModal";
@@ -368,7 +369,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* DOKUMENTATION */}
+            {/* RECHTE SPALTE: Doku + Google-Rezensionen (laufen zusammen mit) */}
+            <div className="magician-right">
             <div className="docu-video-wrap reveal reveal-d1">
               {docuPlaying ? (
                 <div className="docu-iframe-wrap">
@@ -412,6 +414,9 @@ export default function Home() {
                   <p className="docu-caption">»Die Geschichte hinter dem Theater« — Dokumentarfilm</p>
                 </>
               )}
+            </div>
+
+            <GoogleReviews />
             </div>
           </div>
 

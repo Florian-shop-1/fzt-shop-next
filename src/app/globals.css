@@ -1820,7 +1820,9 @@ footer { background: var(--dark); border-top: 1px solid var(--border); padding: 
 .award-card-sub { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
 /* Docu video */
-.docu-video-wrap { position: sticky; top: 100px; }
+/* Rechte Spalte: Doku + Google-Rezensionen laufen gemeinsam mit */
+.magician-right { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 22px; }
+@media (max-width: 900px) { .magician-right { position: static; } }
 .docu-thumb {
   position: relative; width: 100%; aspect-ratio: 16/9;
   cursor: pointer; overflow: hidden; border-radius: 6px;
@@ -2870,3 +2872,13 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
   transition: background var(--transition), border-color var(--transition);
 }
 .faq-cta:hover { background: rgba(201,168,76,0.18); border-color: var(--gold); }
+
+/* ===================== GOOGLE-REZENSIONEN (Trustindex) ===================== */
+.google-reviews { display: flex; flex-direction: column; gap: 12px; }
+.google-reviews-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+/* Rahmen fürs Fremd-Widget — es bringt sein eigenes (helles) Design mit */
+.google-reviews-widget {
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  background: rgba(255,255,255,0.03); padding: 4px;
+}
+.google-reviews-widget:empty { display: none; }

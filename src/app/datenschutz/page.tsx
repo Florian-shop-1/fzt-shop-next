@@ -167,6 +167,17 @@ export default function DatenschutzPage() {
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy</a>.
       </p>
 
+      <h2>Google-Bewertungen (Trustindex)</h2>
+      <p>
+        Zur Anzeige unserer Google-Bewertungen setzen wir das Widget des Anbieters Trustindex.io
+        (Trustindex Ltd.) ein. Beim Aufruf der Seite wird dazu ein Skript von{" "}
+        <code>cdn.trustindex.io</code> geladen; dabei kann die IP-Adresse der Nutzer an den Anbieter
+        übertragen werden. Die Einbindung erfolgt auf Grundlage unserer berechtigten Interessen an
+        der Darstellung authentischer Gästebewertungen gem. Art. 6 Abs. 1 lit. f DSGVO.
+        Datenschutzerklärung:{" "}
+        <a href="https://www.trustindex.io/privacy-policy/" target="_blank" rel="noopener noreferrer">https://www.trustindex.io/privacy-policy/</a>.
+      </p>
+
       <h2>Onlinepräsenzen in sozialen Medien</h2>
       <p>
         Wir unterhalten Onlinepräsenzen innerhalb sozialer Netzwerke (u. a. Instagram, TikTok,
