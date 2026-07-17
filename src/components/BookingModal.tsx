@@ -24,7 +24,7 @@ interface TimeEntry {
   availableSeats?: number;
 }
 
-interface DateEntry {
+export interface DateEntry {
   id: string;
   weekday: string;
   date: string;
@@ -63,6 +63,9 @@ interface StehtischEntry {
 interface BookingModalProps {
   open: boolean;
   initialShow?: string;
+  /** Konkreter Termin (z. B. aus dem Spielplan) — überspringt die Terminauswahl */
+  initialDateId?: string;
+  initialTimeId?: string;
   onClose: () => void;
   onLogeInquiry?: () => void;
 }
@@ -114,38 +117,54 @@ const SHOWS: ShowEntry[] = [
   },
 ];
 
-const SHOW_DATES: Record<string, DateEntry[]> = {
-  ulmfassbar: [
-    { id: "u1", weekday: "Sa", date: "31. Mai 2026",   displayDate: "Sa, 31. Mai 2026",   times: [{ id: "u1t1", time: "19:30", availableSeats: 18 }], low: true },
-    { id: "u2", weekday: "Sa", date: "07. Juni 2026",  displayDate: "Sa, 07. Juni 2026",  times: [{ id: "u2t1", time: "15:00", availableSeats: 42 }, { id: "u2t2", time: "19:30", availableSeats: 38 }] },
-    { id: "u3", weekday: "Sa", date: "14. Juni 2026",  displayDate: "Sa, 14. Juni 2026",  times: [{ id: "u3t1", time: "19:30", availableSeats: 44 }] },
-    { id: "u4", weekday: "Sa", date: "21. Juni 2026",  displayDate: "Sa, 21. Juni 2026",  times: [{ id: "u4t1", time: "15:00", availableSeats: 40 }, { id: "u4t2", time: "19:30", availableSeats: 35 }] },
-    { id: "u5", weekday: "Sa", date: "28. Juni 2026",  displayDate: "Sa, 28. Juni 2026",  times: [{ id: "u5t1", time: "19:30", availableSeats: 46 }] },
-    { id: "u6", weekday: "Sa", date: "05. Juli 2026",  displayDate: "Sa, 05. Juli 2026",  times: [{ id: "u6t1", time: "15:00", availableSeats: 48 }, { id: "u6t2", time: "19:30", availableSeats: 50 }] },
-  ],
-  "magic-dinner": [
-    { id: "m1", weekday: "Fr", date: "05. Juni 2026",  displayDate: "Fr, 05. Juni 2026",  times: [{ id: "m1t1", time: "19:00", availableSeats: 8  }], low: true },
-    { id: "m2", weekday: "Sa", date: "06. Juni 2026",  displayDate: "Sa, 06. Juni 2026",  times: [{ id: "m2t1", time: "18:30", availableSeats: 18 }, { id: "m2t2", time: "21:00", availableSeats: 22 }] },
-    { id: "m3", weekday: "Fr", date: "12. Juni 2026",  displayDate: "Fr, 12. Juni 2026",  times: [{ id: "m3t1", time: "19:00", availableSeats: 24 }] },
-    { id: "m4", weekday: "Sa", date: "13. Juni 2026",  displayDate: "Sa, 13. Juni 2026",  times: [{ id: "m4t1", time: "18:30", availableSeats: 20 }] },
-    { id: "m5", weekday: "Fr", date: "19. Juni 2026",  displayDate: "Fr, 19. Juni 2026",  times: [{ id: "m5t1", time: "19:00", availableSeats: 28 }] },
-    { id: "m6", weekday: "Sa", date: "20. Juni 2026",  displayDate: "Sa, 20. Juni 2026",  times: [{ id: "m6t1", time: "18:30", availableSeats: 30 }, { id: "m6t2", time: "21:00", availableSeats: 32 }] },
-  ],
-  "flo-zirkus": [
-    { id: "f1", weekday: "So", date: "07. Juni 2026",  displayDate: "So, 07. Juni 2026",  times: [{ id: "f1t1", time: "15:00", availableSeats: 36 }, { id: "f1t2", time: "18:00", availableSeats: 40 }] },
-    { id: "f2", weekday: "So", date: "14. Juni 2026",  displayDate: "So, 14. Juni 2026",  times: [{ id: "f2t1", time: "15:00", availableSeats: 44 }] },
-    { id: "f3", weekday: "So", date: "21. Juni 2026",  displayDate: "So, 21. Juni 2026",  times: [{ id: "f3t1", time: "15:00", availableSeats: 40 }, { id: "f3t2", time: "18:00", availableSeats: 38 }] },
-    { id: "f4", weekday: "So", date: "28. Juni 2026",  displayDate: "So, 28. Juni 2026",  times: [], soldOut: true },
-    { id: "f5", weekday: "So", date: "05. Juli 2026",  displayDate: "So, 05. Juli 2026",  times: [{ id: "f5t1", time: "15:00", availableSeats: 38 }, { id: "f5t2", time: "18:00", availableSeats: 42 }] },
-  ],
-  "magic-memories": [
-    { id: "mm1", weekday: "Fr", date: "06. Juni 2026", displayDate: "Fr, 06. Juni 2026",  times: [{ id: "mm1t1", time: "19:30", availableSeats: 24 }] },
-    { id: "mm2", weekday: "Sa", date: "13. Juni 2026", displayDate: "Sa, 13. Juni 2026",  times: [{ id: "mm2t1", time: "19:30", availableSeats: 40 }] },
-    { id: "mm3", weekday: "Fr", date: "20. Juni 2026", displayDate: "Fr, 20. Juni 2026",  times: [{ id: "mm3t1", time: "19:30", availableSeats: 36 }] },
-    { id: "mm4", weekday: "Sa", date: "27. Juni 2026", displayDate: "Sa, 27. Juni 2026",  times: [{ id: "mm4t1", time: "19:30", availableSeats: 44 }] },
-    { id: "mm5", weekday: "Sa", date: "04. Juli 2026", displayDate: "Sa, 04. Juli 2026",  times: [{ id: "mm5t1", time: "19:30", availableSeats: 48 }] },
-  ],
-};
+// ─────────────────────────────────────────────
+//  DEMO-TERMINE — eine gemeinsame Quelle für Buchung + Spielplan.
+//  Werden relativ zu HEUTE erzeugt, liegen also nie in der Vergangenheit.
+//  Muster: Do Magic Dinner · Fr Magic Memories · Sa ULMFASSBAR (2×) · So Flo-Zirkus
+//
+//  Julian: sobald /api/ditix/events echte Events liefert, ersetzen diese
+//  die Demo-Daten (Spielplan nutzt sie bereits automatisch).
+// ─────────────────────────────────────────────
+const WD_DE = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const MONAT_DE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+
+export function buildDemoDates(): Record<string, DateEntry[]> {
+  const out: Record<string, DateEntry[]> = {
+    "ulmfassbar": [], "magic-dinner": [], "flo-zirkus": [], "magic-memories": [],
+  };
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  for (let i = 0; i < 90; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const wd = d.getDay();
+    const key = `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+    const dateStr = `${pad2(d.getDate())}. ${MONAT_DE[d.getMonth()]} ${d.getFullYear()}`;
+
+    const entry = (showId: string, times: { time: string; seats: number }[], low?: boolean): DateEntry => ({
+      id: `${showId}-${key}`,
+      weekday: WD_DE[wd],
+      date: dateStr,
+      displayDate: `${WD_DE[wd]}, ${dateStr}`,
+      times: times.map(t => ({
+        id: `${showId}-${key}-${t.time.replace(":", "")}`,
+        time: t.time,
+        availableSeats: t.seats,
+      })),
+      low,
+    });
+
+    if (wd === 4) out["magic-dinner"].push(entry("magic-dinner", [{ time: "19:00", seats: 18 }], i < 10));
+    if (wd === 5) out["magic-memories"].push(entry("magic-memories", [{ time: "19:30", seats: 36 }]));
+    if (wd === 6) out["ulmfassbar"].push(entry("ulmfassbar", [{ time: "16:30", seats: 42 }, { time: "20:30", seats: 28 }], i < 7));
+    if (wd === 0) out["flo-zirkus"].push(entry("flo-zirkus", [{ time: "15:00", seats: 40 }]));
+  }
+  return out;
+}
+
+export const SHOW_DATES: Record<string, DateEntry[]> = buildDemoDates();
 
 const MENUS: MenuEntry[] = [
   {
@@ -388,7 +407,7 @@ function QtyControl({
 //  COMPONENT
 // ─────────────────────────────────────────────
 
-export default function BookingModal({ open, initialShow, onClose, onLogeInquiry }: BookingModalProps) {
+export default function BookingModal({ open, initialShow, initialDateId, initialTimeId, onClose, onLogeInquiry }: BookingModalProps) {
   // ── Show / Date / Seat state ──────────────
   const [step,          setStep]          = useState(1);
   const [selectedShowId, setSelectedShowId] = useState(initialShow ?? "");
@@ -453,13 +472,20 @@ export default function BookingModal({ open, initialShow, onClose, onLogeInquiry
       setPostAddr({ name: "", street: "", zip: "", city: "" });
       if (initialShow) {
         setSelectedShowId(initialShow);
-        setSelectedDateId(null);
-        setSelectedTimeId(null);
+        // Konkreter Termin mitgegeben (Spielplan) → Terminauswahl überspringen
+        if (initialDateId && initialTimeId) {
+          setSelectedDateId(initialDateId);
+          setSelectedTimeId(initialTimeId);
+          setStep(2);
+        } else {
+          setSelectedDateId(null);
+          setSelectedTimeId(null);
+        }
       }
     }
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [open, initialShow]);
+  }, [open, initialShow, initialDateId, initialTimeId]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };

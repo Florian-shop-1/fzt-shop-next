@@ -2,17 +2,18 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import BookingModal from "@/components/BookingModal";
+import BookingModal, { SHOW_DATES, type DateEntry } from "@/components/BookingModal";
 
 // ─────────────────────────────────────────────
 //  SPIELPLAN — Monatsübersicht aller Shows
-//  Termine kommen live aus /api/ditix/events.
-//  Solange dort nichts kommt, werden Beispiel-Termine
-//  gezeigt (DEMO_TERMINE), damit die Ansicht sichtbar ist.
-//  Julian: sobald die Route echte Events liefert, greifen sie automatisch.
+//
+//  WICHTIG: Nutzt exakt dieselbe Terminquelle wie das Buchungsmodal
+//  (SHOW_DATES aus BookingModal). Nur so passen die Termin-IDs, und ein
+//  Klick im Kalender kann den Termin direkt vorauswählen.
+//
+//  Julian: sobald echte Ditix-Termine da sind, an EINER Stelle austauschen
+//  (SHOW_DATES in BookingModal.tsx) — Kalender und Buchung ziehen automatisch mit.
 // ─────────────────────────────────────────────
-
-const DEMO_TERMINE = true;
 
 interface ShowMeta { name: string; color: string }
 const SHOW_META: Record<string, ShowMeta> = {
@@ -22,85 +23,54 @@ const SHOW_META: Record<string, ShowMeta> = {
   "magic-dinner":    { name: "Magic Dinner",   color: "#C0654E" },
 };
 
-interface PlanEvent { day: number; showId: string; time: string; soldOut?: boolean }
-interface MiniEvent { name: string; timestampStart: number; ticketSaleState: string | null }
-
-const mapShow = (name: string): string | null => {
-  const n = name.toLowerCase();
-  if (n.includes("ulmfassbar")) return "ulmfassbar";
-  if (n.includes("memories")) return "magic-memories";
-  if (n.includes("zirkus")) return "flo-zirkus";
-  if (n.includes("dinner")) return "magic-dinner";
-  return null;
-};
-
-// Beispiel-Spielplan (wiederkehrendes Muster) — nur bis Live-Daten da sind
-function demoEvents(year: number, month: number): PlanEvent[] {
-  const out: PlanEvent[] = [];
-  const days = new Date(year, month + 1, 0).getDate();
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  for (let d = 1; d <= days; d++) {
-    const date = new Date(year, month, d);
-    if (date < today) continue;
-    const wd = date.getDay(); // 0 = So … 6 = Sa
-    // Samstags meist zwei Vorstellungen
-    if (wd === 6) {
-      out.push({ day: d, showId: "ulmfassbar", time: "16:30" });
-      out.push({ day: d, showId: "ulmfassbar", time: "20:30" });
-    }
-    if (wd === 5) out.push({ day: d, showId: "magic-memories", time: "19:30" });
-    if (wd === 0) out.push({ day: d, showId: "flo-zirkus", time: "15:00" });
-    if (wd === 4) out.push({ day: d, showId: "magic-dinner", time: "19:00" });
-  }
-  return out;
+interface PlanEvent {
+  day: number;
+  showId: string;
+  time: string;
+  dateId: string;
+  timeId: string;
+  soldOut?: boolean;
 }
 
 const MONATE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 const WOCHENTAGE = ["Mo","Di","Mi","Do","Fr","Sa","So"];
 
+// Datum steckt in der Termin-ID: "<showId>-YYYY-MM-DD"
+function keyOf(entry: DateEntry): { y: number; m: number; d: number } | null {
+  const match = entry.id.match(/(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return null;
+  return { y: Number(match[1]), m: Number(match[2]) - 1, d: Number(match[3]) };
+}
+
 export default function SpielplanPage() {
   const heute = new Date();
   const [year, setYear] = useState(heute.getFullYear());
   const [month, setMonth] = useState(heute.getMonth());
-  const [liveEvents, setLiveEvents] = useState<MiniEvent[] | null>(null);
+  const [plan, setPlan] = useState<Record<string, DateEntry[]> | null>(null);
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [bookingShow, setBookingShow] = useState("");
+  const [booking, setBooking] = useState<{ showId: string; dateId: string; timeId: string } | null>(null);
 
-  // Live-Termine laden (einmalig)
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/api/ditix/events");
-        if (!res.ok) return;
-        const data: MiniEvent[] = await res.json();
-        if (!cancelled && Array.isArray(data) && data.length > 0) setLiveEvents(data);
-      } catch { /* still — Demo bleibt */ }
-    })();
-    return () => { cancelled = true; };
-  }, []);
+  // Erst nach dem Mounten setzen — vermeidet Server/Client-Unterschiede beim Datum
+  useEffect(() => { setPlan(SHOW_DATES); }, []);
 
-  // Termine des angezeigten Monats
   const events = useMemo<PlanEvent[]>(() => {
-    if (liveEvents) {
-      const out: PlanEvent[] = [];
-      for (const ev of liveEvents) {
-        if (!ev?.timestampStart) continue;
-        const d = new Date(ev.timestampStart);
-        if (d.getFullYear() !== year || d.getMonth() !== month) continue;
-        const showId = mapShow(ev.name || "");
-        if (!showId) continue;
-        out.push({
-          day: d.getDate(),
-          showId,
-          time: d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }),
-          soldOut: ev.ticketSaleState === "SOLD_OUT",
-        });
+    if (!plan) return [];
+    const out: PlanEvent[] = [];
+    for (const showId of Object.keys(plan)) {
+      for (const entry of plan[showId]) {
+        const k = keyOf(entry);
+        if (!k || k.y !== year || k.m !== month) continue;
+        if (entry.soldOut || entry.times.length === 0) {
+          out.push({ day: k.d, showId, time: "", dateId: entry.id, timeId: "", soldOut: true });
+          continue;
+        }
+        for (const t of entry.times) {
+          out.push({ day: k.d, showId, time: t.time, dateId: entry.id, timeId: t.id });
+        }
       }
-      return out;
     }
-    return DEMO_TERMINE ? demoEvents(year, month) : [];
-  }, [liveEvents, year, month]);
+    return out;
+  }, [plan, year, month]);
 
   const byDay = useMemo(() => {
     const m: Record<number, PlanEvent[]> = {};
@@ -117,9 +87,11 @@ export default function SpielplanPage() {
   const prev = () => { if (month === 0) { setMonth(11); setYear(y => y - 1); } else setMonth(m => m - 1); };
   const next = () => { if (month === 11) { setMonth(0); setYear(y => y + 1); } else setMonth(m => m + 1); };
 
-  const openBooking = (showId: string) => { setBookingShow(showId); setBookingOpen(true); };
+  const openBooking = (e: PlanEvent) => {
+    setBooking({ showId: e.showId, dateId: e.dateId, timeId: e.timeId });
+    setBookingOpen(true);
+  };
 
-  // Shows, die in diesem Monat vorkommen → Legende
   const legende = useMemo(
     () => Object.keys(SHOW_META).filter(id => events.some(e => e.showId === id)),
     [events]
@@ -164,12 +136,13 @@ export default function SpielplanPage() {
               </span>
               {evs.map((e, idx) => {
                 const meta = SHOW_META[e.showId];
+                if (!meta) return null;
                 return (
                   <button
                     key={idx}
                     className={`plan-show${e.soldOut ? " soldout" : ""}`}
                     style={{ borderLeftColor: meta.color }}
-                    onClick={() => !e.soldOut && openBooking(e.showId)}
+                    onClick={() => !e.soldOut && openBooking(e)}
                     disabled={e.soldOut}
                   >
                     <span className="plan-show-name">{meta.name}</span>
@@ -201,7 +174,9 @@ export default function SpielplanPage() {
 
       <BookingModal
         open={bookingOpen}
-        initialShow={bookingShow}
+        initialShow={booking?.showId}
+        initialDateId={booking?.dateId}
+        initialTimeId={booking?.timeId}
         onClose={() => setBookingOpen(false)}
       />
     </main>
