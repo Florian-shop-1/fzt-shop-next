@@ -3,7 +3,7 @@ import { Fragment } from "react";
 
 export const metadata = { title: "Häufige Fragen — Florian Zimmer Theater" };
 
-interface QA { q: string; a: string[] }
+interface QA { q: string; a: string[]; link?: { href: string; label: string } }
 interface Cat { title: string; items: QA[] }
 
 const FAQ: Cat[] = [
@@ -119,6 +119,7 @@ const FAQ: Cat[] = [
           "Du kannst Wertgutscheine auch für Magic-Menüs verwenden, wenn du das Menü online zusammen mit deinem Showticket buchst.",
           "Wichtig: Wertgutscheine können nicht direkt vor Ort im Restaurant eingelöst werden, sondern nur online im Buchungsprozess.",
         ],
+        link: { href: "/#gutschein", label: "Gutschein kaufen" },
       },
     ],
   },
@@ -301,6 +302,9 @@ export default function FaqPage() {
               </summary>
               <div className="faq-answer">
                 {item.a.map((p, i) => <p key={i}>{linkify(p)}</p>)}
+                {item.link && (
+                  <a className="faq-cta" href={item.link.href}>{item.link.label} →</a>
+                )}
               </div>
             </details>
           ))}
