@@ -25,6 +25,7 @@ export default function Nav({ onBooking }: NavProps) {
         </a>
         <div className={`nav-links${menuOpen ? " open" : ""}`}>
           <a href="#shows" onClick={() => setMenuOpen(false)}>Shows</a>
+          <a href="/spielplan" onClick={() => setMenuOpen(false)}>Spielplan</a>
           <a href="#loge" onClick={() => setMenuOpen(false)}>VIP</a>
           <a href="#firmen" onClick={() => setMenuOpen(false)}>Firmen</a>
           <a href="#gutschein" onClick={() => setMenuOpen(false)}>Gutschein</a>

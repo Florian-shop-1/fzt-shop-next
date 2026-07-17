@@ -2760,3 +2760,73 @@ textarea.menu-allergy-input { resize: vertical; min-height: 56px; line-height: 1
   .special-slidein { animation: none; }
   .special-slidein.leaving { animation: none; }
 }
+
+/* ===================== SPIELPLAN ===================== */
+.plan-page { position: relative; max-width: 1180px; margin: 0 auto; padding: 0 24px 100px; }
+.plan-page::before { content: ''; position: fixed; inset: 0; z-index: -2;
+  background: url('/images/hero-theater_2.jpeg') center center / cover no-repeat; opacity: 0.16; }
+.plan-page::after { content: ''; position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(900px 500px at 50% -10%, rgba(201,168,76,0.10), transparent 70%),
+    linear-gradient(180deg, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.82) 45%, rgba(13,13,13,0.96) 100%); }
+
+.plan-topbar { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+.plan-logo img { height: 38px; width: auto; display: block; }
+
+.plan-head { text-align: center; margin: 24px 0 32px; }
+.plan-eyebrow { display: block; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.plan-head h1 { font-family: var(--font-playfair), serif; font-size: clamp(28px, 4vw, 40px); color: var(--white); margin-bottom: 10px; }
+.plan-sub { font-size: 15px; color: var(--muted); }
+
+.plan-nav { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 22px; }
+.plan-month { font-family: var(--font-playfair), serif; font-size: 24px; color: var(--white); min-width: 220px; text-align: center; }
+.plan-nav-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03); color: var(--gold); font-size: 20px; cursor: pointer; line-height: 1;
+  transition: border-color var(--transition), background var(--transition); }
+.plan-nav-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+.plan-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 8px; }
+.plan-weekdays span { text-align: center; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); padding-bottom: 6px; }
+
+.plan-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.plan-cell { min-height: 108px; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 8px;
+  background: rgba(255,255,255,0.015); display: flex; flex-direction: column; gap: 5px; }
+.plan-cell.empty { border: none; background: none; min-height: 0; }
+.plan-cell.has-shows { background: rgba(255,255,255,0.04); border-color: rgba(201,168,76,0.22); }
+.plan-cell.today { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(201,168,76,0.35); }
+.plan-day { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55); }
+.plan-cell.has-shows .plan-day { color: var(--white); }
+.plan-day-full { display: none; }
+
+.plan-show { display: flex; flex-direction: column; gap: 1px; text-align: left; cursor: pointer;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); border-left: 3px solid var(--gold);
+  border-radius: 6px; padding: 5px 7px; font-family: inherit;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition); }
+.plan-show:hover { background: rgba(201,168,76,0.14); transform: translateY(-1px); }
+.plan-show-name { font-size: 10.5px; font-weight: 700; color: var(--white); line-height: 1.2; }
+.plan-show-time { font-size: 10px; color: var(--gold); }
+.plan-show.soldout { opacity: 0.45; cursor: not-allowed; }
+.plan-show.soldout:hover { background: rgba(255,255,255,0.05); transform: none; }
+.plan-show.soldout .plan-show-time { color: var(--muted); }
+
+.plan-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 28px;
+  padding-top: 22px; border-top: 1px solid var(--border); }
+.plan-legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: rgba(255,255,255,0.7); }
+.plan-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+.plan-note { text-align: center; font-size: 13.5px; color: var(--muted); margin-top: 22px; line-height: 1.6; }
+.plan-note a { color: var(--gold); }
+
+/* Handy: kein 7-Spalten-Raster (unlesbar) — Tages-Kacheln als Liste, nur Tage mit Shows */
+@media (max-width: 900px) {
+  .plan-weekdays { display: none; }
+  .plan-grid { grid-template-columns: 1fr; gap: 10px; }
+  .plan-cell { display: none; }
+  .plan-cell.has-shows { display: flex; min-height: 0; padding: 14px; }
+  .plan-day { display: none; }
+  .plan-day-full { display: block; font-size: 13px; font-weight: 700; color: var(--gold);
+    letter-spacing: 0.3px; margin-bottom: 4px; }
+  .plan-show { flex-direction: row; align-items: center; justify-content: space-between; padding: 11px 12px; }
+  .plan-show-name { font-size: 14px; }
+  .plan-show-time { font-size: 13px; }
+  .plan-month { font-size: 20px; min-width: 160px; }
+}

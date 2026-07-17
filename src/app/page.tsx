@@ -622,6 +622,7 @@ export default function Home() {
               <a href="#" onClick={e => { e.preventDefault(); openDetail("magic-memories"); }}>Magic Memories</a>
               <a href="#" onClick={e => { e.preventDefault(); openDetail("flo-zirkus"); }}>Flo-Zirkus</a>
               <a href="#" onClick={e => { e.preventDefault(); openDetail("magic-dinner"); }}>Magic Dinner</a>
+              <a href="/spielplan">Spielplan</a>
               <a href="#loge">VIP-Loge</a>
             </div>
             <div className="footer-col">
